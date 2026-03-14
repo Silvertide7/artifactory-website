@@ -24,7 +24,7 @@ export const AttunementLevelItem = ({
   const levelErrors = errors.attunement_levels?.[index]
 
   return (
-    <div className="overflow-hidden rounded-lg border border-slate-200 bg-white">
+    <div className="rounded-lg border border-slate-200 bg-white">
       {/* Header */}
       <div className="flex items-center justify-between bg-slate-50 px-4 py-2.5">
         <button
@@ -62,6 +62,7 @@ export const AttunementLevelItem = ({
             control={control}
             name={`attunement_levels.${index}.modifications`}
             label="Modifications"
+            labelClassName="text-[11px] font-semibold uppercase tracking-widest text-slate-400"
             placeholder="e.g. invulnerable"
             hint="Modifiers applied when attuned. Simple flags: invulnerable, unbreakable, soulbound. Attribute format: attribute/modid:attribute_name/operation/value/slot — e.g. attribute/minecraft:generic.attack_damage/add_value/5/mainhand"
           />
@@ -72,7 +73,7 @@ export const AttunementLevelItem = ({
               Requirements
             </p>
             <div className="space-y-4 rounded-lg border border-slate-100 bg-slate-50/60 p-4">
-              <div className="grid gap-3 sm:grid-cols-3">
+              <div className="grid gap-3 sm:grid-cols-2">
                 <FormField
                   label="XP Consumed"
                   htmlFor={`attunement_levels.${index}.requirements.xp_levels_consumed`}
@@ -118,29 +119,6 @@ export const AttunementLevelItem = ({
                       className={inputClass}
                       {...register(
                         `attunement_levels.${index}.requirements.xp_level_threshold`,
-                      )}
-                    />
-                  )}
-                </FormField>
-
-                <FormField
-                  label="Kills"
-                  htmlFor={`attunement_levels.${index}.requirements.kills`}
-                  error={levelErrors?.requirements?.kills?.message}
-                  hint="Number of kills required while wearing or holding this item before attunement proceeds."
-                >
-                  {(errorId) => (
-                    <input
-                      id={`attunement_levels.${index}.requirements.kills`}
-                      type="number"
-                      placeholder="0"
-                      aria-describedby={errorId}
-                      aria-invalid={
-                        levelErrors?.requirements?.kills ? true : undefined
-                      }
-                      className={inputClass}
-                      {...register(
-                        `attunement_levels.${index}.requirements.kills`,
                       )}
                     />
                   )}

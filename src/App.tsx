@@ -4,18 +4,21 @@ function App() {
   return (
     <div className="min-h-screen bg-slate-50">
       <header className="sticky top-0 z-10 border-b border-slate-200 bg-white/90 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-6xl items-center gap-3 px-4 py-3.5 md:px-8">
-          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-slate-900 text-base">
-            ⚗️
-          </div>
-          <div>
-            <h1 className="text-sm font-semibold leading-tight text-slate-900">
-              Artifactory JSON Builder
-            </h1>
-            <p className="text-[11px] text-slate-500">
-              Attunement data source config generator
-            </p>
-          </div>
+        <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3 md:px-8">
+          <img
+            src="/artifactory-logo.png"
+            alt="Artifactory Nexus"
+            className="h-10 w-10 shrink-0 object-contain drop-shadow-sm"
+          />
+          <img
+            src="/artifactory-title.png"
+            alt="Artifactory"
+            className="h-6 object-contain"
+          />
+          <span className="text-slate-300" aria-hidden="true">|</span>
+          <p className="text-[11px] text-slate-500">
+            Attunement data source config generator
+          </p>
         </div>
       </header>
 

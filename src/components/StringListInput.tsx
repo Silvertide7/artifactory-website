@@ -14,6 +14,7 @@ type StringListInputProps<T extends FieldValues> = {
   name: ArrayPath<T>
   placeholder?: string
   label: string
+  labelClassName?: string
   hint?: string
   maxItems?: number
   itemErrors?: ItemError[]
@@ -24,6 +25,7 @@ export const StringListInput = <T extends FieldValues>({
   name,
   placeholder = 'Enter value…',
   label,
+  labelClassName = 'text-sm font-medium text-slate-700',
   hint,
   maxItems,
   itemErrors,
@@ -34,7 +36,7 @@ export const StringListInput = <T extends FieldValues>({
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
-        <span className="flex items-center gap-1.5 text-sm font-medium text-slate-700">
+        <span className={`flex items-center gap-1.5 ${labelClassName}`}>
           {label}
           {hint && <Tooltip content={hint} />}
           {maxItems !== undefined && (

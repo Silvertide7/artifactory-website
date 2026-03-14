@@ -76,7 +76,7 @@ export const JsonBuilderForm = () => {
         noValidate
       >
         {/* Section: Data Source Settings */}
-        <section className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+        <section className="rounded-xl border border-slate-200 bg-white">
           <div className="border-b border-slate-100 px-5 py-3">
             <h2 className="text-[11px] font-semibold uppercase tracking-widest text-slate-400">
               Data Source Settings
@@ -165,7 +165,7 @@ export const JsonBuilderForm = () => {
         </section>
 
         {/* Section: Apply to Items */}
-        <section className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+        <section className="rounded-xl border border-slate-200 bg-white">
           <div className="border-b border-slate-100 px-5 py-3">
             <h2 className="text-[11px] font-semibold uppercase tracking-widest text-slate-400">
               Item Targets
@@ -188,7 +188,7 @@ export const JsonBuilderForm = () => {
         </section>
 
         {/* Section: Attunement Levels */}
-        <section className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+        <section className="rounded-xl border border-slate-200 bg-white">
           <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3">
             <h2 className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-widest text-slate-400">
               Attunement Levels
@@ -258,7 +258,7 @@ export const JsonBuilderForm = () => {
 
       {/* ── JSON Preview ── */}
       <div className="lg:col-span-2">
-        <div className="sticky top-20 overflow-hidden rounded-xl border border-slate-700 bg-slate-900">
+        <div className="sticky top-20 rounded-xl border border-slate-700 bg-slate-900">
           <div className="flex items-center justify-between border-b border-slate-700/60 px-4 py-3">
             <h2 className="text-xs font-semibold text-slate-300">JSON Preview</h2>
             <span className="rounded-full bg-slate-800 px-2 py-0.5 text-[10px] text-slate-500">

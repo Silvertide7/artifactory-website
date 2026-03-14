@@ -55,9 +55,6 @@ const toCleanRequirements = (
   const xpThreshold = parseIntField(req.xp_level_threshold)
   if (xpThreshold !== undefined) out.xp_level_threshold = xpThreshold
 
-  const kills = parseIntField(req.kills)
-  if (kills !== undefined) out.kills = kills
-
   const items = toStringArray(req.items)
   if (items.length > 0) out.items = items
 

@@ -42,7 +42,6 @@ const plainItemIdSchema = z.object({
 export const requirementsFormSchema = z.object({
   xp_levels_consumed: optionalInt(0),
   xp_level_threshold: optionalInt(0),
-  kills: optionalInt(0),
   items: z.array(itemWithCountSchema).max(3),
 })
 
@@ -67,7 +66,6 @@ export type DataSourceFormValues = z.infer<typeof dataSourceFormSchema>
 export const defaultRequirements: RequirementsFormValues = {
   xp_levels_consumed: '',
   xp_level_threshold: '',
-  kills: '',
   items: [],
 }
 
