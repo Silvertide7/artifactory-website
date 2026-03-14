@@ -51,6 +51,23 @@ export const JsonBuilderForm = () => {
   const cleanOutput = toCleanOutput(values)
   const previewJson = toPrettyJson(cleanOutput)
 
+  const downloadFileName = (() => {
+    const raw = values.file_name.trim()
+    if (!raw) return 'attunement-data.json'
+    const afterColon = raw.split(':')[1]
+    return `${afterColon ?? raw}.json`
+  })()
+
+  const placementPath = (() => {
+    const raw = values.file_name.trim()
+    if (!raw) return null
+    if (raw.includes(':')) {
+      const [modId, itemName] = raw.split(':')
+      return `data/${modId}/artifactory/${itemName}.json`
+    }
+    return `data/<modid>/artifactory/${raw}.json`
+  })()
+
   const onCopy = async () => {
     try {
       await copyJsonToClipboard(cleanOutput)
@@ -75,6 +92,51 @@ export const JsonBuilderForm = () => {
         onSubmit={handleSubmit(() => {})}
         noValidate
       >
+        {/* Section: Item / Group */}
+        <section className="rounded-xl border border-slate-200 bg-white">
+          <div className="border-b border-slate-100 px-5 py-3">
+            <h2 className="text-[11px] font-semibold uppercase tracking-widest text-slate-400">
+              Minecraft Item or Group
+            </h2>
+          </div>
+          <div className="p-5">
+            <FormField
+              label="Item ID"
+              htmlFor="file_name"
+              error={errors.file_name?.message}
+              hint={"The item this config targets. Sets the download filename — mod ID prefix is stripped automatically.\n\nIf using Apply to Items, use a descriptive group name instead since the filename is ignored by the game.\ne.g. minecraft:swords"}
+            >
+              {(errorId) => (
+                <input
+                  id="file_name"
+                  type="text"
+                  placeholder="minecraft:diamond_sword"
+                  aria-describedby={errorId}
+                  aria-invalid={errors.file_name ? true : undefined}
+                  className={inputClass}
+                  {...register('file_name')}
+                />
+              )}
+            </FormField>
+            {values.file_name.trim() && !errors.file_name && (
+              <div className="mt-2 space-y-0.5">
+                <p className="text-xs text-slate-400">
+                  Will download as{' '}
+                  <span className="font-mono font-medium text-slate-600">
+                    {downloadFileName}
+                  </span>
+                </p>
+                <p className="text-xs text-slate-400">
+                  Place in{' '}
+                  <span className="font-mono font-medium text-slate-600">
+                    {placementPath}
+                  </span>
+                </p>
+              </div>
+            )}
+          </div>
+        </section>
+
         {/* Section: Data Source Settings */}
         <section className="rounded-xl border border-slate-200 bg-white">
           <div className="border-b border-slate-100 px-5 py-3">
@@ -87,7 +149,7 @@ export const JsonBuilderForm = () => {
               label="Slots Used"
               htmlFor="slots_used"
               error={errors.slots_used?.message}
-              hint="How many attunement slots this item reserves when attuned. Required to make an item attuneable — leave blank (or -1) to disable attunement entirely."
+              hint={"How many attunement slots this item reserves.\nRequired to make an item attuneable.\n\nLeave blank or set -1 to disable attunement.\nDefault: -1 (attunement disabled)"}
             >
               {(errorId) => (
                 <input
@@ -106,7 +168,7 @@ export const JsonBuilderForm = () => {
               label="Use Without Attunement"
               htmlFor="use_without_attunement"
               error={errors.use_without_attunement?.message}
-              hint="false = item cannot be used until attuned (locks the item). true = item works normally and attuning just adds bonuses on top."
+              hint={"Controls whether the item works before attuning.\n\ntrue — works normally, attuning adds bonuses.\nfalse — item is locked until attuned.\nDefault: true"}
             >
               {(errorId) => (
                 <select
@@ -126,7 +188,7 @@ export const JsonBuilderForm = () => {
               label="Replace"
               htmlFor="replace"
               error={errors.replace?.message}
-              hint="Set true to override any existing config from other datapacks. Last loaded config with replace: true wins — recommended for modpack configs."
+              hint={"Overrides any existing config from other datapacks.\n\ntrue — this config wins over others.\nRecommended when building modpack configs.\nDefault: false"}
             >
               {(errorId) => (
                 <select
@@ -146,7 +208,7 @@ export const JsonBuilderForm = () => {
               label="Chance"
               htmlFor="chance"
               error={errors.chance?.message}
-              hint="Probability (0.0–1.0) that this item can be attuned. Checked once on Attunement Nexus placement. Default 1.0 = always attuneable."
+              hint={"Probability the item can be attuned.\nChecked once when placed in an Attunement Nexus.\n\nRange: 0.0 – 1.0\nDefault: 1.0 (always attuneable)"}
             >
               {(errorId) => (
                 <input
@@ -177,7 +239,7 @@ export const JsonBuilderForm = () => {
               name="apply_to_items"
               label="Apply to Items"
               placeholder="e.g. minecraft:iron_helmet"
-              hint="Apply this config to specific items. When set, the JSON filename is ignored and all listed items receive this config. Format: modid:item_name"
+              hint={"Applies this config to specific items.\nWhen set, the JSON filename is ignored.\n\nFormat: modid:item_name\ne.g. minecraft:iron_helmet\nDefault: empty (filename used instead)"}
               itemErrors={
                 errors.apply_to_items as unknown as Array<{
                   value?: { message?: string }
@@ -242,7 +304,7 @@ export const JsonBuilderForm = () => {
           <Button
             variant="secondary"
             type="button"
-            onClick={() => downloadJsonFile(cleanOutput)}
+            onClick={() => downloadJsonFile(cleanOutput, downloadFileName)}
           >
             ↓ Download
           </Button>

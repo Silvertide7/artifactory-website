@@ -64,7 +64,7 @@ export const AttunementLevelItem = ({
             label="Modifications"
             labelClassName="text-[11px] font-semibold uppercase tracking-widest text-slate-400"
             placeholder="e.g. invulnerable"
-            hint="Modifiers applied when attuned. Simple flags: invulnerable, unbreakable, soulbound. Attribute format: attribute/modid:attribute_name/operation/value/slot — e.g. attribute/minecraft:generic.attack_damage/add_value/5/mainhand"
+            hint={"Modifiers applied to the item when attuned.\n\nSimple flags:\ninvulnerable, unbreakable, soulbound\n\nAttribute format:\nattribute/modid:attribute_name/operation/value/slot\ne.g. attribute/minecraft:generic.attack_damage/add_value/5/mainhand\nDefault: none"}
           />
 
           {/* Requirements sub-section */}
@@ -78,7 +78,7 @@ export const AttunementLevelItem = ({
                   label="XP Consumed"
                   htmlFor={`attunement_levels.${index}.requirements.xp_levels_consumed`}
                   error={levelErrors?.requirements?.xp_levels_consumed?.message}
-                  hint="XP levels consumed when attunement completes. Leave blank to require none."
+                  hint={"XP levels consumed when attunement completes.\n\nLeave blank to require none.\nDefault: -1 (none required)"}
                 >
                   {(errorId) => (
                     <input
@@ -103,7 +103,7 @@ export const AttunementLevelItem = ({
                   label="XP Threshold"
                   htmlFor={`attunement_levels.${index}.requirements.xp_level_threshold`}
                   error={levelErrors?.requirements?.xp_level_threshold?.message}
-                  hint="Minimum XP level required to begin attunement. Acts as a gate — not consumed."
+                  hint={"Minimum XP level required to begin attunement.\n\nActs as a gate — levels are not consumed.\nDefault: -1 (no threshold)"}
                 >
                   {(errorId) => (
                     <input
@@ -131,7 +131,7 @@ export const AttunementLevelItem = ({
                 label="Items"
                 placeholder="e.g. minecraft:nether_star"
                 maxItems={3}
-                hint="Items consumed on attunement. Format: modid:item_name or modid:item_name#quantity (quantity defaults to 1) — e.g. minecraft:diamond#64"
+                hint={"Items consumed when attunement completes.\nMax 3 items.\n\nFormat: modid:item_name or modid:item_name#quantity\nQuantity defaults to 1.\ne.g. minecraft:diamond#64\nDefault: none"}
                 itemErrors={
                   levelErrors?.requirements?.items as unknown as Array<{
                     value?: { message?: string }

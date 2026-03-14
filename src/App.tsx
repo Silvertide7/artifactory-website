@@ -16,8 +16,8 @@ function App() {
             className="h-6 object-contain"
           />
           <span className="text-slate-300" aria-hidden="true">|</span>
-          <p className="text-[11px] text-slate-500">
-            Attunement data source config generator
+          <p className="text-xs font-medium text-slate-500">
+            Attunement Data Source Config Generator
           </p>
         </div>
       </header>

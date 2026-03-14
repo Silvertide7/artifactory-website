@@ -51,6 +51,11 @@ export const levelFormSchema = z.object({
 })
 
 export const dataSourceFormSchema = z.object({
+  file_name: z.string().refine(
+    (val) =>
+      val.trim() === '' || /^[a-z0-9_.-]+:[a-z0-9_./]+$/.test(val.trim()),
+    { message: 'Format: modid:item_name — e.g. minecraft:diamond_sword' },
+  ),
   slots_used: optionalInt(-1),
   chance: optionalFloat(0, 1),
   use_without_attunement: z.enum(['', 'true', 'false']),
@@ -75,6 +80,7 @@ export const defaultLevel: LevelFormValues = {
 }
 
 export const defaultValues: DataSourceFormValues = {
+  file_name: '',
   slots_used: '',
   chance: '',
   use_without_attunement: '',
