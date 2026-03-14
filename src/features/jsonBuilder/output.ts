@@ -1,0 +1,102 @@
+import type { DataSourceFormValues, RequirementsFormValues } from './fieldConfig'
+
+export const toPrettyJson = (value: unknown) => JSON.stringify(value, null, 2)
+
+export const copyJsonToClipboard = async (jsonValue: unknown) => {
+  const text = toPrettyJson(jsonValue)
+  await navigator.clipboard.writeText(text)
+}
+
+export const downloadJsonFile = (
+  jsonValue: unknown,
+  fileName = 'attunement-data.json',
+) => {
+  const blob = new Blob([toPrettyJson(jsonValue)], { type: 'application/json' })
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  link.download = fileName
+  document.body.appendChild(link)
+  link.click()
+  document.body.removeChild(link)
+  URL.revokeObjectURL(url)
+}
+
+const parseIntField = (s: string): number | undefined => {
+  const trimmed = s.trim()
+  if (trimmed === '') return undefined
+  const n = parseInt(trimmed, 10)
+  return isNaN(n) ? undefined : n
+}
+
+const parseFloatField = (s: string): number | undefined => {
+  const trimmed = s.trim()
+  if (trimmed === '') return undefined
+  const n = parseFloat(trimmed)
+  return isNaN(n) ? undefined : n
+}
+
+const parseBoolField = (s: '' | 'true' | 'false'): boolean | undefined => {
+  if (s === '') return undefined
+  return s === 'true'
+}
+
+const toStringArray = (items: { value: string }[]): string[] =>
+  items.map((i) => i.value.trim()).filter((v) => v !== '')
+
+const toCleanRequirements = (
+  req: RequirementsFormValues,
+): Record<string, unknown> | undefined => {
+  const out: Record<string, unknown> = {}
+
+  const xpConsumed = parseIntField(req.xp_levels_consumed)
+  if (xpConsumed !== undefined) out.xp_levels_consumed = xpConsumed
+
+  const xpThreshold = parseIntField(req.xp_level_threshold)
+  if (xpThreshold !== undefined) out.xp_level_threshold = xpThreshold
+
+  const kills = parseIntField(req.kills)
+  if (kills !== undefined) out.kills = kills
+
+  const items = toStringArray(req.items)
+  if (items.length > 0) out.items = items
+
+  return Object.keys(out).length > 0 ? out : undefined
+}
+
+export const toCleanOutput = (values: DataSourceFormValues): Record<string, unknown> => {
+  const out: Record<string, unknown> = {}
+
+  const slotsUsed = parseIntField(values.slots_used)
+  if (slotsUsed !== undefined) out.slots_used = slotsUsed
+
+  const chance = parseFloatField(values.chance)
+  if (chance !== undefined) out.chance = chance
+
+  const useWithout = parseBoolField(values.use_without_attunement)
+  if (useWithout !== undefined) out.use_without_attunement = useWithout
+
+  const replace = parseBoolField(values.replace)
+  if (replace !== undefined) out.replace = replace
+
+  const applyToItems = toStringArray(values.apply_to_items)
+  if (applyToItems.length > 0) out.apply_to_items = applyToItems
+
+  const levels = values.attunement_levels
+    .map((level) => {
+      const lvl: Record<string, unknown> = {}
+
+      const mods = toStringArray(level.modifications)
+      if (mods.length > 0) lvl.modifications = mods
+
+      const req = toCleanRequirements(level.requirements)
+      if (req !== undefined) lvl.requirements = req
+
+      return lvl
+    })
+    .filter((lvl) => Object.keys(lvl).length > 0)
+
+  if (levels.length > 0) out.attunement_levels = levels
+
+  return out
+}
