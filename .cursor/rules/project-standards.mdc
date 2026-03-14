@@ -1,0 +1,46 @@
+---
+description: Core standards and context for the Artifactory JSON Builder SPA
+alwaysApply: true
+---
+
+# Artifactory JSON Builder — Project Standards
+
+**Mod reference:** https://www.curseforge.com/minecraft/mc-mods/artifactory
+
+This project is a React SPA for generating JSON data files consumed by the Artifactory Minecraft mod. All JSON output must match the mod's codec schemas exactly.
+
+## Stack
+- Vite + React 19 + TypeScript (strict mode)
+- Tailwind CSS v4 via `@tailwindcss/postcss`
+- `react-hook-form` + `zod` for form state and validation
+- No additional runtime dependencies without discussion
+
+## Code Standards
+
+**TypeScript**
+- All types must be derived from Zod schemas via `z.infer<>` — never manually duplicate them
+- Use `type` imports for type-only imports (`import type { Foo }`)
+- Avoid `any`; use `never` casts only at react-hook-form generic boundaries
+
+**React**
+- Functional components only, named exports
+- Keep components small and single-purpose; extract to `src/components/` if reused across features
+- Use `useFieldArray` from react-hook-form for all dynamic list fields
+- Clean up `setTimeout` refs in `useEffect` return to prevent state updates after unmount
+
+**Tailwind**
+- Use Tailwind utility classes directly — no custom CSS unless unavoidable
+- Always include `focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2` on interactive elements for keyboard accessibility
+
+**JSON Output**
+- All output goes through `toCleanOutput()` in `output.ts` — never serialize raw form values
+- Omit any field that is empty string, empty array, or unset boolean (`''`)
+- Number fields are stored as strings internally and parsed in `toCleanOutput`
+
+## File Structure
+```
+src/
+  components/       # Shared UI primitives (Button, FormField, StringListInput)
+  features/
+    jsonBuilder/    # All codec-specific form logic and output
+```
