@@ -1,0 +1,66 @@
+---
+description: UI design, UX patterns, accessibility, and layout conventions for the Artifactory JSON Builder
+alwaysApply: true
+---
+
+# Frontend Design Standards
+
+## Color & Typography Scale
+
+Always use the established slate palette — never introduce new arbitrary colors.
+
+| Role | Classes |
+|---|---|
+| Primary text | `text-slate-900` / `text-slate-800` |
+| Secondary / hint | `text-xs text-slate-500` |
+| Placeholder / muted | `text-slate-400` |
+| Error | `text-xs text-rose-600` |
+| Section label | `text-xs font-semibold uppercase tracking-wide text-slate-500` |
+| Input border | `border-slate-300` → `focus:border-slate-500` → error: `border-rose-400` |
+
+## Component Composition
+
+- **Form inputs** must always be wrapped in `FormField` — never write a raw `<label>` + `<input>` pair in feature code
+- **Buttons** in feature code must use the `Button` component with `variant="primary"` or `variant="secondary"`; raw `<button>` is only acceptable inside shared primitives (e.g. `StringListInput`) where the variant system doesn't apply
+- **Reuse threshold**: if a UI element appears in more than one place, extract it to `src/components/`
+
+## Interactive States
+
+Every interactive element must have all three states:
+
+```tsx
+// Required on every button, link, and input
+focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2
+
+// Required on every disabled element — never silently disable
+disabled:cursor-not-allowed disabled:opacity-50
+
+// Required on every clickable element — use hover:bg-* or hover:border-*
+hover:bg-slate-50   // secondary buttons
+hover:bg-slate-700  // primary / icon buttons
+```
+
+## UX Patterns
+
+- **Empty lists**: always show an empty-state message — `<p className="text-xs italic text-slate-400">No items — press + to add.</p>`
+- **Bounded lists**: show a `(count/max)` counter next to the label when `maxItems` is set
+- **Async feedback**: show a transient label on the triggering button (e.g. "Copied!" → auto-resets after ~1.3 s via `useRef` timeout); never use a toast or separate UI element
+- **Errors replace hints**: when a field has an error, the hint text is hidden — never render both simultaneously (this is the `FormField` contract)
+- **Validation timing**: use `mode: 'onBlur'` + `reValidateMode: 'onChange'` — errors appear after leaving a field and clear as the user fixes them
+
+## Accessibility
+
+- Labels must be linked to their input via `htmlFor` + matching `id` — no exceptions
+- Error `<p>` must have `id="{htmlFor}-error"` and `role="alert"`
+- Inputs with an active error must have `aria-describedby="{htmlFor}-error"` and `aria-invalid={true}`
+- Every icon-only or visually-unlabelled button must have `aria-label`
+
+## Layout & Spacing
+
+| Context | Classes |
+|---|---|
+| Between form fields | `space-y-4` or `space-y-5` |
+| Side-by-side compact fields | `grid gap-3 sm:grid-cols-2` or `sm:grid-cols-3` |
+| Card / section container | `rounded-lg border border-slate-200 bg-white p-4 shadow-sm` |
+| Sub-section (nested card) | `rounded-md border border-slate-200 bg-slate-50 p-3` |
+| Page-level section | `rounded-xl border border-slate-200 bg-white p-5 shadow-sm md:p-8` |

@@ -1,10 +1,11 @@
 import type { ReactNode } from 'react'
+import { Tooltip } from './Tooltip'
 
 type FormFieldProps = {
   label: string
   htmlFor: string
   error?: string
-  hint?: ReactNode
+  hint?: string
   children: (errorId: string | undefined) => ReactNode
 }
 
@@ -19,16 +20,19 @@ export const FormField = ({
 
   return (
     <div className="space-y-1.5">
-      <label htmlFor={htmlFor} className="block text-sm font-medium text-slate-800">
+      <label
+        htmlFor={htmlFor}
+        className="flex items-center gap-1.5 text-sm font-medium text-slate-700"
+      >
         {label}
+        {hint && <Tooltip content={hint} />}
       </label>
       {children(errorId)}
-      {error ? (
-        <p id={errorId} role="alert" className="text-xs text-rose-600">
+      {error && (
+        <p id={errorId} role="alert" className="flex items-center gap-1 text-xs text-rose-500">
+          <span aria-hidden="true">⚠</span>
           {error}
         </p>
-      ) : (
-        hint && <p className="text-xs text-slate-500">{hint}</p>
       )}
     </div>
   )

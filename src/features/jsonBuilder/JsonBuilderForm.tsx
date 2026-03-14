@@ -4,6 +4,7 @@ import { useForm, useFieldArray } from 'react-hook-form'
 import { Button } from '../../components/Button'
 import { FormField } from '../../components/FormField'
 import { StringListInput } from '../../components/StringListInput'
+import { JsonPreview } from '../../components/JsonPreview'
 import { AttunementLevelItem } from './AttunementLevelItem'
 import {
   dataSourceFormSchema,
@@ -17,12 +18,7 @@ import {
   toCleanOutput,
   toPrettyJson,
 } from './output'
-
-const inputClass =
-  'w-full rounded-md border border-slate-300 px-3 py-2 text-sm outline-none transition placeholder:text-slate-400 focus:border-slate-500'
-
-const selectClass =
-  'w-full rounded-md border border-slate-300 bg-white px-3 py-2 text-sm outline-none transition focus:border-slate-500'
+import { inputClass, selectClass } from '../../components/inputStyles'
 
 export const JsonBuilderForm = () => {
   const [copyState, setCopyState] = useState<'idle' | 'copied' | 'error'>('idle')
@@ -38,6 +34,8 @@ export const JsonBuilderForm = () => {
   } = useForm<DataSourceFormValues>({
     defaultValues,
     resolver: zodResolver(dataSourceFormSchema),
+    mode: 'onBlur',
+    reValidateMode: 'onChange',
   })
 
   const { fields: levelFields, append: appendLevel, remove: removeLevel } =
@@ -61,7 +59,7 @@ export const JsonBuilderForm = () => {
       setCopyState('error')
     }
     if (copyTimeoutRef.current !== null) clearTimeout(copyTimeoutRef.current)
-    copyTimeoutRef.current = setTimeout(() => setCopyState('idle'), 1300)
+    copyTimeoutRef.current = setTimeout(() => setCopyState('idle'), 1500)
   }
 
   const onReset = () => {
@@ -70,166 +68,208 @@ export const JsonBuilderForm = () => {
   }
 
   return (
-    <div className="grid gap-6 lg:grid-cols-2">
+    <div className="grid gap-5 lg:grid-cols-5">
+      {/* ── Form ── */}
       <form
-        className="space-y-5"
+        className="space-y-4 lg:col-span-3"
         onSubmit={handleSubmit(() => {})}
         noValidate
       >
-        {/* Flat scalar fields */}
-        <div className="grid gap-4 sm:grid-cols-2">
-          <FormField
-            label="Slots Used"
-            htmlFor="slots_used"
-            error={errors.slots_used?.message}
-            hint="INT — leave blank to omit"
-          >
-            {(errorId) => (
-              <input
-                id="slots_used"
-                type="number"
-                placeholder="-1"
-                aria-describedby={errorId}
-                className={inputClass}
-                {...register('slots_used')}
-              />
-            )}
-          </FormField>
+        {/* Section: Data Source Settings */}
+        <section className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+          <div className="border-b border-slate-100 px-5 py-3">
+            <h2 className="text-[11px] font-semibold uppercase tracking-widest text-slate-400">
+              Data Source Settings
+            </h2>
+          </div>
+          <div className="grid gap-4 p-5 sm:grid-cols-2">
+            <FormField
+              label="Slots Used"
+              htmlFor="slots_used"
+              error={errors.slots_used?.message}
+              hint="How many attunement slots this item reserves when attuned. Required to make an item attuneable — leave blank (or -1) to disable attunement entirely."
+            >
+              {(errorId) => (
+                <input
+                  id="slots_used"
+                  type="number"
+                  placeholder="-1"
+                  aria-describedby={errorId}
+                  aria-invalid={errors.slots_used ? true : undefined}
+                  className={inputClass}
+                  {...register('slots_used')}
+                />
+              )}
+            </FormField>
 
-          <FormField
-            label="Chance"
-            htmlFor="chance"
-            error={errors.chance?.message}
-            hint="DOUBLE — leave blank to omit"
-          >
-            {(errorId) => (
-              <input
-                id="chance"
-                type="number"
-                step="any"
-                placeholder="1.0"
-                aria-describedby={errorId}
-                className={inputClass}
-                {...register('chance')}
-              />
-            )}
-          </FormField>
+            <FormField
+              label="Use Without Attunement"
+              htmlFor="use_without_attunement"
+              error={errors.use_without_attunement?.message}
+              hint="false = item cannot be used until attuned (locks the item). true = item works normally and attuning just adds bonuses on top."
+            >
+              {(errorId) => (
+                <select
+                  id="use_without_attunement"
+                  aria-describedby={errorId}
+                  className={selectClass}
+                  {...register('use_without_attunement')}
+                >
+                  <option value="">— not set —</option>
+                  <option value="true">true</option>
+                  <option value="false">false</option>
+                </select>
+              )}
+            </FormField>
 
-          <FormField
-            label="Use Without Attunement"
-            htmlFor="use_without_attunement"
-            error={errors.use_without_attunement?.message}
-            hint="BOOL — leave blank to omit"
-          >
-            {(errorId) => (
-              <select
-                id="use_without_attunement"
-                aria-describedby={errorId}
-                className={selectClass}
-                {...register('use_without_attunement')}
-              >
-                <option value="">— not set —</option>
-                <option value="true">true</option>
-                <option value="false">false</option>
-              </select>
-            )}
-          </FormField>
+            <FormField
+              label="Replace"
+              htmlFor="replace"
+              error={errors.replace?.message}
+              hint="Set true to override any existing config from other datapacks. Last loaded config with replace: true wins — recommended for modpack configs."
+            >
+              {(errorId) => (
+                <select
+                  id="replace"
+                  aria-describedby={errorId}
+                  className={selectClass}
+                  {...register('replace')}
+                >
+                  <option value="">— not set —</option>
+                  <option value="true">true</option>
+                  <option value="false">false</option>
+                </select>
+              )}
+            </FormField>
 
-          <FormField
-            label="Replace"
-            htmlFor="replace"
-            error={errors.replace?.message}
-            hint="BOOL — leave blank to omit"
-          >
-            {(errorId) => (
-              <select
-                id="replace"
-                aria-describedby={errorId}
-                className={selectClass}
-                {...register('replace')}
-              >
-                <option value="">— not set —</option>
-                <option value="true">true</option>
-                <option value="false">false</option>
-              </select>
-            )}
-          </FormField>
-        </div>
+            <FormField
+              label="Chance"
+              htmlFor="chance"
+              error={errors.chance?.message}
+              hint="Probability (0.0–1.0) that this item can be attuned. Checked once on Attunement Nexus placement. Default 1.0 = always attuneable."
+            >
+              {(errorId) => (
+                <input
+                  id="chance"
+                  type="number"
+                  step="any"
+                  placeholder="1.0"
+                  aria-describedby={errorId}
+                  aria-invalid={errors.chance ? true : undefined}
+                  className={inputClass}
+                  {...register('chance')}
+                />
+              )}
+            </FormField>
+          </div>
+        </section>
 
-        {/* apply_to_items */}
-        <StringListInput
-          control={control}
-          name="apply_to_items"
-          label="Apply to Items"
-          placeholder="e.g. minecraft:diamond_sword"
-        />
+        {/* Section: Apply to Items */}
+        <section className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+          <div className="border-b border-slate-100 px-5 py-3">
+            <h2 className="text-[11px] font-semibold uppercase tracking-widest text-slate-400">
+              Item Targets
+            </h2>
+          </div>
+          <div className="p-5">
+            <StringListInput
+              control={control}
+              name="apply_to_items"
+              label="Apply to Items"
+              placeholder="e.g. minecraft:iron_helmet"
+              hint="Apply this config to specific items. When set, the JSON filename is ignored and all listed items receive this config. Format: modid:item_name"
+              itemErrors={
+                errors.apply_to_items as unknown as Array<{
+                  value?: { message?: string }
+                }>
+              }
+            />
+          </div>
+        </section>
 
-        {/* attunement_levels */}
-        <div className="space-y-3">
-          <div className="flex items-center justify-between">
-            <span className="text-sm font-medium text-slate-800">
+        {/* Section: Attunement Levels */}
+        <section className="overflow-hidden rounded-xl border border-slate-200 bg-white">
+          <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3">
+            <h2 className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-widest text-slate-400">
               Attunement Levels
-            </span>
+              {levelFields.length > 0 && (
+                <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-500">
+                  {levelFields.length}
+                </span>
+              )}
+            </h2>
             <button
               type="button"
               onClick={() => appendLevel(defaultLevel)}
-              className="flex h-6 w-6 items-center justify-center rounded-full bg-slate-900 text-white transition hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500"
+              className="flex h-7 w-7 items-center justify-center rounded-full bg-slate-900 text-white transition hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500"
               aria-label="Add attunement level"
             >
-              <span className="text-sm leading-none">+</span>
+              <span className="text-base leading-none">+</span>
             </button>
           </div>
 
-          {levelFields.length === 0 && (
-            <p className="text-xs italic text-slate-400">
-              No levels — press + to add.
-            </p>
-          )}
-
-          {levelFields.map((field, index) => (
-            <AttunementLevelItem
-              key={field.id}
-              index={index}
-              control={control}
-              register={register}
-              errors={errors}
-              onRemove={() => removeLevel(index)}
-            />
-          ))}
-        </div>
+          <div className="p-5">
+            {levelFields.length === 0 ? (
+              <div className="rounded-lg border border-dashed border-slate-200 py-8 text-center">
+                <p className="text-sm text-slate-400">No attunement levels added</p>
+                <p className="mt-1 text-xs text-slate-400">
+                  Press <span className="font-semibold text-slate-600">+</span> to
+                  add a level with requirements and modifications
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {levelFields.map((field, index) => (
+                  <AttunementLevelItem
+                    key={field.id}
+                    index={index}
+                    control={control}
+                    register={register}
+                    errors={errors}
+                    onRemove={() => removeLevel(index)}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        </section>
 
         {/* Actions */}
-        <div className="flex flex-wrap gap-2 pt-1">
-          <Button type="button" variant="secondary" onClick={onReset}>
+        <div className="flex flex-wrap items-center gap-2 pt-1">
+          <Button variant="secondary" type="button" onClick={onReset}>
             Clear
           </Button>
-          <Button type="button" variant="secondary" onClick={onCopy}>
-            {copyState === 'copied'
-              ? 'Copied!'
-              : copyState === 'error'
-                ? 'Copy failed'
-                : 'Copy JSON'}
-          </Button>
           <Button
-            type="button"
             variant="secondary"
+            type="button"
             onClick={() => downloadJsonFile(cleanOutput)}
           >
-            Download JSON
+            ↓ Download
+          </Button>
+          <Button type="button" onClick={onCopy}>
+            {copyState === 'copied'
+              ? '✓ Copied!'
+              : copyState === 'error'
+                ? '✗ Copy failed'
+                : 'Copy JSON'}
           </Button>
         </div>
       </form>
 
-      {/* JSON preview */}
-      <section className="rounded-lg border border-slate-200 bg-slate-50 p-4">
-        <div className="mb-2 flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-slate-800">JSON Preview</h2>
-          <span className="text-xs text-slate-500">Empty fields omitted</span>
+      {/* ── JSON Preview ── */}
+      <div className="lg:col-span-2">
+        <div className="sticky top-20 overflow-hidden rounded-xl border border-slate-700 bg-slate-900">
+          <div className="flex items-center justify-between border-b border-slate-700/60 px-4 py-3">
+            <h2 className="text-xs font-semibold text-slate-300">JSON Preview</h2>
+            <span className="rounded-full bg-slate-800 px-2 py-0.5 text-[10px] text-slate-500">
+              empty fields omitted
+            </span>
+          </div>
+          <div className="max-h-[calc(100vh-10rem)] min-h-48 overflow-auto">
+            <JsonPreview json={previewJson} />
+          </div>
         </div>
-        <pre className="max-h-[600px] overflow-auto rounded-md bg-slate-900 p-3 text-xs leading-5 text-slate-100">
-          <code>{previewJson}</code>
-        </pre>
-      </section>
+      </div>
     </div>
   )
 }
