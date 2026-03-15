@@ -16,7 +16,7 @@ export const JsonBuilder = () => (
           className="h-6 object-contain"
         />
         <span className="text-zinc-300" aria-hidden="true">|</span>
-        <p className="text-xs font-medium text-zinc-500">
+        <p className="text-xs font-medium text-zinc-500 dark:text-zinc-400">
           Attunement Data Source Config Generator
         </p>
       </div>

@@ -136,13 +136,13 @@ export const JsonBuilderForm = () => {
               <div className="mt-2 space-y-0.5">
                 <p className="text-xs text-zinc-400 dark:text-zinc-400">
                   Will download as{' '}
-                  <span className="font-mono font-medium text-zinc-600">
+                  <span className="font-mono font-medium text-zinc-600 dark:text-zinc-300">
                     {downloadFileName}
                   </span>
                 </p>
                 <p className="text-xs text-zinc-400 dark:text-zinc-400">
                   Place in{' '}
-                  <span className="font-mono font-medium text-zinc-600">
+                  <span className="font-mono font-medium text-zinc-600 dark:text-zinc-300">
                     {placementPath}
                   </span>
                 </p>
@@ -289,7 +289,7 @@ export const JsonBuilderForm = () => {
               <div className="rounded-lg border border-dashed border-zinc-300 py-8 text-center dark:border-zinc-600">
                 <p className="text-sm text-zinc-400 dark:text-zinc-400">No attunement levels added</p>
                 <p className="mt-1 text-xs text-zinc-400 dark:text-zinc-400">
-                  Press <span className="font-semibold text-zinc-600">+</span> to
+                  Press <span className="font-semibold text-zinc-600 dark:text-zinc-300">+</span> to
                   add a level with requirements and modifications
                 </p>
               </div>
