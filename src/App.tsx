@@ -1,31 +1,20 @@
-import { JsonBuilderForm } from './features/jsonBuilder/JsonBuilderForm'
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import { Layout } from './components/Layout'
+import { Home } from './pages/Home'
+import { Artifactory } from './pages/Artifactory'
+import { JsonBuilder } from './pages/JsonBuilder'
 
 function App() {
   return (
-    <div className="min-h-screen bg-slate-50">
-      <header className="sticky top-0 z-10 border-b border-slate-200 bg-white/90 backdrop-blur-sm">
-        <div className="mx-auto flex max-w-6xl items-center gap-4 px-4 py-3 md:px-8">
-          <img
-            src="/artifactory-logo.png"
-            alt="Artifactory Nexus"
-            className="h-10 w-10 shrink-0 object-contain drop-shadow-sm"
-          />
-          <img
-            src="/artifactory-title.png"
-            alt="Artifactory"
-            className="h-6 object-contain"
-          />
-          <span className="text-slate-300" aria-hidden="true">|</span>
-          <p className="text-xs font-medium text-slate-500">
-            Attunement Data Source Config Generator
-          </p>
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-6xl px-4 py-6 md:px-8">
-        <JsonBuilderForm />
-      </main>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="artifactory" element={<Artifactory />} />
+          <Route path="artifactory/json-builder" element={<JsonBuilder />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 

@@ -5,16 +5,20 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
-  background: #f8fafc;
-  color: #0f172a;
+  background: #f4f4f5;
+  color: #18181b;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+select {
+  color-scheme: light;
 }
 
 /* Thin custom scrollbars for the JSON preview */
 .overflow-auto {
   scrollbar-width: thin;
-  scrollbar-color: #334155 transparent;
+  scrollbar-color: #a1a1aa transparent;
 }
 
 .overflow-auto::-webkit-scrollbar {
@@ -27,10 +31,10 @@ body {
 }
 
 .overflow-auto::-webkit-scrollbar-thumb {
-  background: #334155;
+  background: #a1a1aa;
   border-radius: 99px;
 }
 
 .overflow-auto::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: #71717a;
 }

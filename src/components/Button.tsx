@@ -12,13 +12,13 @@ type ButtonProps = PropsWithChildren<
 
 const variantClasses: Record<ButtonVariant, string> = {
   primary:
-    'bg-slate-900 text-white hover:bg-slate-700 focus-visible:outline-slate-500',
+    'bg-zinc-900 text-white hover:bg-zinc-700 focus-visible:outline-zinc-500',
   secondary:
-    'bg-white text-slate-700 ring-1 ring-slate-200 hover:bg-slate-50 hover:ring-slate-300 focus-visible:outline-slate-400',
+    'bg-white text-zinc-700 ring-1 ring-zinc-300 hover:bg-zinc-50 hover:ring-zinc-400 focus-visible:outline-zinc-400',
   ghost:
-    'text-slate-500 hover:bg-slate-100 hover:text-slate-700 focus-visible:outline-slate-400',
+    'text-zinc-500 hover:bg-zinc-100 hover:text-zinc-700 focus-visible:outline-zinc-400',
   danger:
-    'text-rose-500 hover:bg-rose-50 hover:text-rose-600 focus-visible:outline-rose-400',
+    'text-rose-600 hover:bg-rose-50 hover:text-rose-700 focus-visible:outline-rose-400',
 }
 
 const sizeClasses: Record<ButtonSize, string> = {

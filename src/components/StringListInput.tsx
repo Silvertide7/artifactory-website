@@ -25,7 +25,7 @@ export const StringListInput = <T extends FieldValues>({
   name,
   placeholder = 'Enter value…',
   label,
-  labelClassName = 'text-sm font-medium text-slate-700',
+  labelClassName = 'text-sm font-medium text-zinc-700',
   hint,
   maxItems,
   itemErrors,
@@ -49,7 +49,7 @@ export const StringListInput = <T extends FieldValues>({
           type="button"
           onClick={() => append({ value: '' } as never)}
           disabled={atLimit}
-          className="flex h-6 w-6 items-center justify-center rounded-full bg-slate-900 text-white transition hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500 disabled:cursor-not-allowed disabled:opacity-40"
+          className="flex h-6 w-6 items-center justify-center rounded-full bg-zinc-900 text-white transition hover:bg-zinc-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-500 disabled:cursor-not-allowed disabled:opacity-40"
           aria-label={`Add ${label} item`}
         >
           <span className="text-sm leading-none">+</span>
@@ -57,7 +57,7 @@ export const StringListInput = <T extends FieldValues>({
       </div>
 
       {fields.length === 0 && (
-        <div className="rounded-lg border border-dashed border-slate-200 py-3 text-center">
+        <div className="rounded-lg border border-dashed border-zinc-300 py-3 text-center">
           <p className="text-xs text-slate-400">
             No items — press <span className="font-semibold">+</span> to add
           </p>
@@ -77,7 +77,7 @@ export const StringListInput = <T extends FieldValues>({
                 className={[
                   inputClass,
                   itemError
-                    ? 'border-rose-300 focus:border-rose-400 focus:ring-rose-100'
+                    ? 'border-rose-400 focus:border-rose-500 focus:ring-rose-100'
                     : '',
                 ]
                   .filter(Boolean)
@@ -86,7 +86,7 @@ export const StringListInput = <T extends FieldValues>({
               <button
                 type="button"
                 onClick={() => remove(index)}
-                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-slate-200 text-slate-400 transition hover:border-rose-200 hover:bg-rose-50 hover:text-rose-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-400"
+                className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg border border-zinc-200 text-zinc-400 transition hover:border-rose-300 hover:bg-rose-50 hover:text-rose-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400"
                 aria-label={`Remove item ${index + 1}`}
               >
                 ×

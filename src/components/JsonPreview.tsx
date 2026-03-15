@@ -12,7 +12,7 @@ type TokenType =
   | 'whitespace'
 
 const TOKEN_REGEX =
-  /("(?:\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(?:\s*:)?|\b(?:true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?|[{}[\],:]|\s+)/g
+  /("(?:\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(?:\s*:)?|\b(?:true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?|[{}[\],:]|\s+)/
 
 const classify = (val: string): TokenType => {
   if (/\s/.test(val)) return 'whitespace'
@@ -36,7 +36,7 @@ const colorMap: Record<TokenType, string> = {
 export const JsonPreview = ({ json }: Props) => {
   if (!json || json === '{}') {
     return (
-      <div className="flex items-center justify-center py-14 text-sm italic text-slate-600">
+      <div className="flex items-center justify-center py-14 text-sm italic text-zinc-400">
         Fill in fields to see output
       </div>
     )

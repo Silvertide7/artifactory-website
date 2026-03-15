@@ -24,17 +24,17 @@ export const AttunementLevelItem = ({
   const levelErrors = errors.attunement_levels?.[index]
 
   return (
-    <div className="rounded-lg border border-slate-200 bg-white">
+    <div className="rounded-lg border border-zinc-200 bg-white">
       {/* Header */}
-      <div className="flex items-center justify-between bg-slate-50 px-4 py-2.5">
+      <div className="flex items-center justify-between bg-zinc-50 px-4 py-2.5">
         <button
           type="button"
           onClick={() => setIsOpen((v) => !v)}
-          className="flex flex-1 items-center gap-2 text-left text-sm font-medium text-slate-700 hover:text-slate-900 focus-visible:outline-none"
+          className="flex flex-1 items-center gap-2 text-left text-sm font-medium text-zinc-700 hover:text-zinc-900 focus-visible:outline-none"
         >
           <svg
             className={[
-              'h-3 w-3 text-slate-400 transition-transform duration-200',
+              'h-3 w-3 text-zinc-400 transition-transform duration-200',
               isOpen ? 'rotate-90' : '',
             ].join(' ')}
             viewBox="0 0 6 10"
@@ -48,7 +48,7 @@ export const AttunementLevelItem = ({
         <button
           type="button"
           onClick={onRemove}
-          className="rounded px-2 py-1 text-xs text-slate-400 transition hover:bg-rose-50 hover:text-rose-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-400"
+          className="rounded px-2 py-1 text-xs text-zinc-400 transition hover:bg-rose-50 hover:text-rose-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-rose-400"
         >
           Remove
         </button>
@@ -62,17 +62,17 @@ export const AttunementLevelItem = ({
             control={control}
             name={`attunement_levels.${index}.modifications`}
             label="Modifications"
-            labelClassName="text-[11px] font-semibold uppercase tracking-widest text-slate-400"
+            labelClassName="text-[11px] font-semibold uppercase tracking-widest text-zinc-400"
             placeholder="e.g. invulnerable"
             hint={"Modifiers applied to the item when attuned.\n\nSimple flags:\ninvulnerable, unbreakable, soulbound\n\nAttribute format:\nattribute/modid:attribute_name/operation/value/slot\ne.g. attribute/minecraft:generic.attack_damage/add_value/5/mainhand\nDefault: none"}
           />
 
           {/* Requirements sub-section */}
           <div>
-            <p className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-slate-400">
+            <p className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-zinc-400">
               Requirements
             </p>
-            <div className="space-y-4 rounded-lg border border-slate-100 bg-slate-50/60 p-4">
+            <div className="space-y-4 rounded-lg border border-zinc-100 bg-zinc-50 p-4">
               <div className="grid gap-3 sm:grid-cols-2">
                 <FormField
                   label="XP Consumed"

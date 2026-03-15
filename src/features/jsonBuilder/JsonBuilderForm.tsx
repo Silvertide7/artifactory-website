@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm, useFieldArray } from 'react-hook-form'
 import { Button } from '../../components/Button'
@@ -31,6 +31,7 @@ export const JsonBuilderForm = () => {
     formState: { errors },
     reset,
     watch,
+    getValues,
   } = useForm<DataSourceFormValues>({
     defaultValues,
     resolver: zodResolver(dataSourceFormSchema),
@@ -41,25 +42,37 @@ export const JsonBuilderForm = () => {
   const { fields: levelFields, append: appendLevel, remove: removeLevel } =
     useFieldArray({ control, name: 'attunement_levels' })
 
+  // Stable output state — updated only when RHF detects an actual value change,
+  // avoiding recomputation on every unrelated re-render.
+  const [cleanOutput, setCleanOutput] = useState(() => toCleanOutput(getValues()))
+
+  useEffect(() => {
+    const { unsubscribe } = watch((values) => {
+      setCleanOutput(toCleanOutput(values as DataSourceFormValues))
+    })
+    return unsubscribe
+  }, [watch])
+
   useEffect(() => {
     return () => {
       if (copyTimeoutRef.current !== null) clearTimeout(copyTimeoutRef.current)
     }
   }, [])
 
-  const values = watch()
-  const cleanOutput = toCleanOutput(values)
-  const previewJson = toPrettyJson(cleanOutput)
+  const previewJson = useMemo(() => toPrettyJson(cleanOutput), [cleanOutput])
+
+  // Subscribe to just the one field used for derived display values.
+  const fileName = watch('file_name')
 
   const downloadFileName = (() => {
-    const raw = values.file_name.trim()
+    const raw = fileName.trim()
     if (!raw) return 'attunement-data.json'
     const afterColon = raw.split(':')[1]
     return `${afterColon ?? raw}.json`
   })()
 
   const placementPath = (() => {
-    const raw = values.file_name.trim()
+    const raw = fileName.trim()
     if (!raw) return null
     if (raw.includes(':')) {
       const [modId, itemName] = raw.split(':')
@@ -81,6 +94,7 @@ export const JsonBuilderForm = () => {
 
   const onReset = () => {
     reset(defaultValues)
+    setCleanOutput(toCleanOutput(defaultValues))
     setCopyState('idle')
   }
 
@@ -93,9 +107,9 @@ export const JsonBuilderForm = () => {
         noValidate
       >
         {/* Section: Item / Group */}
-        <section className="rounded-xl border border-slate-200 bg-white">
-          <div className="border-b border-slate-100 px-5 py-3">
-            <h2 className="text-[11px] font-semibold uppercase tracking-widest text-slate-400">
+        <section className="rounded-xl border border-zinc-200 bg-white">
+          <div className="border-b border-zinc-100 px-5 py-3">
+            <h2 className="text-[11px] font-semibold uppercase tracking-widest text-zinc-400">
               Minecraft Item or Group
             </h2>
           </div>
@@ -118,17 +132,17 @@ export const JsonBuilderForm = () => {
                 />
               )}
             </FormField>
-            {values.file_name.trim() && !errors.file_name && (
+            {fileName.trim() && !errors.file_name && (
               <div className="mt-2 space-y-0.5">
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-zinc-400">
                   Will download as{' '}
-                  <span className="font-mono font-medium text-slate-600">
+                  <span className="font-mono font-medium text-zinc-600">
                     {downloadFileName}
                   </span>
                 </p>
-                <p className="text-xs text-slate-400">
+                <p className="text-xs text-zinc-400">
                   Place in{' '}
-                  <span className="font-mono font-medium text-slate-600">
+                  <span className="font-mono font-medium text-zinc-600">
                     {placementPath}
                   </span>
                 </p>
@@ -138,9 +152,9 @@ export const JsonBuilderForm = () => {
         </section>
 
         {/* Section: Data Source Settings */}
-        <section className="rounded-xl border border-slate-200 bg-white">
-          <div className="border-b border-slate-100 px-5 py-3">
-            <h2 className="text-[11px] font-semibold uppercase tracking-widest text-slate-400">
+        <section className="rounded-xl border border-zinc-200 bg-white">
+          <div className="border-b border-zinc-100 px-5 py-3">
+            <h2 className="text-[11px] font-semibold uppercase tracking-widest text-zinc-400">
               Data Source Settings
             </h2>
           </div>
@@ -227,9 +241,9 @@ export const JsonBuilderForm = () => {
         </section>
 
         {/* Section: Apply to Items */}
-        <section className="rounded-xl border border-slate-200 bg-white">
-          <div className="border-b border-slate-100 px-5 py-3">
-            <h2 className="text-[11px] font-semibold uppercase tracking-widest text-slate-400">
+        <section className="rounded-xl border border-zinc-200 bg-white">
+          <div className="border-b border-zinc-100 px-5 py-3">
+            <h2 className="text-[11px] font-semibold uppercase tracking-widest text-zinc-400">
               Item Targets
             </h2>
           </div>
@@ -250,12 +264,12 @@ export const JsonBuilderForm = () => {
         </section>
 
         {/* Section: Attunement Levels */}
-        <section className="rounded-xl border border-slate-200 bg-white">
-          <div className="flex items-center justify-between border-b border-slate-100 px-5 py-3">
-            <h2 className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-widest text-slate-400">
+        <section className="rounded-xl border border-zinc-200 bg-white">
+          <div className="flex items-center justify-between border-b border-zinc-100 px-5 py-3">
+            <h2 className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-widest text-zinc-400">
               Attunement Levels
               {levelFields.length > 0 && (
-                <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-semibold text-slate-500">
+                <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] font-semibold text-zinc-500">
                   {levelFields.length}
                 </span>
               )}
@@ -263,7 +277,7 @@ export const JsonBuilderForm = () => {
             <button
               type="button"
               onClick={() => appendLevel(defaultLevel)}
-              className="flex h-7 w-7 items-center justify-center rounded-full bg-slate-900 text-white transition hover:bg-slate-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-slate-500"
+              className="flex h-7 w-7 items-center justify-center rounded-full bg-zinc-900 text-white transition hover:bg-zinc-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-500"
               aria-label="Add attunement level"
             >
               <span className="text-base leading-none">+</span>
@@ -272,10 +286,10 @@ export const JsonBuilderForm = () => {
 
           <div className="p-5">
             {levelFields.length === 0 ? (
-              <div className="rounded-lg border border-dashed border-slate-200 py-8 text-center">
-                <p className="text-sm text-slate-400">No attunement levels added</p>
-                <p className="mt-1 text-xs text-slate-400">
-                  Press <span className="font-semibold text-slate-600">+</span> to
+              <div className="rounded-lg border border-dashed border-zinc-300 py-8 text-center">
+                <p className="text-sm text-zinc-400">No attunement levels added</p>
+                <p className="mt-1 text-xs text-zinc-400">
+                  Press <span className="font-semibold text-zinc-600">+</span> to
                   add a level with requirements and modifications
                 </p>
               </div>
@@ -320,10 +334,10 @@ export const JsonBuilderForm = () => {
 
       {/* ── JSON Preview ── */}
       <div className="lg:col-span-2">
-        <div className="sticky top-20 rounded-xl border border-slate-700 bg-slate-900">
-          <div className="flex items-center justify-between border-b border-slate-700/60 px-4 py-3">
-            <h2 className="text-xs font-semibold text-slate-300">JSON Preview</h2>
-            <span className="rounded-full bg-slate-800 px-2 py-0.5 text-[10px] text-slate-500">
+        <div className="sticky top-20 rounded-xl border border-zinc-700 bg-zinc-900">
+          <div className="flex items-center justify-between border-b border-zinc-100/60 px-4 py-3">
+            <h2 className="text-xs font-semibold text-zinc-300">JSON Preview</h2>
+            <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-[10px] text-zinc-400">
               empty fields omitted
             </span>
           </div>

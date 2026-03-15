@@ -56,7 +56,14 @@ export const dataSourceFormSchema = z.object({
       val.trim() === '' || /^[a-z0-9_.-]+:[a-z0-9_./]+$/.test(val.trim()),
     { message: 'Format: modid:item_name — e.g. minecraft:diamond_sword' },
   ),
-  slots_used: optionalInt(-1),
+  slots_used: z.string().refine(
+    (val) => {
+      if (val.trim() === '') return true
+      const n = Number(val)
+      return Number.isInteger(n) && (n === -1 || n >= 1)
+    },
+    { message: 'Must be -1 (disabled) or a positive whole number' },
+  ),
   chance: optionalFloat(0, 1),
   use_without_attunement: z.enum(['', 'true', 'false']),
   replace: z.enum(['', 'true', 'false']),
