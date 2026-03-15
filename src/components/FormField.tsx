@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { Tooltip } from './Tooltip'
+import { ErrorMessage } from './ErrorMessage'
 
 type FormFieldProps = {
   label: string
@@ -28,12 +29,7 @@ export const FormField = ({
         {hint && <Tooltip content={hint} />}
       </label>
       {children(errorId)}
-      {error && (
-        <p id={errorId} role="alert" className="flex items-center gap-1 text-xs text-rose-500">
-          <span aria-hidden="true">⚠</span>
-          {error}
-        </p>
-      )}
+      {error && <ErrorMessage id={errorId} message={error} />}
     </div>
   )
 }

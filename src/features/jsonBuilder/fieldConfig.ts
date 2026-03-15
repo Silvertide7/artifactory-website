@@ -1,5 +1,8 @@
 import { z } from 'zod'
 
+const ITEM_ID_PATTERN = /^[a-z0-9_.-]+:[a-z0-9_./]+$/
+const ITEM_WITH_COUNT_PATTERN = /^[a-z0-9_.-]+:[a-z0-9_./]+(#\d+)?$/
+
 const optionalInt = (min: number) =>
   z.string().refine(
     (val) => {
@@ -23,9 +26,7 @@ const optionalFloat = (min: number, max: number) =>
 // modid:item_name with optional #count — used in requirements.items
 const itemWithCountSchema = z.object({
   value: z.string().refine(
-    (val) =>
-      val.trim() === '' ||
-      /^[a-z0-9_.-]+:[a-z0-9_./]+(#\d+)?$/.test(val.trim()),
+    (val) => val.trim() === '' || ITEM_WITH_COUNT_PATTERN.test(val.trim()),
     { message: 'Format: modid:item_name or modid:item_name#count' },
   ),
 })
@@ -33,8 +34,7 @@ const itemWithCountSchema = z.object({
 // modid:item_name only — used in apply_to_items
 const plainItemIdSchema = z.object({
   value: z.string().refine(
-    (val) =>
-      val.trim() === '' || /^[a-z0-9_.-]+:[a-z0-9_./]+$/.test(val.trim()),
+    (val) => val.trim() === '' || ITEM_ID_PATTERN.test(val.trim()),
     { message: 'Format: modid:item_name' },
   ),
 })
@@ -52,8 +52,7 @@ export const levelFormSchema = z.object({
 
 export const dataSourceFormSchema = z.object({
   file_name: z.string().refine(
-    (val) =>
-      val.trim() === '' || /^[a-z0-9_.-]+:[a-z0-9_./]+$/.test(val.trim()),
+    (val) => val.trim() === '' || ITEM_ID_PATTERN.test(val.trim()),
     { message: 'Format: modid:item_name — e.g. minecraft:diamond_sword' },
   ),
   slots_used: z.string().refine(

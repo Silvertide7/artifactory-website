@@ -5,7 +5,9 @@ import {
   type ArrayPath,
 } from 'react-hook-form'
 import { Tooltip } from './Tooltip'
+import { ErrorMessage } from './ErrorMessage'
 import { inputClass } from './inputStyles'
+import { cn } from '../utils/cn'
 
 type ItemError = { value?: { message?: string } } | undefined
 
@@ -36,11 +38,11 @@ export const StringListInput = <T extends FieldValues>({
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
-        <span className={`flex items-center gap-1.5 ${labelClassName}`}>
+        <span className={cn('flex items-center gap-1.5', labelClassName)}>
           {label}
           {hint && <Tooltip content={hint} />}
           {maxItems !== undefined && (
-            <span className="text-xs font-normal text-slate-400">
+            <span className="text-xs font-normal text-zinc-400">
               ({fields.length}/{maxItems})
             </span>
           )}
@@ -58,7 +60,7 @@ export const StringListInput = <T extends FieldValues>({
 
       {fields.length === 0 && (
         <div className="rounded-lg border border-dashed border-zinc-300 py-3 text-center dark:border-zinc-600">
-          <p className="text-xs text-slate-400">
+          <p className="text-xs text-zinc-400">
             No items — press <span className="font-semibold">+</span> to add
           </p>
         </div>
@@ -74,14 +76,11 @@ export const StringListInput = <T extends FieldValues>({
                 type="text"
                 placeholder={placeholder}
                 aria-invalid={itemError ? true : undefined}
-                className={[
+                className={cn(
                   inputClass,
-                  itemError
-                    ? 'border-rose-400 focus:border-rose-500 focus:ring-rose-100 dark:border-rose-700 dark:focus:ring-rose-950'
-                    : '',
-                ]
-                  .filter(Boolean)
-                  .join(' ')}
+                  itemError &&
+                    'border-rose-400 focus:border-rose-500 focus:ring-rose-100 dark:border-rose-700 dark:focus:ring-rose-950',
+                )}
               />
               <button
                 type="button"
@@ -92,12 +91,7 @@ export const StringListInput = <T extends FieldValues>({
                 ×
               </button>
             </div>
-            {itemError && (
-              <p className="flex items-center gap-1 text-xs text-rose-500">
-                <span aria-hidden="true">⚠</span>
-                {itemError}
-              </p>
-            )}
+            {itemError && <ErrorMessage message={itemError} />}
           </div>
         )
       })}

@@ -2,6 +2,23 @@ import type { DataSourceFormValues, RequirementsFormValues } from './fieldConfig
 
 export const toPrettyJson = (value: unknown) => JSON.stringify(value, null, 2)
 
+export const computeDownloadFileName = (fileName: string): string => {
+  const raw = fileName.trim()
+  if (!raw) return 'attunement-data.json'
+  const afterColon = raw.split(':')[1]
+  return `${afterColon ?? raw}.json`
+}
+
+export const computePlacementPath = (fileName: string): string | null => {
+  const raw = fileName.trim()
+  if (!raw) return null
+  if (raw.includes(':')) {
+    const [modId, itemName] = raw.split(':')
+    return `data/${modId}/artifactory/${itemName}.json`
+  }
+  return `data/<modid>/artifactory/${raw}.json`
+}
+
 export const copyJsonToClipboard = async (jsonValue: unknown) => {
   const text = toPrettyJson(jsonValue)
   await navigator.clipboard.writeText(text)

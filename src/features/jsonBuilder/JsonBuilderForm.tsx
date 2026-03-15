@@ -5,6 +5,7 @@ import { Button } from '../../components/Button'
 import { FormField } from '../../components/FormField'
 import { StringListInput } from '../../components/StringListInput'
 import { JsonPreview } from '../../components/JsonPreview'
+import { SectionHeader } from '../../components/SectionHeader'
 import { AttunementLevelItem } from './AttunementLevelItem'
 import {
   dataSourceFormSchema,
@@ -14,6 +15,8 @@ import {
 } from './fieldConfig'
 import {
   copyJsonToClipboard,
+  computeDownloadFileName,
+  computePlacementPath,
   downloadJsonFile,
   toCleanOutput,
   toPrettyJson,
@@ -64,22 +67,8 @@ export const JsonBuilderForm = () => {
   // Subscribe to just the one field used for derived display values.
   const fileName = watch('file_name')
 
-  const downloadFileName = (() => {
-    const raw = fileName.trim()
-    if (!raw) return 'attunement-data.json'
-    const afterColon = raw.split(':')[1]
-    return `${afterColon ?? raw}.json`
-  })()
-
-  const placementPath = (() => {
-    const raw = fileName.trim()
-    if (!raw) return null
-    if (raw.includes(':')) {
-      const [modId, itemName] = raw.split(':')
-      return `data/${modId}/artifactory/${itemName}.json`
-    }
-    return `data/<modid>/artifactory/${raw}.json`
-  })()
+  const downloadFileName = computeDownloadFileName(fileName)
+  const placementPath = computePlacementPath(fileName)
 
   const onCopy = async () => {
     try {
@@ -108,11 +97,7 @@ export const JsonBuilderForm = () => {
       >
         {/* Section: Item / Group */}
         <section className="rounded-xl border border-zinc-200 bg-white dark:border-zinc-600 dark:bg-zinc-700">
-          <div className="border-b border-zinc-100 dark:border-zinc-600 px-5 py-3">
-            <h2 className="text-[11px] font-semibold uppercase tracking-widest text-zinc-400 dark:text-zinc-400">
-              Minecraft Item or Group
-            </h2>
-          </div>
+          <SectionHeader title="Minecraft Item or Group" />
           <div className="p-5">
             <FormField
               label="Item ID"
@@ -134,13 +119,13 @@ export const JsonBuilderForm = () => {
             </FormField>
             {fileName.trim() && !errors.file_name && (
               <div className="mt-2 space-y-0.5">
-                <p className="text-xs text-zinc-400 dark:text-zinc-400">
+                <p className="text-xs text-zinc-400">
                   Will download as{' '}
                   <span className="font-mono font-medium text-zinc-600 dark:text-zinc-300">
                     {downloadFileName}
                   </span>
                 </p>
-                <p className="text-xs text-zinc-400 dark:text-zinc-400">
+                <p className="text-xs text-zinc-400">
                   Place in{' '}
                   <span className="font-mono font-medium text-zinc-600 dark:text-zinc-300">
                     {placementPath}
@@ -153,11 +138,7 @@ export const JsonBuilderForm = () => {
 
         {/* Section: Data Source Settings */}
         <section className="rounded-xl border border-zinc-200 bg-white dark:border-zinc-600 dark:bg-zinc-700">
-          <div className="border-b border-zinc-100 dark:border-zinc-600 px-5 py-3">
-            <h2 className="text-[11px] font-semibold uppercase tracking-widest text-zinc-400 dark:text-zinc-400">
-              Data Source Settings
-            </h2>
-          </div>
+          <SectionHeader title="Data Source Settings" />
           <div className="grid gap-4 p-5 sm:grid-cols-2">
             <FormField
               label="Slots Used"
@@ -242,11 +223,7 @@ export const JsonBuilderForm = () => {
 
         {/* Section: Apply to Items */}
         <section className="rounded-xl border border-zinc-200 bg-white dark:border-zinc-600 dark:bg-zinc-700">
-          <div className="border-b border-zinc-100 dark:border-zinc-600 px-5 py-3">
-            <h2 className="text-[11px] font-semibold uppercase tracking-widest text-zinc-400 dark:text-zinc-400">
-              Item Targets
-            </h2>
-          </div>
+          <SectionHeader title="Item Targets" />
           <div className="p-5">
             <StringListInput
               control={control}
@@ -265,30 +242,34 @@ export const JsonBuilderForm = () => {
 
         {/* Section: Attunement Levels */}
         <section className="rounded-xl border border-zinc-200 bg-white dark:border-zinc-600 dark:bg-zinc-700">
-          <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-600 px-5 py-3">
-            <h2 className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-widest text-zinc-400 dark:text-zinc-400">
-              Attunement Levels
-              {levelFields.length > 0 && (
-                <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] font-semibold text-zinc-500 dark:bg-zinc-600 dark:text-zinc-300">
-                  {levelFields.length}
-                </span>
-              )}
-            </h2>
-            <button
-              type="button"
-              onClick={() => appendLevel(defaultLevel)}
-              className="flex h-7 w-7 items-center justify-center rounded-full bg-zinc-900 text-white transition hover:bg-zinc-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-500 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white"
-              aria-label="Add attunement level"
-            >
-              <span className="text-base leading-none">+</span>
-            </button>
-          </div>
+          <SectionHeader
+            title={
+              <>
+                Attunement Levels
+                {levelFields.length > 0 && (
+                  <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] font-semibold text-zinc-500 dark:bg-zinc-600 dark:text-zinc-300">
+                    {levelFields.length}
+                  </span>
+                )}
+              </>
+            }
+            action={
+              <button
+                type="button"
+                onClick={() => appendLevel(defaultLevel)}
+                className="flex h-7 w-7 items-center justify-center rounded-full bg-zinc-900 text-white transition hover:bg-zinc-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-500 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white"
+                aria-label="Add attunement level"
+              >
+                <span className="text-base leading-none">+</span>
+              </button>
+            }
+          />
 
           <div className="p-5">
             {levelFields.length === 0 ? (
               <div className="rounded-lg border border-dashed border-zinc-300 py-8 text-center dark:border-zinc-600">
-                <p className="text-sm text-zinc-400 dark:text-zinc-400">No attunement levels added</p>
-                <p className="mt-1 text-xs text-zinc-400 dark:text-zinc-400">
+                <p className="text-sm text-zinc-400">No attunement levels added</p>
+                <p className="mt-1 text-xs text-zinc-400">
                   Press <span className="font-semibold text-zinc-600 dark:text-zinc-300">+</span> to
                   add a level with requirements and modifications
                 </p>
@@ -337,7 +318,7 @@ export const JsonBuilderForm = () => {
         <div className="sticky top-20 rounded-xl border border-zinc-700 bg-zinc-900">
           <div className="flex items-center justify-between border-b border-zinc-100 dark:border-zinc-600/60 px-4 py-3">
             <h2 className="text-xs font-semibold text-zinc-300">JSON Preview</h2>
-            <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-[10px] text-zinc-400 dark:text-zinc-400">
+            <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-[10px] text-zinc-400">
               empty fields omitted
             </span>
           </div>

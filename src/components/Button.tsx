@@ -1,4 +1,5 @@
 import type { ButtonHTMLAttributes, PropsWithChildren } from 'react'
+import { cn } from '../utils/cn'
 
 type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'danger'
 type ButtonSize = 'sm' | 'md'
@@ -28,22 +29,20 @@ const sizeClasses: Record<ButtonSize, string> = {
 
 export const Button = ({
   children,
-  className = '',
+  className,
   variant = 'primary',
   size = 'md',
   ...props
 }: ButtonProps) => (
   <button
-    className={[
+    className={cn(
       'inline-flex items-center justify-center gap-1.5 rounded-lg font-medium transition',
       'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2',
       'disabled:cursor-not-allowed disabled:opacity-50',
       variantClasses[variant],
       sizeClasses[size],
       className,
-    ]
-      .filter(Boolean)
-      .join(' ')}
+    )}
     {...props}
   >
     {children}
