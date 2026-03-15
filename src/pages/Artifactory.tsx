@@ -80,36 +80,67 @@ export const Artifactory = () => (
 
     {/* ── Hero ── */}
     <div className="space-y-5">
-      <div className="flex items-center gap-5">
-        <img
-          src="/artifactory-logo.png"
-          alt="Artifactory Nexus"
-          className="h-20 w-20 shrink-0 object-contain drop-shadow-md"
-        />
-        <div>
+      <div className="flex items-center justify-between gap-5">
+        <div className="flex items-center gap-5">
           <img
-            src="/artifactory-title.png"
-            alt="Artifactory"
-            className="h-10 object-contain object-left"
+            src="/artifactory-logo.png"
+            alt="Artifactory Nexus"
+            className="h-10 w-10 shrink-0 object-contain drop-shadow-md"
           />
-          <div className="mt-2 flex flex-wrap gap-2">
-            {['Forge', 'NeoForge', 'Data-Driven'].map((tag) => (
-              <span
-                key={tag}
-                className="rounded-full bg-zinc-100 px-2.5 py-0.5 text-[11px] font-medium text-zinc-500 dark:bg-zinc-600 dark:text-zinc-300"
-              >
-                {tag}
-              </span>
-            ))}
+          <div>
+            <img
+              src="/artifactory-title.png"
+              alt="Artifactory"
+              className="h-3 object-contain object-left"
+            />
+            <div className="mt-2 flex flex-wrap gap-2">
+              {['Forge', 'NeoForge', 'Data-Driven'].map((tag) => (
+                <span
+                  key={tag}
+                  className="rounded-full bg-zinc-100 px-2.5 py-0.5 text-[11px] font-medium text-zinc-500 dark:bg-zinc-600 dark:text-zinc-300"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
           </div>
         </div>
+
+        {tools.map((tool) => (
+          <Link
+            key={tool.path}
+            to={tool.path}
+            className="group flex shrink-0 items-center gap-2.5 rounded-xl border border-zinc-200 bg-white px-4 py-3 shadow-sm transition hover:border-zinc-300 hover:shadow-md dark:border-zinc-600 dark:bg-zinc-700 dark:hover:border-zinc-500"
+          >
+            <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-zinc-100 text-zinc-600 transition group-hover:bg-zinc-900 group-hover:text-white dark:bg-zinc-600 dark:text-zinc-300 dark:group-hover:bg-zinc-100 dark:group-hover:text-zinc-900">
+              {tool.icon}
+            </span>
+            <span className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
+              {tool.label}
+            </span>
+            <svg
+              className="h-3.5 w-3.5 text-zinc-400 transition-transform group-hover:translate-x-0.5 group-hover:text-zinc-700 dark:group-hover:text-zinc-200"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M3 8h10M9 4l4 4-4 4" />
+            </svg>
+          </Link>
+        ))}
       </div>
 
-      <img
-        src={IMG.banner}
-        alt="Artifactory"
-        className="w-full rounded-xl object-cover shadow-sm"
-      />
+      <div className="flex justify-center">
+        <img
+          src={IMG.banner}
+          alt="Artifactory"
+          className="max-w-sm rounded-xl object-contain shadow-sm"
+        />
+      </div>
     </div>
 
     {/* ── Overview ── */}
@@ -797,47 +828,5 @@ export const Artifactory = () => (
       </div>
     </Card>
 
-    {/* ── Tools ── */}
-    <div>
-      <h2 className="mb-4 text-[11px] font-semibold uppercase tracking-widest text-zinc-400">
-        Tools
-      </h2>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {tools.map((tool) => (
-          <Link
-            key={tool.path}
-            to={tool.path}
-            className="group flex flex-col gap-3 rounded-xl border border-zinc-200 bg-white p-5 shadow-sm transition hover:border-zinc-300 hover:shadow-md dark:border-zinc-600 dark:bg-zinc-700 dark:hover:border-zinc-500"
-          >
-            <div className="flex items-center gap-2.5">
-              <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-zinc-100 text-zinc-600 transition group-hover:bg-zinc-900 group-hover:text-white dark:bg-zinc-600 dark:text-zinc-300 dark:group-hover:bg-zinc-100 dark:group-hover:text-zinc-900">
-                {tool.icon}
-              </span>
-              <span className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
-                {tool.label}
-              </span>
-            </div>
-            <p className="text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
-              {tool.description}
-            </p>
-            <div className="mt-auto flex items-center gap-1 text-xs font-medium text-zinc-500 transition group-hover:text-zinc-800 dark:group-hover:text-zinc-200">
-              Open tool
-              <svg
-                className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
-                viewBox="0 0 16 16"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M3 8h10M9 4l4 4-4 4" />
-              </svg>
-            </div>
-          </Link>
-        ))}
-      </div>
-    </div>
   </div>
 )

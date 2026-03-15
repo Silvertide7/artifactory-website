@@ -3,7 +3,8 @@
     "allow": [
       "Bash(find /Users/nate/Workspace/personal/artifactory-site -maxdepth 2 -type f -name \"package.json\" -o -name \"README.md\" -o -name \"CLAUDE.md\" -o -name \".cursorrules\" -o -name \"Makefile\" -o -name \"*.config.js\" 2>/dev/null | head -20)",
       "Bash(npm run:*)",
-      "WebFetch(domain:www.curseforge.com)"
+      "WebFetch(domain:www.curseforge.com)",
+      "mcp__ide__getDiagnostics"
     ]
   }
 }

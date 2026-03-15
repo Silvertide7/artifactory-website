@@ -50,6 +50,7 @@ export const JsonBuilderForm = () => {
   const [cleanOutput, setCleanOutput] = useState(() => toCleanOutput(getValues()))
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/incompatible-library
     const { unsubscribe } = watch((values) => {
       setCleanOutput(toCleanOutput(values as DataSourceFormValues))
     })
