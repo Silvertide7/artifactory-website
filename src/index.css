@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 @import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,400;0,14..32,500;0,14..32,600;1,14..32,400&display=swap");
 
 body {
@@ -13,6 +14,27 @@ body {
 
 select {
   color-scheme: light;
+}
+
+.dark select {
+  color-scheme: dark;
+}
+
+.dark body {
+  background: #27272a;
+  color: #f4f4f5;
+}
+
+.dark .overflow-auto {
+  scrollbar-color: #3f3f46 transparent;
+}
+
+.dark .overflow-auto::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+}
+
+.dark .overflow-auto::-webkit-scrollbar-thumb:hover {
+  background: #52525b;
 }
 
 /* Thin custom scrollbars for the JSON preview */

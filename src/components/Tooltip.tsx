@@ -8,7 +8,7 @@ export const Tooltip = ({ content }: TooltipProps) => (
       type="button"
       aria-label={`Info: ${content}`}
       title={content}
-      className="flex h-4 w-4 cursor-help select-none items-center justify-center rounded-full text-[10px] font-bold text-zinc-400 ring-1 ring-zinc-300 transition hover:text-zinc-600 hover:ring-zinc-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-zinc-400"
+      className="flex h-4 w-4 cursor-help select-none items-center justify-center rounded-full text-[10px] font-bold text-zinc-400 ring-1 ring-zinc-300 transition hover:text-zinc-600 hover:ring-zinc-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-zinc-400 dark:ring-zinc-600 dark:hover:text-zinc-300 dark:hover:ring-zinc-500"
     >
       i
     </button>
