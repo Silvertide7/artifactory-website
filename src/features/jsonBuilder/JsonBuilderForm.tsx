@@ -286,7 +286,7 @@ export const JsonBuilderForm = () => {
 
           <div className="p-5">
             {levelFields.length === 0 ? (
-              <div className="rounded-lg border border-dashed border-zinc-300 py-8 text-center">
+              <div className="rounded-lg border border-dashed border-zinc-300 py-8 text-center dark:border-zinc-600">
                 <p className="text-sm text-zinc-400 dark:text-zinc-400">No attunement levels added</p>
                 <p className="mt-1 text-xs text-zinc-400 dark:text-zinc-400">
                   Press <span className="font-semibold text-zinc-600">+</span> to
