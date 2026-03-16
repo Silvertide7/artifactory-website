@@ -15,6 +15,10 @@ This project is a React SPA for generating JSON data files consumed by the Artif
 - `react-hook-form` + `zod` for form state and validation
 - No additional runtime dependencies without discussion
 
+## Writing Standards
+
+- Do not use em dashes (—) in UI copy or documentation. Use commas, semicolons, colons, or parentheses instead.
+
 ## Code Standards
 
 **TypeScript**

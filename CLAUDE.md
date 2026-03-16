@@ -39,3 +39,7 @@ This is a React + TypeScript + Vite SPA — an "Attunement Data Source Config Ge
 | `src/components/inputStyles.ts` | Shared Tailwind class strings for inputs/selects |
 
 When changing the data model, update `fieldConfig.ts` first (schema + defaults), then propagate to the form and output serializer.
+
+## Writing Standards
+
+Do not use em dashes (—) in UI copy or documentation. Use commas, semicolons, colons, or parentheses instead.

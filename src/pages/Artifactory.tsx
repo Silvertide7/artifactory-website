@@ -100,9 +100,9 @@ export const Artifactory = () => {
           {activeTab === "overview" && (
             <div className="space-y-5 p-6">
               <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
-                A D&D-style attunement system for Minecraft — fully data-driven
-                and built for modpack makers who want deeper item progression
-                and balance.
+                A fully data-driven, D&amp;D-style attunement system for Minecraft
+                built for modpack makers who want deeper item progression and
+                balance.
               </p>
 
               <div className="grid gap-3 sm:grid-cols-3">
@@ -138,14 +138,14 @@ export const Artifactory = () => {
 
               <div className="grid gap-2.5 sm:grid-cols-2">
                 {[
-                  "Entirely data-driven — almost everything is configurable",
-                  "Default vanilla datapack included — enable it on world creation",
+                  "Entirely data-driven; almost everything is configurable",
+                  "Default vanilla datapack included, enabled on world creation",
                   "Protect attuned items from despawning and environmental damage",
                   "Unlock Invulnerable, Unbreakable, and Soulbound modifications",
                   "Only the bonded player can use their attuned items",
                   "Lock powerful items behind attunement requirements",
                   "Apply custom effects to players holding someone else's attuned item",
-                  "Curios compatibility — works alongside all other mods",
+                  "Curios compatible, works alongside all other mods",
                 ].map((feature) => (
                   <div
                     key={feature}
@@ -208,8 +208,8 @@ export const Artifactory = () => {
                       content: (
                         <>
                           Adds 40% more attack speed and makes the item{" "}
-                          <Mod name="Soulbound" color="amber" /> — it travels
-                          with you through death and respawns on your body.
+                          <Mod name="Soulbound" color="amber" />, traveling
+                          with you through death and respawning on your body.
                         </>
                       ),
                     },
@@ -259,7 +259,7 @@ export const Artifactory = () => {
                 </p>
                 <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Each attunement level grants modifications and attribute
-                  bonuses to the item. Benefits are cumulative — a level 3 item
+                  bonuses to the item. Benefits are cumulative; a level 3 item
                   retains everything granted at levels 1 and 2. Placing an
                   attuned item back into the Nexus re-syncs all modifications,
                   so datapack changes take effect immediately.
@@ -300,25 +300,13 @@ export const Artifactory = () => {
                   ))}
                 </div>
                 <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
-                  Any attribute — including those added by other mods — can be
+                  Any attribute, including those added by other mods, can be
                   applied at each attunement level using the format:{" "}
                   <code className="font-mono text-xs">
                     attribute/modid:name/operation/value/slot
                   </code>
                   . See the Configuration tab for the full reference.
                 </p>
-                <div className="flex justify-center">
-                  <figure className="space-y-2">
-                    <img
-                      src={IMG.level2Tooltip}
-                      alt="Level 2 attuned diamond sword tooltip"
-                      className="rounded-lg border border-zinc-200 dark:border-zinc-600"
-                    />
-                    <figcaption className="text-center text-xs text-zinc-400">
-                      A level 2 attuned diamond sword
-                    </figcaption>
-                  </figure>
-                </div>
               </div>
 
               <Divider />
@@ -330,7 +318,7 @@ export const Artifactory = () => {
                 </p>
                 <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Items can be configured to require attunement before they can
-                  be used at all — no damage, no block breaking, no drawing a
+                  be used at all: no damage, no block breaking, no drawing a
                   bow, nothing. This lets modpack makers lock powerful items
                   behind meaningful progression gates.
                 </p>
@@ -338,7 +326,7 @@ export const Artifactory = () => {
                   Once attuned, an item shows complete allegiance to its owner.
                   Other players cannot use it in any capacity. You can also
                   configure effects that are applied to players who attempt to
-                  hold an item that doesn't belong to them — slowness, poison,
+                  hold an item that doesn't belong to them: slowness, poison,
                   wither, or anything you choose.
                 </p>
               </div>
@@ -356,7 +344,7 @@ export const Artifactory = () => {
                     Attuned Item
                   </strong>{" "}
                   slot is added. Only items you are attuned to can be placed
-                  here — use it to store attuned items you aren't actively using
+                  here; use it to store attuned items you aren't actively using
                   for quick swapping. <Mod name="Soulbound" color="amber" />{" "}
                   items will stay in this slot on death.
                 </p>
@@ -386,11 +374,11 @@ export const Artifactory = () => {
                     },
                     {
                       title: "Limit overpowered modded items",
-                      desc: "Many mods add items that are very powerful but trivialize the game. Use attunement slots to force players to choose — more weaker items or fewer powerful ones. Pairs great with mythic weapons from Simply Swords.",
+                      desc: "Many mods add items that are very powerful but trivialize the game. Use attunement slots to force players to choose: more weaker items or fewer powerful ones. Pairs great with mythic weapons from Simply Swords.",
                     },
                     {
                       title: "Give lower-tier items new life",
-                      desc: "Instead of discarding an iron sword for a diamond one, players can attune it and gain special benefits as the bond grows — unbreakable, attack bonuses, soulbound. A well-attuned iron sword can compete with unenchanted higher-tier gear, creating a richer item economy.",
+                      desc: "Instead of discarding an iron sword for a diamond one, players can attune it and gain special benefits as the bond grows: unbreakable, attack bonuses, soulbound. A well-attuned iron sword can compete with unenchanted higher-tier gear, creating a richer item economy.",
                     },
                   ].map(({ title, desc }) => (
                     <div key={title} className="flex gap-3">
@@ -423,7 +411,7 @@ export const Artifactory = () => {
                 <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Once an item is configured to be attuneable, it shows how many
                   attunement slots it will reserve. If the item has a chance of
-                  being attunable (e.g. 40%) that percentage is displayed —
+                  being attunable (e.g. 40%) that percentage is displayed,
                   determined the first time you place it in the Nexus. If
                   attunement is required before use, the item cannot deal
                   damage, break blocks, or be used in any capacity until
@@ -434,7 +422,7 @@ export const Artifactory = () => {
                     <img
                       src={IMG.unattunedSword}
                       alt="Unattuned diamond sword tooltip showing 'Attunable (2 slots)'"
-                      className="rounded-lg border border-zinc-200 dark:border-zinc-600"
+                      className="mx-auto w-1/2 rounded-lg border border-zinc-200 dark:border-zinc-600"
                     />
                     <figcaption className="text-center text-xs text-zinc-400">
                       An attunable item before bonding
@@ -474,7 +462,7 @@ export const Artifactory = () => {
                 <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Place an attunable item in the center slot to see its details
                   and requirements. If you meet all requirements, you can start
-                  the attunement process — which will consume any required XP
+                  the attunement process, which will consume any required XP
                   levels and items then bond the item to you.
                 </p>
                 <div className="flex justify-center">
@@ -486,9 +474,6 @@ export const Artifactory = () => {
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2">
                   <div className="space-y-2">
-                    <p className="text-xs font-semibold text-sky-500 dark:text-sky-400">
-                      Shown in blue
-                    </p>
                     <ul className="space-y-1.5">
                       {[
                         'Attunement level (or "Not yet attuned")',
@@ -508,15 +493,12 @@ export const Artifactory = () => {
                     </ul>
                   </div>
                   <div className="space-y-2">
-                    <p className="text-xs font-semibold text-rose-500 dark:text-rose-400">
-                      Shown in red
-                    </p>
                     <ul className="space-y-1.5">
                       {[
                         "XP levels consumed on attunement",
                         "XP threshold required to start",
                         "Items required to attune",
-                        "Red icon — hover for details on blockers",
+                        "Red (i) icon, hover for details on blockers",
                       ].map((item) => (
                         <li
                           key={item}
@@ -602,7 +584,7 @@ export const Artifactory = () => {
               {/* Example JSON */}
               <div className="space-y-2">
                 <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
-                  Example — diamond_sword.json (1.21.1)
+                  Example: diamond_sword.json (1.21.1)
                 </p>
                 <pre className="overflow-x-auto rounded-lg bg-zinc-900 p-4 font-mono text-xs leading-relaxed text-zinc-300">{`{
   "slots_used": 4,
@@ -634,8 +616,22 @@ export const Artifactory = () => {
     }
   ]
 }`}</pre>
+                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                  Here is what that looks like once attuned in game:
+                </p>
               </div>
-
+              <div className="flex justify-center">
+                <figure className="space-y-2">
+                  <img
+                    src={IMG.level2Tooltip}
+                    alt="Level 2 attuned diamond sword tooltip"
+                    className="rounded-lg border border-zinc-200 dark:border-zinc-600"
+                  />
+                  <figcaption className="text-center text-xs text-zinc-400">
+                    A level 2 attuned diamond sword
+                  </figcaption>
+                </figure>
+              </div>
               {/* Field reference */}
               <div className="space-y-3">
                 <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
@@ -646,12 +642,12 @@ export const Artifactory = () => {
                     {
                       field: "slots_used",
                       default: "-1",
-                      desc: "Attunement slots reserved when the item is attuned. Omitting or setting -1 disables attunement for this item — use this to remove an existing config from another datapack.",
+                      desc: "Attunement slots reserved when the item is attuned. Omitting or setting -1 disables attunement for this item; use this to remove an existing config from another datapack.",
                     },
                     {
                       field: "use_without_attunement",
                       default: "true",
-                      desc: "Whether the item can be used before attuning. false locks all use — no damage, no block breaking, no item use — until attuned.",
+                      desc: "Whether the item can be used before attuning. false locks all use (no damage, no block breaking, no item use) until attuned.",
                     },
                     {
                       field: "chance",
