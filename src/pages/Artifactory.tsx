@@ -100,9 +100,9 @@ export const Artifactory = () => {
           {activeTab === "overview" && (
             <div className="space-y-5 p-6">
               <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
-                A fully data-driven, D&amp;D-style attunement system for Minecraft
-                built for modpack makers who want deeper item progression and
-                balance.
+                A fully data-driven, D&amp;D-style attunement system for
+                Minecraft built for modpack makers who want deeper item
+                progression and balance.
               </p>
 
               <div className="grid gap-3 sm:grid-cols-3">
@@ -208,8 +208,8 @@ export const Artifactory = () => {
                       content: (
                         <>
                           Adds 40% more attack speed and makes the item{" "}
-                          <Mod name="Soulbound" color="amber" />, traveling
-                          with you through death and respawning on your body.
+                          <Mod name="Soulbound" color="amber" />, traveling with
+                          you through death and respawning on your body.
                         </>
                       ),
                     },
@@ -577,8 +577,8 @@ export const Artifactory = () => {
                 <code className="rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-xs dark:bg-zinc-600">
                   data/&lt;modid&gt;/artifactory/&lt;item_name&gt;.json
                 </code>
-                . Use the JSON Builder tool (top right) to generate files with
-                live validation and preview.
+                . Use the JSON Builder tool (link on the right) to generate
+                files with live validation and preview.
               </p>
 
               {/* Example JSON */}
