@@ -68,8 +68,9 @@ export const Artifactory = () => {
         />
       </div>
 
-      {/* ── Main layout: tabbed card + JSON Builder sidebar ── */}
-      <div className="grid gap-6 lg:grid-cols-[1fr_220px]">
+      {/* ── Main layout: centered card with floating JSON Builder ── */}
+      <div className="grid xl:grid-cols-[1fr_42rem_1fr]">
+        <div className="hidden xl:block" />
         <Card>
           {/* Tab bar */}
           <div className="flex gap-1.5 border-b border-zinc-100 bg-zinc-50 px-4 py-3 dark:border-zinc-600 dark:bg-zinc-800/40">
@@ -797,7 +798,8 @@ export const Artifactory = () => {
         </Card>
 
         {/* JSON Builder sidebar */}
-        <div className="lg:sticky lg:top-20 lg:self-start">
+        <div className="hidden xl:block pl-6 pt-0">
+          <div className="sticky top-20">
           <Link
             to="/artifactory/json-builder"
             className="group flex flex-col gap-3 rounded-xl border border-zinc-200 bg-white p-5 shadow-sm transition hover:border-zinc-300 hover:shadow-md dark:border-zinc-600 dark:bg-zinc-700 dark:hover:border-zinc-500"
@@ -843,8 +845,11 @@ export const Artifactory = () => {
               </svg>
             </div>
           </Link>
+          </div>
         </div>
       </div>
     </div>
   );
 };
+
+
