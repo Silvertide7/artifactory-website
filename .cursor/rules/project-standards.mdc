@@ -9,11 +9,66 @@ alwaysApply: true
 
 This project is a React SPA for generating JSON data files consumed by the Artifactory Minecraft mod. All JSON output must match the mod's codec schemas exactly.
 
+## Mod Reference Docs
+
+The `existing_markdown/` folder contains markdown exports of the CurseForge mod pages. These are the authoritative source of truth for mod behavior, configuration fields, and feature descriptions. Always consult these files when working on mod-related content or UI copy.
+
+| File | Mod |
+|---|---|
+| `existing_markdown/artifactory.md` | Artifactory |
+| `existing_markdown/homebound.md` | Homebound |
+
+## Commands
+
+```bash
+npm run dev       # Start dev server with HMR
+npm run build     # Type-check + production build (tsc -b && vite build)
+npm run lint      # ESLint
+npm run preview   # Preview production build
+```
+
+No test suite is configured.
+
 ## Stack
-- Vite + React 19 + TypeScript (strict mode)
+- Vite 8 + React 19 + TypeScript 5 (strict mode)
 - Tailwind CSS v4 via `@tailwindcss/postcss`
 - `react-hook-form` + `zod` for form state and validation
+- `react-router-dom` v7 for client-side routing
 - No additional runtime dependencies without discussion
+
+## Architecture
+
+The app is an "Attunement Data Source Config Generator" that produces Artifactory mod configuration JSON. It is a multi-page SPA with the following routes under a shared `Layout`:
+
+| Route | Page |
+|---|---|
+| `/` | `Home` — mod card grid |
+| `/artifactory` | `Artifactory` — tabbed mod reference page |
+| `/artifactory/json-builder` | `JsonBuilder` — form wrapper |
+
+### Data flow
+
+1. `App.tsx` sets up routing and renders `Layout` with an `<Outlet />`
+2. `JsonBuilderForm` (`src/features/jsonBuilder/`) owns all form state via `react-hook-form` with a Zod resolver
+3. Nested attunement levels are managed as field arrays; each level is rendered by `AttunementLevelItem`
+4. `output.ts` serializes form state to clean JSON (omits empty/nullish fields) and handles clipboard copy and file download
+5. `JsonPreview` renders syntax-highlighted live JSON output
+
+### Key files
+
+| File | Role |
+|---|---|
+| `src/features/jsonBuilder/fieldConfig.ts` | Zod schemas and default values — source of truth for the data model |
+| `src/features/jsonBuilder/JsonBuilderForm.tsx` | Main form orchestration, validation, layout |
+| `src/features/jsonBuilder/AttunementLevelItem.tsx` | Collapsible per-level editor (nested field arrays) |
+| `src/features/jsonBuilder/output.ts` | JSON transformation, clipboard/download utilities, path helpers |
+| `src/components/` | Shared UI primitives: `Button`, `FormField`, `StringListInput`, `JsonPreview`, `Tooltip`, `SectionHeader`, `Breadcrumb`, `Layout` |
+| `src/components/inputStyles.ts` | Shared Tailwind class strings for inputs/selects |
+| `src/pages/Artifactory.tsx` | Tabbed mod reference page (Overview, Getting Started, Configuration, FAQ) |
+| `src/hooks/useTheme.ts` | Persists light/dark mode to `localStorage` |
+| `src/utils/cn.ts` | Minimal `cn()` class-merging utility |
+
+**When changing the data model**, update `fieldConfig.ts` first (schema + defaults), then propagate to the form and output serializer.
 
 ## Writing Standards
 
@@ -44,7 +99,10 @@ This project is a React SPA for generating JSON data files consumed by the Artif
 ## File Structure
 ```
 src/
-  components/       # Shared UI primitives (Button, FormField, StringListInput)
+  components/       # Shared UI primitives (Button, FormField, StringListInput, etc.)
   features/
     jsonBuilder/    # All codec-specific form logic and output
+  hooks/            # App-level hooks (useTheme)
+  pages/            # Route-level page components (Home, Artifactory, JsonBuilder)
+  utils/            # Utility functions (cn)
 ```
