@@ -1,6 +1,17 @@
 import { Link } from 'react-router-dom'
 
-const mods = [
+type Mod = {
+  path: string
+  titleAlt: string
+  description: string
+  tags: string[]
+  logo?: string
+  title?: string
+  name?: string
+  centerTitle?: boolean
+}
+
+const mods: Mod[] = [
   {
     path: '/artifactory',
     logo: '/artifactory-logo.png',
@@ -8,7 +19,17 @@ const mods = [
     titleAlt: 'Artifactory',
     description:
       'A data-driven attunement system for Minecraft. Bind items to their wielder through configurable requirements, unlock powerful modifications, and create deep progression for any item in the game.',
-    tags: ['Forge', 'NeoForge', 'Data-Driven'],
+    tags: ['Forge 1.20.1', 'NeoForge 1.21.1'],
+  },
+  {
+    path: '/homebound',
+    title:
+      'https://media.forgecdn.net/attachments/description/911135/description_40385b95-a4b6-4aa2-91d6-fe7f1b4099ba.png',
+    titleAlt: 'Homebound',
+    centerTitle: true,
+    description:
+      'Items that let you set a home and teleport there without trivializing transportation and danger in Minecraft. Fully configurable cooldowns, distance restrictions, and dimensional travel rules.',
+    tags: ['Forge 1.20.1', 'NeoForge 1.21.1'],
   },
 ]
 
@@ -31,8 +52,18 @@ export const Home = () => (
           className="group flex flex-col rounded-xl border border-zinc-200 bg-white p-6 shadow-sm transition hover:border-zinc-300 hover:shadow-md dark:border-zinc-600 dark:bg-zinc-700 dark:hover:border-zinc-500"
         >
           <div className="mb-4 flex items-center gap-3">
-            <img src={mod.logo} alt={mod.titleAlt} className="h-12 w-12 shrink-0 object-contain drop-shadow-sm" />
-            <img src={mod.title} alt={mod.titleAlt} className="h-7 object-contain object-left" />
+            {mod.logo && (
+              <img src={mod.logo} alt={mod.titleAlt} className="h-12 w-12 shrink-0 object-contain drop-shadow-sm" />
+            )}
+            <div className="min-w-0 flex-1">
+              {mod.title ? (
+                <img src={mod.title} alt={mod.titleAlt} className={`h-10 w-full object-contain ${mod.centerTitle ? 'object-center' : 'object-left'}`} />
+              ) : (
+                <span className="text-xl font-bold text-zinc-800 dark:text-zinc-100">
+                  {mod.name ?? mod.titleAlt}
+                </span>
+              )}
+            </div>
           </div>
 
           <p className="flex-1 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">

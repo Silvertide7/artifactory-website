@@ -3,6 +3,7 @@ import { Layout } from './components/Layout'
 import { Home } from './pages/Home'
 import { Artifactory } from './pages/Artifactory'
 import { JsonBuilder } from './pages/JsonBuilder'
+import { Homebound } from './pages/Homebound'
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="artifactory" element={<Artifactory />} />
           <Route path="artifactory/json-builder" element={<JsonBuilder />} />
+          <Route path="homebound" element={<Homebound />} />
         </Route>
       </Routes>
     </BrowserRouter>
