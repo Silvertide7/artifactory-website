@@ -112,7 +112,7 @@ export const JsonBuilderForm = () => {
               htmlFor="file_name"
               error={errors.file_name?.message}
               hint={
-                "The item this config targets. Sets the download filename — mod ID prefix is stripped automatically.\n\nIf using Apply to Items, use a descriptive group name instead since the filename is ignored by the game.\ne.g. minecraft:swords"
+                "The item this config targets. Sets the download filename (mod ID prefix is stripped automatically).\n\nIf using Apply to Items, use a descriptive group name instead since the filename is ignored by the game.\ne.g. minecraft:swords"
               }
             >
               {(errorId) => (
@@ -176,7 +176,7 @@ export const JsonBuilderForm = () => {
               htmlFor="use_without_attunement"
               error={errors.use_without_attunement?.message}
               hint={
-                "Controls whether the item works before attuning.\n\ntrue — works normally, attuning adds bonuses.\nfalse — item is locked until attuned.\nDefault: true"
+                "Controls whether the item works before attuning.\n\ntrue: works normally, attuning adds bonuses.\nfalse: item is locked until attuned.\nDefault: true"
               }
             >
               {(errorId) => (
@@ -186,7 +186,7 @@ export const JsonBuilderForm = () => {
                   className={selectClass}
                   {...register("use_without_attunement")}
                 >
-                  <option value="">— not set —</option>
+                  <option value="">not set</option>
                   <option value="true">true</option>
                   <option value="false">false</option>
                 </select>
@@ -198,7 +198,7 @@ export const JsonBuilderForm = () => {
               htmlFor="replace"
               error={errors.replace?.message}
               hint={
-                "Overrides any existing config from other datapacks.\n\ntrue — this config wins over others.\nRecommended when building modpack configs.\nDefault: false"
+                "Overrides any existing config from other datapacks.\n\ntrue: this config wins over others.\nRecommended when building modpack configs.\nDefault: false"
               }
             >
               {(errorId) => (
@@ -208,7 +208,7 @@ export const JsonBuilderForm = () => {
                   className={selectClass}
                   {...register("replace")}
                 >
-                  <option value="">— not set —</option>
+                  <option value="">not set</option>
                   <option value="true">true</option>
                   <option value="false">false</option>
                 </select>

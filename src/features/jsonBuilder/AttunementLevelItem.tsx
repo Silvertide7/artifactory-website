@@ -103,7 +103,7 @@ export const AttunementLevelItem = ({
                   label="XP Threshold"
                   htmlFor={`attunement_levels.${index}.requirements.xp_level_threshold`}
                   error={levelErrors?.requirements?.xp_level_threshold?.message}
-                  hint={"Minimum XP level required to begin attunement.\n\nActs as a gate — levels are not consumed.\nDefault: -1 (no threshold)"}
+                  hint={"Minimum XP level required to begin attunement.\n\nActs as a gate; levels are not consumed.\nDefault: -1 (no threshold)"}
                 >
                   {(errorId) => (
                     <input

@@ -101,24 +101,33 @@ export const Artifactory = () => {
           {activeTab === "overview" && (
             <div className="space-y-5 p-6">
               <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
-                A fully data-driven, D&amp;D-style attunement system for
-                Minecraft built for modpack makers who want deeper item
-                progression and balance.
+                Artifactory introduces a highly configurable D&amp;D-style
+                attunement system where players can bond with weapons, armor,
+                and gear. As your attunement level grows, so does the power of
+                your gear, unlocking new bonuses and effects.
+              </p>
+              <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+                Modpack makers can restrict powerful items until they're
+                attuned, and with a limited number of attunement slots, players
+                must make meaningful choices about which items to commit to.
+                Fully configurable and built to fit seamlessly into any
+                modpack, Artifactory adds depth, progression, and balance to
+                your game.
               </p>
 
               <div className="grid gap-3 sm:grid-cols-3">
                 {[
                   {
                     label: "Attune",
-                    desc: "Bind weapons, armor, and any item to a player. Only the bonded player can wield their attuned items.",
+                    desc: "Bond weapons, armor, and any item to a player. Its allegiance is entirely to them; only the bonded player can use it.",
                   },
                   {
                     label: "Progress",
-                    desc: "Grow the bond through attunement levels, each granting stronger modifications and attribute bonuses.",
+                    desc: "Grow the bond through attunement levels, each granting stronger modifications and attribute bonuses. The items you create will be legendary.",
                   },
                   {
                     label: "Restrict",
-                    desc: "Lock powerful items behind requirements. Limited slots force meaningful choices about what to attune.",
+                    desc: "Require attunement before an item can be used at all. Limited slots force meaningful choices about what to commit to.",
                   },
                 ].map(({ label, desc }) => (
                   <div
@@ -139,14 +148,14 @@ export const Artifactory = () => {
 
               <div className="grid gap-2.5 sm:grid-cols-2">
                 {[
-                  "Entirely data-driven; almost everything is configurable",
-                  "Default vanilla datapack included, enabled on world creation",
-                  "Protect attuned items from despawning and environmental damage",
-                  "Unlock Invulnerable, Unbreakable, and Soulbound modifications",
-                  "Only the bonded player can use their attuned items",
-                  "Lock powerful items behind attunement requirements",
-                  "Apply custom effects to players holding someone else's attuned item",
-                  "Curios compatible, works alongside all other mods",
+                  "Entirely data-driven attunement system where almost everything is configurable. Make it fit your server or modpack's needs.",
+                  "Create and grow bonds with weapons, armor, and other items to gain unique benefits like Unbreakable, attribute increases, and Soulbound items that persist through death.",
+                  "Default vanilla datapack included (you must enable it when creating the world); install and play without any configuration.",
+                  "Protect your attuned items from despawning and being destroyed by the environment.",
+                  "Only the player bonded to an item can use it. Its allegiance is entirely to them. Holding someone else's attuned item causes bad things to happen.",
+                  "Impose restrictions like requiring an item to be attuned before it can be used in any way.",
+                  "Apply effects to players holding an attuned item that doesn't belong to them: slowness, poison, wither. It's up to you.",
+                  "Curios compatibility, should be compatible with all other mods.",
                 ].map((feature) => (
                   <div
                     key={feature}
@@ -244,11 +253,20 @@ export const Artifactory = () => {
                     );
                   })}
                 </div>
-                <img
-                  src={IMG.levelComparison}
-                  alt="Diamond sword at attunement levels 1, 2, and 3 side by side"
-                  className="w-full rounded-lg border border-zinc-200 object-contain dark:border-zinc-600"
-                />
+                <figure className="space-y-2">
+                  <img
+                    src={IMG.levelComparison}
+                    alt="Diamond sword at attunement levels 1, 2, and 3 side by side"
+                    className="w-full rounded-lg border border-zinc-200 object-contain dark:border-zinc-600"
+                  />
+                  <div className="grid grid-cols-3 text-center">
+                    {["Level 1", "Level 2", "Level 3"].map((label) => (
+                      <span key={label} className="text-xs text-zinc-400">
+                        {label}
+                      </span>
+                    ))}
+                  </div>
+                </figure>
               </div>
 
               <Divider />
@@ -259,11 +277,12 @@ export const Artifactory = () => {
                   Enhancement System
                 </p>
                 <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
-                  Each attunement level grants modifications and attribute
-                  bonuses to the item. Benefits are cumulative; a level 3 item
-                  retains everything granted at levels 1 and 2. Placing an
-                  attuned item back into the Nexus re-syncs all modifications,
-                  so datapack changes take effect immediately.
+                  Attuning an item offers fun and powerful benefits. As you
+                  grow your bond, these benefits grow as well. Benefits are
+                  cumulative: a level 3 item retains everything granted at
+                  levels 1 and 2. Placing an attuned item back into the Nexus
+                  re-syncs all modifications, so datapack changes take effect
+                  right away.
                 </p>
                 <div className="grid gap-3 sm:grid-cols-3">
                   {[
@@ -318,17 +337,19 @@ export const Artifactory = () => {
                   Restriction System
                 </p>
                 <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
-                  Items can be configured to require attunement before they can
-                  be used at all: no damage, no block breaking, no drawing a
-                  bow, nothing. This lets modpack makers lock powerful items
-                  behind meaningful progression gates.
+                  An attuneable item can be configured so it must be attuned
+                  before it can be used in any way, or it can be usable as
+                  normal and attuning it just offers further benefits. If
+                  attunement is required, the item cannot deal damage, break
+                  blocks, or be used in any capacity (including drawing a bow
+                  or casting a fishing rod) until it's attuned to you.
                 </p>
                 <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
-                  Once attuned, an item shows complete allegiance to its owner.
-                  Other players cannot use it in any capacity. You can also
-                  configure effects that are applied to players who attempt to
-                  hold an item that doesn't belong to them: slowness, poison,
-                  wither, or anything you choose.
+                  Items that are attuned show complete allegiance to their
+                  owner. Other players cannot use them in any capacity. You can
+                  also configure effects applied to players who hold an attuned
+                  item that doesn't belong to them: slowness, poison, wither,
+                  it's up to you.
                 </p>
               </div>
 
@@ -369,18 +390,18 @@ export const Artifactory = () => {
                 </p>
                 <div className="space-y-4">
                   {[
-                    {
-                      title: "Bond with your gear",
-                      desc: "Create a satisfying progression system where players grow a bond with their favorite items, gaining entirely customizable benefits as the bond deepens.",
-                    },
-                    {
-                      title: "Limit overpowered modded items",
-                      desc: "Many mods add items that are very powerful but trivialize the game. Use attunement slots to force players to choose: more weaker items or fewer powerful ones. Pairs great with mythic weapons from Simply Swords.",
-                    },
-                    {
-                      title: "Give lower-tier items new life",
-                      desc: "Instead of discarding an iron sword for a diamond one, players can attune it and gain special benefits as the bond grows: unbreakable, attack bonuses, soulbound. A well-attuned iron sword can compete with unenchanted higher-tier gear, creating a richer item economy.",
-                    },
+                  {
+                    title: "Create a fun bonding system",
+                    desc: "Build a system where players grow a bond with a weapon and gain cool, entirely customizable benefits as that bond deepens. The items you create will be legendary.",
+                  },
+                  {
+                    title: "Limit items that are too powerful",
+                    desc: "Many mods add items that are fun but break the game. This becomes especially noticeable when a player amasses too many of them and combat or exploration becomes trivial. Use attunement slots to force a choice: more individual lower-power items, or a few powerful ones. Pairs great with the mythic weapons from Simply Swords.",
+                  },
+                  {
+                    title: "Make older items more desirable",
+                    desc: "Instead of tossing your iron sword for a diamond one, attune it and gain special benefits as the bond grows: unbreakable, attack bonuses, soulbound. Throw on some enchantments and you could create a very powerful item. Diamond swords may gain different benefits, or may not be attuneable at all, creating a richer item economy.",
+                  },
                   ].map(({ title, desc }) => (
                     <div key={title} className="flex gap-3">
                       <span className="mt-1 shrink-0 text-zinc-300 dark:text-zinc-500">
@@ -410,13 +431,19 @@ export const Artifactory = () => {
                   Attunable Items
                 </h3>
                 <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
-                  Once an item is configured to be attuneable, it shows how many
-                  attunement slots it will reserve. If the item has a chance of
-                  being attunable (e.g. 40%) that percentage is displayed,
-                  determined the first time you place it in the Nexus. If
-                  attunement is required before use, the item cannot deal
-                  damage, break blocks, or be used in any capacity until
+                  Once an item is configured to be attuneable, it shows how
+                  many attunement slots it will reserve when you attune to it.
+                  If the item has a chance of being attunable (e.g. "Attunable
+                  (40%)"), that is determined the first time you place it in
+                  the Nexus. This is a one-time check: if it fails, that item
+                  will behave as a completely normal item and can never be
                   attuned.
+                </p>
+                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                  If the item was configured to require attunement before use,
+                  it will say "Attunable (Required)". This makes the item
+                  unusable in any way until attuned: no damage, no block
+                  breaking, no drawing a bow, no casting a fishing rod.
                 </p>
                 <div className="flex justify-center">
                   <figure className="space-y-2">
@@ -463,8 +490,11 @@ export const Artifactory = () => {
                 <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Place an attunable item in the center slot to see its details
                   and requirements. If you meet all requirements, you can start
-                  the attunement process, which will consume any required XP
-                  levels and items then bond the item to you.
+                  the attunement process. After it completes it will consume
+                  any required levels and items, then bond the item to you. The
+                  first time you bond an item it reserves the number of
+                  attunement slots it requires. If you don't have enough slots
+                  available you won't be able to bond it.
                 </p>
                 <div className="flex justify-center">
                   <img
@@ -557,10 +587,11 @@ export const Artifactory = () => {
                     <strong className="text-zinc-800 dark:text-zinc-100">
                       Breaking attunements:
                     </strong>{" "}
-                    Hover an item card and press the red X. This removes all
-                    attunement benefits (enchantments and modifications from
-                    other mods are kept) and returns your slots. The item can be
-                    attuned to again by anyone.{" "}
+                    Hover an item card and press the red X on the right side,
+                    then confirm the prompt. This removes all benefits gained
+                    from attuning but keeps all other stats like enchantments
+                    and modifications from other mods. You get your attunement
+                    slots back and the item can be attuned to by anyone again.{" "}
                     <span className="font-medium text-rose-500">
                       This cannot be reversed.
                     </span>
@@ -643,32 +674,32 @@ export const Artifactory = () => {
                     {
                       field: "slots_used",
                       default: "-1",
-                      desc: "Attunement slots reserved when the item is attuned. Omitting or setting -1 disables attunement for this item; use this to remove an existing config from another datapack.",
+                      desc: "How many attunement slots this item takes up when attuned. If you leave this off (or set -1) it will void the attunement configuration for this item entirely. This is how you overwrite and remove attunement info from another datapack.",
                     },
                     {
                       field: "use_without_attunement",
                       default: "true",
-                      desc: "Whether the item can be used before attuning. false locks all use (no damage, no block breaking, no item use) until attuned.",
+                      desc: "Whether the item is usable before attuning. false means the item will do no damage, can't break blocks, and can't be used in any way (like drawing a bow) until attuned. true means attuning is optional and just offers further benefits.",
                     },
                     {
                       field: "chance",
                       default: "1.0",
-                      desc: "Probability (0.0 – 1.0) that the item can be attuned. Checked once the first time it is placed in the Nexus. If it fails, that item instance can never be attuned.",
+                      desc: "Probability (0.0 to 1.0) that the item can be attuned. Determined once the first time it is placed in the Nexus. This is a one-time check: if it fails, that item will never be attunable.",
                     },
                     {
                       field: "replace",
                       default: "false",
-                      desc: "Override any existing datapack config for this item. Recommended for all modpack configs to ensure yours is used.",
+                      desc: "Whether this config should replace any existing config for this item. If there's a conflict with another datapack, set this to true. As a modpack maker you may as well add this to all your configs to make sure yours are the ones used.",
                     },
                     {
                       field: "apply_to_items",
                       default: "[]",
-                      desc: "List of item IDs to apply this config to instead of using the filename. Useful for applying the same config to multiple items like a full armor set.",
+                      desc: "List of item IDs to apply this config to. When set, the filename is ignored and the config applies to all items in this list instead. Useful for a full armor set. Make sure attribute equipment slots match the item type or attributes won't apply correctly.",
                     },
                     {
                       field: "attunement_levels",
                       default: "single level",
-                      desc: "Ordered array of level configs. Each has modifications (what the item gains) and optional requirements (XP and items consumed). Defaults to one level granting invulnerable, unbreakable, and soulbound.",
+                      desc: "Ordered array of level configs. The first object applies to level 1, the second to level 2, and so on. Each has modifications (what the item gains) and optional requirements to override server config values. Defaults to a single level granting invulnerable, unbreakable, and soulbound.",
                     },
                   ].map(({ field, default: def, desc }, i, arr) => (
                     <div
@@ -773,11 +804,11 @@ export const Artifactory = () => {
               {[
                 {
                   q: "Will you make this for Fabric?",
-                  a: "No, but anyone is welcome to port it. For Forge, only 1.20.1 is supported going forward. New development is on NeoForge 1.21+.",
+                  a: "I will not be porting to Fabric, but anyone is welcome to do so! For Forge I will only be supporting 1.20.1, and I will be porting to NeoForge going forward on 1.21. I don't have the time to manage too many different versions of this.",
                 },
                 {
                   q: "Will you backport to older Minecraft versions?",
-                  a: "Unless there is significant interest, development focuses on 1.20.1 and forward only.",
+                  a: "Unless it sees a lot of interest I will only be developing on 1.20.1 and forward.",
                 },
                 {
                   q: "Can I use this on my server or modpack?",
