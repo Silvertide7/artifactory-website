@@ -2,24 +2,15 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const IMG = {
-  banner:
-    "https://media.forgecdn.net/attachments/description/867520/description_b4b831f2-afcd-4e72-a8ee-60b43e2daf0b.png",
-  levelComparison:
-    "https://media.forgecdn.net/attachments/description/867520/description_5a47f402-1b97-475d-8e1e-4395249eab86.png",
-  featuresBanner:
-    "https://media.forgecdn.net/attachments/description/867520/description_d4291c2d-f3fe-4d46-b273-409a13293e4a.png",
-  unattunedSword:
-    "https://media.forgecdn.net/attachments/description/867520/description_1afa5f03-9678-4f36-b727-9dc913ea41e1.png",
-  nexusRecipe:
-    "https://media.forgecdn.net/attachments/description/867520/description_89b5014c-4768-4035-b61e-1b219c809fab.png",
-  nexusUI:
-    "https://media.forgecdn.net/attachments/description/867520/description_a32b3b88-abc8-43ef-a58f-8ce28f23d112.png",
-  maxLevelCard:
-    "https://media.forgecdn.net/attachments/description/867520/description_b190ec3e-29e1-4939-9bc3-205b23295f65.png",
-  levelDetails:
-    "https://media.forgecdn.net/attachments/description/867520/description_7e3c1486-f3ed-47d4-9385-e3cecb3f8759.png",
-  level2Tooltip:
-    "https://media.forgecdn.net/attachments/description/867520/description_eb59f352-a0f8-4f33-89ab-af7b04737b84.png",
+  banner: "/artifactory/banner.png",
+  levelComparison: "/artifactory/level-comparison.png",
+  featuresBanner: "/artifactory/features-banner.png",
+  unattunedSword: "/artifactory/unattuned-sword.png",
+  nexusRecipe: "/artifactory/nexus-recipe.png",
+  nexusUI: "/artifactory/nexus-ui.png",
+  maxLevelCard: "/artifactory/max-level-card.png",
+  levelDetails: "/artifactory/level-details.png",
+  level2Tooltip: "/artifactory/level2-tooltip.png",
 };
 
 const Card = ({

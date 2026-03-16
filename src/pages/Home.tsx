@@ -23,8 +23,7 @@ const mods: Mod[] = [
   },
   {
     path: '/homebound',
-    title:
-      'https://media.forgecdn.net/attachments/description/911135/description_40385b95-a4b6-4aa2-91d6-fe7f1b4099ba.png',
+    title: '/homebound/banner.png',
     titleAlt: 'Homebound',
     centerTitle: true,
     description:

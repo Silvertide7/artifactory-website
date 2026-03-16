@@ -1,9 +1,8 @@
 import { useState } from 'react'
 
 const IMG = {
-  banner:
-    'https://media.forgecdn.net/attachments/description/911135/description_40385b95-a4b6-4aa2-91d6-fe7f1b4099ba.png',
-  creativeTab: 'https://live.staticflickr.com/65535/53183374697_166c2781ea_z.jpg',
+  banner: '/homebound/banner.png',
+  creativeTab: '/homebound/creative-tab.jpg',
 }
 
 const Card = ({
