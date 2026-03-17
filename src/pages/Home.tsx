@@ -23,6 +23,7 @@ const mods: Mod[] = [
   },
   {
     path: '/homebound',
+    logo: '/homebound/logo_small.png',
     title: '/homebound/title.png',
     titleAlt: 'Homebound',
     centerTitle: true,

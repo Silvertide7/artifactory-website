@@ -26,26 +26,32 @@ type Tab = 'overview' | 'getting-started' | 'faq'
 const items = [
   {
     name: 'Homeward Stone',
+    img: '/homebound/items/homeward_stone.png',
     desc: 'The basic home warping item. It takes some exploration to find the materials, but it will be worth it. Has a 1 hour cooldown.',
   },
   {
     name: 'Haven Stone',
+    img: '/homebound/items/haven_stone.png',
     desc: 'An upgrade to the Homeward Stone that removes the dimensional teleport restriction. Requires 2 netherite ingots and 6 nether brick, so you will need to adventure through the Nether first.',
   },
   {
     name: 'Homeward Bone',
+    img: '/homebound/items/homeward_bone.png',
     desc: 'Teleports you home from anywhere but is consumed on use and has a hefty 2 hour cooldown. Easy to craft on the fly from mob drops, so it is great for escaping a bad situation when you do not have your stone handy.',
   },
   {
     name: 'Hearthwood',
+    img: '/homebound/items/hearthwood.png',
     desc: 'Can only be used within 160 blocks (10 chunks) of your home and is not enchantable, but has a 10 minute cooldown and a 2 second use time. Meant to make moving around your base a little easier.',
   },
   {
     name: 'Dusk Stone',
+    img: '/homebound/items/nightstone.png',
     desc: 'One of 2 upgrade paths from the Haven Stone. The cooldown scales based on distance from home, with a minimum of 15 minutes. For every 50 blocks away from home the cooldown increases by 1 minute, up to 1 hour max.',
   },
   {
     name: 'Twilight Stone',
+    img: '/homebound/items/dusk_stone.png',
     desc: 'The direct upgrade to the Dusk Stone. Only slightly better stat-wise, but also does not drop on death.',
   },
 ]
@@ -128,17 +134,25 @@ export const Homebound = () => {
                   crafting easier!
                 </p>
                 <div className="space-y-2">
-                  {items.map(({ name, desc }) => (
+                  {items.map(({ name, img, desc }) => (
                     <div
                       key={name}
-                      className="rounded-lg border border-zinc-100 bg-zinc-50 px-4 py-3 dark:border-zinc-600 dark:bg-zinc-600/30"
+                      className="flex items-center gap-3 rounded-lg border border-zinc-100 bg-zinc-50 px-4 py-3 dark:border-zinc-600 dark:bg-zinc-600/30"
                     >
-                      <p className="mb-1 text-sm font-semibold text-zinc-800 dark:text-zinc-100">
-                        {name}
-                      </p>
-                      <p className="text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
-                        {desc}
-                      </p>
+                      <img
+                        src={img}
+                        alt={name}
+                        className="h-12 w-12 shrink-0 rounded object-contain"
+                        style={{ imageRendering: 'pixelated' }}
+                      />
+                      <div>
+                        <p className="mb-1 text-sm font-semibold text-zinc-800 dark:text-zinc-100">
+                          {name}
+                        </p>
+                        <p className="text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
+                          {desc}
+                        </p>
+                      </div>
                     </div>
                   ))}
                 </div>
@@ -357,16 +371,6 @@ export const Homebound = () => {
                   </p>
                 </div>
               ))}
-              <div className="px-6 py-4">
-                <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
-                  Huge shout out to Kaupenjoe for the great tutorials, the
-                  NeoForged discord for answering a ton of questions, and to all
-                  the mod makers who share their source code. This is my first
-                  released mod and I am continuing to play-test and balance it
-                  as well as add new features. If you have suggestions feel free
-                  to leave them in the comments!
-                </p>
-              </div>
             </div>
           )}
         </Card>
