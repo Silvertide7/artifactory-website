@@ -60,7 +60,7 @@ export const Artifactory = () => {
       </div>
 
       {/* ── Main layout: centered card with floating JSON Builder ── */}
-      <div className="grid xl:grid-cols-[1fr_42rem_1fr]">
+      <div className="grid xl:grid-cols-[1fr_52rem_1fr]">
         <div className="hidden xl:block" />
         <Card>
           {/* Tab bar */}
