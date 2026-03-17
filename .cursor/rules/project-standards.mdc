@@ -13,10 +13,10 @@ This project is a React SPA for generating JSON data files consumed by the Artif
 
 The `existing_markdown/` folder contains markdown exports of the CurseForge mod pages. These are the authoritative source of truth for mod behavior, configuration fields, and feature descriptions. Always consult these files when working on mod-related content or UI copy.
 
-| File | Mod |
-|---|---|
+| File                               | Mod         |
+| ---------------------------------- | ----------- |
 | `existing_markdown/artifactory.md` | Artifactory |
-| `existing_markdown/homebound.md` | Homebound |
+| `existing_markdown/homebound.md`   | Homebound   |
 
 ## Commands
 
@@ -30,6 +30,7 @@ npm run preview   # Preview production build
 No test suite is configured.
 
 ## Stack
+
 - Vite 8 + React 19 + TypeScript 5 (strict mode)
 - Tailwind CSS v4 via `@tailwindcss/postcss`
 - `react-hook-form` + `zod` for form state and validation
@@ -40,11 +41,11 @@ No test suite is configured.
 
 The app is an "Attunement Data Source Config Generator" that produces Artifactory mod configuration JSON. It is a multi-page SPA with the following routes under a shared `Layout`:
 
-| Route | Page |
-|---|---|
-| `/` | `Home` — mod card grid |
-| `/artifactory` | `Artifactory` — tabbed mod reference page |
-| `/artifactory/json-builder` | `JsonBuilder` — form wrapper |
+| Route                       | Page                                      |
+| --------------------------- | ----------------------------------------- |
+| `/`                         | `Home` — mod card grid                    |
+| `/artifactory`              | `Artifactory` — tabbed mod reference page |
+| `/artifactory/json-builder` | `JsonBuilder` — form wrapper              |
 
 ### Data flow
 
@@ -56,17 +57,17 @@ The app is an "Attunement Data Source Config Generator" that produces Artifactor
 
 ### Key files
 
-| File | Role |
-|---|---|
-| `src/features/jsonBuilder/fieldConfig.ts` | Zod schemas and default values — source of truth for the data model |
-| `src/features/jsonBuilder/JsonBuilderForm.tsx` | Main form orchestration, validation, layout |
-| `src/features/jsonBuilder/AttunementLevelItem.tsx` | Collapsible per-level editor (nested field arrays) |
-| `src/features/jsonBuilder/output.ts` | JSON transformation, clipboard/download utilities, path helpers |
-| `src/components/` | Shared UI primitives: `Button`, `FormField`, `StringListInput`, `JsonPreview`, `Tooltip`, `SectionHeader`, `Breadcrumb`, `Layout` |
-| `src/components/inputStyles.ts` | Shared Tailwind class strings for inputs/selects |
-| `src/pages/Artifactory.tsx` | Tabbed mod reference page (Overview, Getting Started, Configuration, FAQ) |
-| `src/hooks/useTheme.ts` | Persists light/dark mode to `localStorage` |
-| `src/utils/cn.ts` | Minimal `cn()` class-merging utility |
+| File                                               | Role                                                                                                                              |
+| -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `src/features/jsonBuilder/fieldConfig.ts`          | Zod schemas and default values — source of truth for the data model                                                               |
+| `src/features/jsonBuilder/JsonBuilderForm.tsx`     | Main form orchestration, validation, layout                                                                                       |
+| `src/features/jsonBuilder/AttunementLevelItem.tsx` | Collapsible per-level editor (nested field arrays)                                                                                |
+| `src/features/jsonBuilder/output.ts`               | JSON transformation, clipboard/download utilities, path helpers                                                                   |
+| `src/components/`                                  | Shared UI primitives: `Button`, `FormField`, `StringListInput`, `JsonPreview`, `Tooltip`, `SectionHeader`, `Breadcrumb`, `Layout` |
+| `src/components/inputStyles.ts`                    | Shared Tailwind class strings for inputs/selects                                                                                  |
+| `src/pages/Artifactory.tsx`                        | Tabbed mod reference page (Overview, Getting Started, Configuration, FAQ)                                                         |
+| `src/hooks/useTheme.ts`                            | Persists light/dark mode to `localStorage`                                                                                        |
+| `src/utils/cn.ts`                                  | Minimal `cn()` class-merging utility                                                                                              |
 
 **When changing the data model**, update `fieldConfig.ts` first (schema + defaults), then propagate to the form and output serializer.
 
@@ -77,26 +78,31 @@ The app is an "Attunement Data Source Config Generator" that produces Artifactor
 ## Code Standards
 
 **TypeScript**
+
 - All types must be derived from Zod schemas via `z.infer<>` — never manually duplicate them
 - Use `type` imports for type-only imports (`import type { Foo }`)
 - Avoid `any`; use `never` casts only at react-hook-form generic boundaries
 
 **React**
+
 - Functional components only, named exports
 - Keep components small and single-purpose; extract to `src/components/` if reused across features
 - Use `useFieldArray` from react-hook-form for all dynamic list fields
 - Clean up `setTimeout` refs in `useEffect` return to prevent state updates after unmount
 
 **Tailwind**
+
 - Use Tailwind utility classes directly — no custom CSS unless unavoidable
 - Always include `focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2` on interactive elements for keyboard accessibility
 
 **JSON Output**
+
 - All output goes through `toCleanOutput()` in `output.ts` — never serialize raw form values
 - Omit any field that is empty string, empty array, or unset boolean (`''`)
 - Number fields are stored as strings internally and parsed in `toCleanOutput`
 
 ## File Structure
+
 ```
 src/
   components/       # Shared UI primitives (Button, FormField, StringListInput, etc.)
@@ -106,3 +112,22 @@ src/
   pages/            # Route-level page components (Home, Artifactory, JsonBuilder)
   utils/            # Utility functions (cn)
 ```
+
+## Asset Organization
+
+All static images live in `public/` and are organized by mod. Never place mod-specific assets in the `public/` root.
+
+```
+public/
+  <mod-slug>/           # One folder per mod (e.g. artifactory/, homebound/)
+    title.png           # The mod's title/wordmark image (used in landing card + page header)
+    logo.png            # Square icon logo, if one exists
+    <screen-name>.png   # Screenshots, UI images, etc. named descriptively
+    items/              # Cropped individual item sprites
+      <item-name>.png
+```
+
+- Use kebab-case for all filenames (e.g. `nexus-ui.png`, `homeward-bone.png`)
+- The title image is always named `title.png` and the logo (if separate) is always `logo.png`
+- Reference assets as absolute public paths: `/artifactory/banner.png`, `/homebound/items/homeward-bone.png`
+- Never use external CDN URLs (forgecdn, flickr, etc.) in source code; download and commit all images

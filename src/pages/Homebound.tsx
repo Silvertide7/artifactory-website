@@ -1,7 +1,7 @@
 import { useState } from 'react'
 
 const IMG = {
-  banner: '/homebound/banner.png',
+  banner: '/homebound/title.png',
   creativeTab: '/homebound/creative-tab.jpg',
 }
 

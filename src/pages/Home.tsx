@@ -14,8 +14,8 @@ type Mod = {
 const mods: Mod[] = [
   {
     path: '/artifactory',
-    logo: '/artifactory-logo.png',
-    title: '/artifactory-title.png',
+    logo: '/artifactory/logo.png',
+    title: '/artifactory/title.png',
     titleAlt: 'Artifactory',
     description:
       'A data-driven attunement system for Minecraft. Bind items to their wielder through configurable requirements, unlock powerful modifications, and create deep progression for any item in the game.',
@@ -23,7 +23,7 @@ const mods: Mod[] = [
   },
   {
     path: '/homebound',
-    title: '/homebound/banner.png',
+    title: '/homebound/title.png',
     titleAlt: 'Homebound',
     centerTitle: true,
     description:
