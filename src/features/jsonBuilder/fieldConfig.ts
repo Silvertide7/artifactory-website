@@ -25,18 +25,20 @@ const optionalFloat = (min: number, max: number) =>
 
 // modid:item_name with optional #count — used in requirements.items
 const itemWithCountSchema = z.object({
-  value: z.string().refine(
-    (val) => val.trim() === '' || ITEM_WITH_COUNT_PATTERN.test(val.trim()),
-    { message: 'Format: modid:item_name or modid:item_name#count' },
-  ),
+  value: z
+    .string()
+    .refine((val) => val.trim() === '' || ITEM_WITH_COUNT_PATTERN.test(val.trim()), {
+      message: 'Format: modid:item_name or modid:item_name#count',
+    }),
 })
 
 // modid:item_name only — used in apply_to_items
 const plainItemIdSchema = z.object({
-  value: z.string().refine(
-    (val) => val.trim() === '' || ITEM_ID_PATTERN.test(val.trim()),
-    { message: 'Format: modid:item_name' },
-  ),
+  value: z
+    .string()
+    .refine((val) => val.trim() === '' || ITEM_ID_PATTERN.test(val.trim()), {
+      message: 'Format: modid:item_name',
+    }),
 })
 
 export const requirementsFormSchema = z.object({
@@ -51,10 +53,11 @@ export const levelFormSchema = z.object({
 })
 
 export const dataSourceFormSchema = z.object({
-  file_name: z.string().refine(
-    (val) => val.trim() === '' || ITEM_ID_PATTERN.test(val.trim()),
-    { message: 'Format: modid:item_name — e.g. minecraft:diamond_sword' },
-  ),
+  file_name: z
+    .string()
+    .refine((val) => val.trim() === '' || ITEM_ID_PATTERN.test(val.trim()), {
+      message: 'Format: modid:item_name — e.g. minecraft:diamond_sword',
+    }),
   slots_used: z.string().refine(
     (val) => {
       if (val.trim() === '') return true

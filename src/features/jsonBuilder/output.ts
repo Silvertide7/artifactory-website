@@ -24,10 +24,7 @@ export const copyJsonToClipboard = async (jsonValue: unknown) => {
   await navigator.clipboard.writeText(text)
 }
 
-export const downloadJsonFile = (
-  jsonValue: unknown,
-  fileName = 'attunement-data.json',
-) => {
+export const downloadJsonFile = (jsonValue: unknown, fileName = 'attunement-data.json') => {
   const blob = new Blob([toPrettyJson(jsonValue)], { type: 'application/json' })
   const url = URL.createObjectURL(blob)
   try {
@@ -64,9 +61,7 @@ const parseBoolField = (s: '' | 'true' | 'false'): boolean | undefined => {
 const toStringArray = (items: { value: string }[]): string[] =>
   items.map((i) => i.value.trim()).filter((v) => v !== '')
 
-const toCleanRequirements = (
-  req: RequirementsFormValues,
-): Record<string, unknown> | undefined => {
+const toCleanRequirements = (req: RequirementsFormValues): Record<string, unknown> | undefined => {
   const out: Record<string, unknown> = {}
 
   const xpConsumed = parseIntField(req.xp_levels_consumed)

@@ -13,13 +13,7 @@ type Props = {
   onRemove: () => void
 }
 
-export const AttunementLevelItem = ({
-  index,
-  control,
-  register,
-  errors,
-  onRemove,
-}: Props) => {
+export const AttunementLevelItem = ({ index, control, register, errors, onRemove }: Props) => {
   const [isOpen, setIsOpen] = useState(true)
   const levelErrors = errors.attunement_levels?.[index]
 
@@ -41,7 +35,14 @@ export const AttunementLevelItem = ({
             fill="currentColor"
             aria-hidden="true"
           >
-            <path d="M1 1l4 4-4 4" stroke="currentColor" strokeWidth="1.5" fill="none" strokeLinecap="round" strokeLinejoin="round" />
+            <path
+              d="M1 1l4 4-4 4"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              fill="none"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
           Level {index + 1}
         </button>
@@ -64,12 +65,14 @@ export const AttunementLevelItem = ({
             label="Modifications"
             labelClassName="text-[11px] font-semibold uppercase tracking-widest text-zinc-400"
             placeholder="e.g. invulnerable"
-            hint={"Modifiers applied to the item when attuned.\n\nSimple flags:\ninvulnerable, unbreakable, soulbound\n\nAttribute format:\nattribute/modid:attribute_name/operation/value/slot\ne.g. attribute/minecraft:generic.attack_damage/add_value/5/mainhand\nDefault: none"}
+            hint={
+              'Modifiers applied to the item when attuned.\n\nSimple flags:\ninvulnerable, unbreakable, soulbound\n\nAttribute format:\nattribute/modid:attribute_name/operation/value/slot\ne.g. attribute/minecraft:generic.attack_damage/add_value/5/mainhand\nDefault: none'
+            }
           />
 
           {/* Requirements sub-section */}
           <div>
-            <p className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-zinc-400">
+            <p className="mb-3 text-[11px] font-semibold tracking-widest text-zinc-400 uppercase">
               Requirements
             </p>
             <div className="space-y-4 rounded-lg border border-zinc-100 bg-zinc-50 p-4 dark:border-zinc-600 dark:bg-zinc-600/30">
@@ -78,7 +81,9 @@ export const AttunementLevelItem = ({
                   label="XP Consumed"
                   htmlFor={`attunement_levels.${index}.requirements.xp_levels_consumed`}
                   error={levelErrors?.requirements?.xp_levels_consumed?.message}
-                  hint={"XP levels consumed when attunement completes.\n\nLeave blank to require none.\nDefault: -1 (none required)"}
+                  hint={
+                    'XP levels consumed when attunement completes.\n\nLeave blank to require none.\nDefault: -1 (none required)'
+                  }
                 >
                   {(errorId) => (
                     <input
@@ -87,14 +92,10 @@ export const AttunementLevelItem = ({
                       placeholder="-1"
                       aria-describedby={errorId}
                       aria-invalid={
-                        levelErrors?.requirements?.xp_levels_consumed
-                          ? true
-                          : undefined
+                        levelErrors?.requirements?.xp_levels_consumed ? true : undefined
                       }
                       className={inputClass}
-                      {...register(
-                        `attunement_levels.${index}.requirements.xp_levels_consumed`,
-                      )}
+                      {...register(`attunement_levels.${index}.requirements.xp_levels_consumed`)}
                     />
                   )}
                 </FormField>
@@ -103,7 +104,9 @@ export const AttunementLevelItem = ({
                   label="XP Threshold"
                   htmlFor={`attunement_levels.${index}.requirements.xp_level_threshold`}
                   error={levelErrors?.requirements?.xp_level_threshold?.message}
-                  hint={"Minimum XP level required to begin attunement.\n\nActs as a gate; levels are not consumed.\nDefault: -1 (no threshold)"}
+                  hint={
+                    'Minimum XP level required to begin attunement.\n\nActs as a gate; levels are not consumed.\nDefault: -1 (no threshold)'
+                  }
                 >
                   {(errorId) => (
                     <input
@@ -112,14 +115,10 @@ export const AttunementLevelItem = ({
                       placeholder="-1"
                       aria-describedby={errorId}
                       aria-invalid={
-                        levelErrors?.requirements?.xp_level_threshold
-                          ? true
-                          : undefined
+                        levelErrors?.requirements?.xp_level_threshold ? true : undefined
                       }
                       className={inputClass}
-                      {...register(
-                        `attunement_levels.${index}.requirements.xp_level_threshold`,
-                      )}
+                      {...register(`attunement_levels.${index}.requirements.xp_level_threshold`)}
                     />
                   )}
                 </FormField>
@@ -131,7 +130,9 @@ export const AttunementLevelItem = ({
                 label="Items"
                 placeholder="e.g. minecraft:nether_star"
                 maxItems={3}
-                hint={"Items consumed when attunement completes.\nMax 3 items.\n\nFormat: modid:item_name or modid:item_name#quantity\nQuantity defaults to 1.\ne.g. minecraft:diamond#64\nDefault: none"}
+                hint={
+                  'Items consumed when attunement completes.\nMax 3 items.\n\nFormat: modid:item_name or modid:item_name#quantity\nQuantity defaults to 1.\ne.g. minecraft:diamond#64\nDefault: none'
+                }
                 itemErrors={
                   levelErrors?.requirements?.items as unknown as Array<{
                     value?: { message?: string }

@@ -2,14 +2,7 @@ type Props = {
   json: string
 }
 
-type TokenType =
-  | 'key'
-  | 'string'
-  | 'number'
-  | 'boolean'
-  | 'null'
-  | 'punctuation'
-  | 'whitespace'
+type TokenType = 'key' | 'string' | 'number' | 'boolean' | 'null' | 'punctuation' | 'whitespace'
 
 const TOKEN_REGEX =
   /("(?:\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(?:\s*:)?|\b(?:true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?|[{}[\],:]|\s+)/
@@ -36,7 +29,7 @@ const colorMap: Record<TokenType, string> = {
 export const JsonPreview = ({ json }: Props) => {
   if (!json || json === '{}') {
     return (
-      <div className="flex items-center justify-center py-14 text-sm italic text-zinc-400">
+      <div className="flex items-center justify-center py-14 text-sm text-zinc-400 italic">
         Fill in fields to see output
       </div>
     )

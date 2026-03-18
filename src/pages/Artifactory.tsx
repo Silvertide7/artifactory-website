@@ -1,53 +1,41 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState } from 'react'
+import { ToolLinkCard } from '../components/ToolLinkCard'
 
 const IMG = {
-  banner: "/artifactory/banner.png",
-  levelComparison: "/artifactory/level-comparison.png",
-  featuresBanner: "/artifactory/features-banner.png",
-  unattunedSword: "/artifactory/unattuned-sword.png",
-  nexusRecipe: "/artifactory/nexus-recipe.png",
-  nexusUI: "/artifactory/nexus-ui.png",
-  maxLevelCard: "/artifactory/max-level-card.png",
-  levelDetails: "/artifactory/level-details.png",
-  level2Tooltip: "/artifactory/level2-tooltip.png",
-};
+  banner: '/artifactory/banner.png',
+  levelComparison: '/artifactory/level-comparison.png',
+  featuresBanner: '/artifactory/features-banner.png',
+  unattunedSword: '/artifactory/unattuned-sword.png',
+  nexusRecipe: '/artifactory/nexus-recipe.png',
+  nexusUI: '/artifactory/nexus-ui.png',
+  maxLevelCard: '/artifactory/max-level-card.png',
+  levelDetails: '/artifactory/level-details.png',
+  level2Tooltip: '/artifactory/level2-tooltip.png',
+}
 
-const Card = ({
-  children,
-  className = "",
-}: {
-  children: React.ReactNode;
-  className?: string;
-}) => (
+const Card = ({ children, className = '' }: { children: React.ReactNode; className?: string }) => (
   <section
     className={`overflow-hidden rounded-xl border border-zinc-200 bg-white dark:border-zinc-600 dark:bg-zinc-700 ${className}`}
   >
     {children}
   </section>
-);
+)
 
-const Mod = ({
-  name,
-  color,
-}: {
-  name: string;
-  color: "sky" | "violet" | "amber";
-}) => {
+const Mod = ({ name, color }: { name: string; color: 'sky' | 'violet' | 'amber' }) => {
   const cls = {
-    sky: "text-sky-500 dark:text-sky-400",
-    violet: "text-violet-500 dark:text-violet-400",
-    amber: "text-amber-500 dark:text-amber-400",
-  }[color];
-  return <span className={`font-semibold ${cls}`}>{name}</span>;
-};
+    sky: 'text-sky-500 dark:text-sky-400',
+    violet: 'text-violet-500 dark:text-violet-400',
+    amber: 'text-amber-500 dark:text-amber-400',
+  }[color]
+  return <span className={`font-semibold ${cls}`}>{name}</span>
+}
 
-const Divider = () => <hr className="border-zinc-100 dark:border-zinc-600" />;
+const Divider = () => <hr className="border-zinc-100 dark:border-zinc-600" />
 
-type Tab = "overview" | "getting-started" | "datapack" | "faq";
+type Tab = 'overview' | 'getting-started' | 'datapack' | 'faq'
 
 export const Artifactory = () => {
-  const [activeTab, setActiveTab] = useState<Tab>("overview");
+  const [activeTab, setActiveTab] = useState<Tab>('overview')
 
   return (
     <div className="space-y-6">
@@ -60,17 +48,16 @@ export const Artifactory = () => {
       </div>
 
       {/* ── Main layout: centered card with floating JSON Builder ── */}
-      <div className="grid xl:grid-cols-[1fr_52rem_1fr]">
-        <div className="hidden xl:block" />
-        <Card>
+      <div className="relative">
+        <Card className="mx-auto xl:w-[52rem]">
           {/* Tab bar */}
           <div className="flex gap-1.5 border-b border-zinc-100 bg-zinc-50 px-4 py-3 dark:border-zinc-600 dark:bg-zinc-800/40">
             {(
               [
-                { id: "overview" as Tab, label: "Overview" },
-                { id: "getting-started" as Tab, label: "Getting Started" },
-                { id: "datapack" as Tab, label: "Configuration" },
-                { id: "faq" as Tab, label: "FAQ" },
+                { id: 'overview' as Tab, label: 'Overview' },
+                { id: 'getting-started' as Tab, label: 'Getting Started' },
+                { id: 'datapack' as Tab, label: 'Configuration' },
+                { id: 'faq' as Tab, label: 'FAQ' },
               ] as const
             ).map(({ id, label }) => (
               <button
@@ -79,8 +66,8 @@ export const Artifactory = () => {
                 onClick={() => setActiveTab(id)}
                 className={`rounded-lg px-3.5 py-1.5 text-xs font-semibold transition-colors ${
                   activeTab === id
-                    ? "bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900"
-                    : "text-zinc-500 hover:bg-zinc-200 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-600 dark:hover:text-zinc-200"
+                    ? 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900'
+                    : 'text-zinc-500 hover:bg-zinc-200 hover:text-zinc-700 dark:text-zinc-400 dark:hover:bg-zinc-600 dark:hover:text-zinc-200'
                 }`}
               >
                 {label}
@@ -89,36 +76,33 @@ export const Artifactory = () => {
           </div>
 
           {/* Overview content */}
-          {activeTab === "overview" && (
+          {activeTab === 'overview' && (
             <div className="space-y-5 p-6">
               <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
-                Artifactory introduces a highly configurable D&amp;D-style
-                attunement system where players can bond with weapons, armor,
-                and gear. As your attunement level grows, so does the power of
-                your gear, unlocking new bonuses and effects.
+                Artifactory introduces a highly configurable D&amp;D-style attunement system where
+                players can bond with weapons, armor, and gear. As your attunement level grows, so
+                does the power of your gear, unlocking new bonuses and effects.
               </p>
               <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
-                Modpack makers can restrict powerful items until they're
-                attuned, and with a limited number of attunement slots, players
-                must make meaningful choices about which items to commit to.
-                Fully configurable and built to fit seamlessly into any
-                modpack, Artifactory adds depth, progression, and balance to
-                your game.
+                Modpack makers can restrict powerful items until they're attuned, and with a limited
+                number of attunement slots, players must make meaningful choices about which items
+                to commit to. Fully configurable and built to fit seamlessly into any modpack,
+                Artifactory adds depth, progression, and balance to your game.
               </p>
 
               <div className="grid gap-3 sm:grid-cols-3">
                 {[
                   {
-                    label: "Attune",
-                    desc: "Bond weapons, armor, and any item to a player. Its allegiance is entirely to them; only the bonded player can use it.",
+                    label: 'Attune',
+                    desc: 'Bond weapons, armor, and any item to a player. Its allegiance is entirely to them; only the bonded player can use it.',
                   },
                   {
-                    label: "Progress",
-                    desc: "Grow the bond through attunement levels, each granting stronger modifications and attribute bonuses. The items you create will be legendary.",
+                    label: 'Progress',
+                    desc: 'Grow the bond through attunement levels, each granting stronger modifications and attribute bonuses. The items you create will be legendary.',
                   },
                   {
-                    label: "Restrict",
-                    desc: "Require attunement before an item can be used at all. Limited slots force meaningful choices about what to commit to.",
+                    label: 'Restrict',
+                    desc: 'Require attunement before an item can be used at all. Limited slots force meaningful choices about what to commit to.',
                   },
                 ].map(({ label, desc }) => (
                   <div
@@ -140,21 +124,19 @@ export const Artifactory = () => {
               <div className="grid gap-2.5 sm:grid-cols-2">
                 {[
                   "Entirely data-driven attunement system where almost everything is configurable. Make it fit your server or modpack's needs.",
-                  "Create and grow bonds with weapons, armor, and other items to gain unique benefits like Unbreakable, attribute increases, and Soulbound items that persist through death.",
-                  "Default vanilla datapack included (you must enable it when creating the world); install and play without any configuration.",
-                  "Protect your attuned items from despawning and being destroyed by the environment.",
+                  'Create and grow bonds with weapons, armor, and other items to gain unique benefits like Unbreakable, attribute increases, and Soulbound items that persist through death.',
+                  'Default vanilla datapack included (you must enable it when creating the world); install and play without any configuration.',
+                  'Protect your attuned items from despawning and being destroyed by the environment.',
                   "Only the player bonded to an item can use it. Its allegiance is entirely to them. Holding someone else's attuned item causes bad things to happen.",
-                  "Impose restrictions like requiring an item to be attuned before it can be used in any way.",
+                  'Impose restrictions like requiring an item to be attuned before it can be used in any way.',
                   "Apply effects to players holding an attuned item that doesn't belong to them: slowness, poison, wither. It's up to you.",
-                  "Curios compatibility, should be compatible with all other mods.",
+                  'Curios compatibility, should be compatible with all other mods.',
                 ].map((feature) => (
                   <div
                     key={feature}
                     className="flex gap-2 text-xs text-zinc-600 dark:text-zinc-300"
                   >
-                    <span className="mt-0.5 shrink-0 text-zinc-300 dark:text-zinc-500">
-                      ✦
-                    </span>
+                    <span className="mt-0.5 shrink-0 text-zinc-300 dark:text-zinc-500">✦</span>
                     {feature}
                   </div>
                 ))}
@@ -172,76 +154,72 @@ export const Artifactory = () => {
 
               {/* Attunement Level Progression */}
               <div className="space-y-3">
-                <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
                   Attunement Level Progression
                 </p>
                 <p className="text-sm text-zinc-500 dark:text-zinc-400">
-                  Below are the default datapack attunement levels for the
-                  Diamond Sword, included as an example of what the system is
-                  capable of.
+                  Below are the default datapack attunement levels for the Diamond Sword, included
+                  as an example of what the system is capable of.
                 </p>
                 <div className="space-y-2.5">
                   {[
                     {
                       level: 1,
-                      color: "sky" as const,
+                      color: 'sky' as const,
                       content: (
                         <>
-                          Adds <Mod name="Invulnerable" color="sky" /> (won't
-                          despawn and can't be hurt by environmental effects)
-                          along with the base benefits of the attunement bond.
+                          Adds <Mod name="Invulnerable" color="sky" /> (won't despawn and can't be
+                          hurt by environmental effects) along with the base benefits of the
+                          attunement bond.
                         </>
                       ),
                     },
                     {
                       level: 2,
-                      color: "violet" as const,
+                      color: 'violet' as const,
                       content: (
                         <>
-                          Adds 25% attack speed and{" "}
-                          <Mod name="Unbreakable" color="violet" />.
+                          Adds 25% attack speed and <Mod name="Unbreakable" color="violet" />.
                         </>
                       ),
                     },
                     {
                       level: 3,
-                      color: "amber" as const,
+                      color: 'amber' as const,
                       content: (
                         <>
-                          Adds 40% more attack speed and makes the item{" "}
-                          <Mod name="Soulbound" color="amber" />, traveling with
-                          you through death and respawning on your body.
+                          Adds 40% more attack speed and makes the item{' '}
+                          <Mod name="Soulbound" color="amber" />, traveling with you through death
+                          and respawning on your body.
                         </>
                       ),
                     },
                   ].map(({ level, color, content }) => {
                     const borderBg = {
-                      sky: "border-sky-200 bg-sky-50 dark:border-sky-900/60 dark:bg-sky-950/20",
+                      sky: 'border-sky-200 bg-sky-50 dark:border-sky-900/60 dark:bg-sky-950/20',
                       violet:
-                        "border-violet-200 bg-violet-50 dark:border-violet-900/60 dark:bg-violet-950/20",
+                        'border-violet-200 bg-violet-50 dark:border-violet-900/60 dark:bg-violet-950/20',
                       amber:
-                        "border-amber-200 bg-amber-50 dark:border-amber-900/60 dark:bg-amber-950/20",
-                    }[color];
+                        'border-amber-200 bg-amber-50 dark:border-amber-900/60 dark:bg-amber-950/20',
+                    }[color]
                     const labelColor = {
-                      sky: "text-sky-500 dark:text-sky-400",
-                      violet: "text-violet-500 dark:text-violet-400",
-                      amber: "text-amber-500 dark:text-amber-400",
-                    }[color];
+                      sky: 'text-sky-500 dark:text-sky-400',
+                      violet: 'text-violet-500 dark:text-violet-400',
+                      amber: 'text-amber-500 dark:text-amber-400',
+                    }[color]
                     return (
                       <div
                         key={level}
                         className={`flex gap-4 rounded-lg border px-4 py-3 ${borderBg}`}
                       >
-                        <span
-                          className={`shrink-0 text-xs font-bold mt-0.5 ${labelColor}`}
-                        >
+                        <span className={`mt-0.5 shrink-0 text-xs font-bold ${labelColor}`}>
                           LVL {level}
                         </span>
                         <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
                           {content}
                         </p>
                       </div>
-                    );
+                    )
                   })}
                 </div>
                 <figure className="space-y-2">
@@ -251,7 +229,7 @@ export const Artifactory = () => {
                     className="w-full rounded-lg border border-zinc-200 object-contain dark:border-zinc-600"
                   />
                   <div className="grid grid-cols-3 text-center">
-                    {["Level 1", "Level 2", "Level 3"].map((label) => (
+                    {['Level 1', 'Level 2', 'Level 3'].map((label) => (
                       <span key={label} className="text-xs text-zinc-400">
                         {label}
                       </span>
@@ -264,45 +242,39 @@ export const Artifactory = () => {
 
               {/* Enhancement System */}
               <div className="space-y-4">
-                <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
                   Enhancement System
                 </p>
                 <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
-                  Attuning an item offers fun and powerful benefits. As you
-                  grow your bond, these benefits grow as well. Benefits are
-                  cumulative: a level 3 item retains everything granted at
-                  levels 1 and 2. Placing an attuned item back into the Nexus
-                  re-syncs all modifications, so datapack changes take effect
-                  right away.
+                  Attuning an item offers fun and powerful benefits. As you grow your bond, these
+                  benefits grow as well. Benefits are cumulative: a level 3 item retains everything
+                  granted at levels 1 and 2. Placing an attuned item back into the Nexus re-syncs
+                  all modifications, so datapack changes take effect right away.
                 </p>
                 <div className="grid gap-3 sm:grid-cols-3">
                   {[
                     {
-                      name: "Invulnerable",
-                      border:
-                        "border-sky-200 bg-sky-50 dark:border-sky-900/60 dark:bg-sky-950/20",
-                      label: "text-sky-500 dark:text-sky-400",
-                      desc: "The item cannot be destroyed by environmental effects (lava, cacti, etc.) and will never despawn when dropped.",
+                      name: 'Invulnerable',
+                      border: 'border-sky-200 bg-sky-50 dark:border-sky-900/60 dark:bg-sky-950/20',
+                      label: 'text-sky-500 dark:text-sky-400',
+                      desc: 'The item cannot be destroyed by environmental effects (lava, cacti, etc.) and will never despawn when dropped.',
                     },
                     {
-                      name: "Unbreakable",
+                      name: 'Unbreakable',
                       border:
-                        "border-violet-200 bg-violet-50 dark:border-violet-900/60 dark:bg-violet-950/20",
-                      label: "text-violet-500 dark:text-violet-400",
-                      desc: "If the item has durability, it becomes unbreakable.",
+                        'border-violet-200 bg-violet-50 dark:border-violet-900/60 dark:bg-violet-950/20',
+                      label: 'text-violet-500 dark:text-violet-400',
+                      desc: 'If the item has durability, it becomes unbreakable.',
                     },
                     {
-                      name: "Soulbound",
+                      name: 'Soulbound',
                       border:
-                        "border-amber-200 bg-amber-50 dark:border-amber-900/60 dark:bg-amber-950/20",
-                      label: "text-amber-500 dark:text-amber-400",
-                      desc: "When you die, the item travels with you through death and respawns on your body.",
+                        'border-amber-200 bg-amber-50 dark:border-amber-900/60 dark:bg-amber-950/20',
+                      label: 'text-amber-500 dark:text-amber-400',
+                      desc: 'When you die, the item travels with you through death and respawns on your body.',
                     },
                   ].map(({ name, border, label, desc }) => (
-                    <div
-                      key={name}
-                      className={`rounded-lg border p-4 space-y-1.5 ${border}`}
-                    >
+                    <div key={name} className={`space-y-1.5 rounded-lg border p-4 ${border}`}>
                       <p className={`text-sm font-bold ${label}`}>{name}</p>
                       <p className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-300">
                         {desc}
@@ -311,8 +283,8 @@ export const Artifactory = () => {
                   ))}
                 </div>
                 <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
-                  Any attribute, including those added by other mods, can be
-                  applied at each attunement level using the format:{" "}
+                  Any attribute, including those added by other mods, can be applied at each
+                  attunement level using the format:{' '}
                   <code className="font-mono text-xs">
                     attribute/modid:name/operation/value/slot
                   </code>
@@ -324,22 +296,20 @@ export const Artifactory = () => {
 
               {/* Restriction System */}
               <div className="space-y-3">
-                <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
                   Restriction System
                 </p>
                 <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
-                  An attuneable item can be configured so it must be attuned
-                  before it can be used in any way, or it can be usable as
-                  normal and attuning it just offers further benefits. If
-                  attunement is required, the item cannot deal damage, break
-                  blocks, or be used in any capacity (including drawing a bow
-                  or casting a fishing rod) until it's attuned to you.
+                  An attuneable item can be configured so it must be attuned before it can be used
+                  in any way, or it can be usable as normal and attuning it just offers further
+                  benefits. If attunement is required, the item cannot deal damage, break blocks, or
+                  be used in any capacity (including drawing a bow or casting a fishing rod) until
+                  it's attuned to you.
                 </p>
                 <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
-                  Items that are attuned show complete allegiance to their
-                  owner. Other players cannot use them in any capacity. You can
-                  also configure effects applied to players who hold an attuned
-                  item that doesn't belong to them: slowness, poison, wither,
+                  Items that are attuned show complete allegiance to their owner. Other players
+                  cannot use them in any capacity. You can also configure effects applied to players
+                  who hold an attuned item that doesn't belong to them: slowness, poison, wither,
                   it's up to you.
                 </p>
               </div>
@@ -348,27 +318,25 @@ export const Artifactory = () => {
 
               {/* Curios Integration */}
               <div className="space-y-3">
-                <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
                   Curios Integration
                 </p>
                 <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
-                  With Curios installed, a new{" "}
+                  With Curios installed, a new{' '}
                   <strong className="font-medium text-zinc-800 dark:text-zinc-100">
                     Attuned Item
-                  </strong>{" "}
-                  slot is added. Only items you are attuned to can be placed
-                  here; use it to store attuned items you aren't actively using
-                  for quick swapping. <Mod name="Soulbound" color="amber" />{" "}
-                  items will stay in this slot on death.
+                  </strong>{' '}
+                  slot is added. Only items you are attuned to can be placed here; use it to store
+                  attuned items you aren't actively using for quick swapping.{' '}
+                  <Mod name="Soulbound" color="amber" /> items will stay in this slot on death.
                 </p>
                 <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
-                  To change the number of Curio slots (default: 1), override{" "}
+                  To change the number of Curio slots (default: 1), override{' '}
                   <code className="rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-xs dark:bg-zinc-600">
                     data/artifactory/curios/slots/attuned_item.json
-                  </code>{" "}
-                  in your datapack and set the{" "}
-                  <code className="font-mono text-xs">size</code> field to your
-                  desired value.
+                  </code>{' '}
+                  in your datapack and set the <code className="font-mono text-xs">size</code> field
+                  to your desired value.
                 </p>
               </div>
 
@@ -376,28 +344,26 @@ export const Artifactory = () => {
 
               {/* Use Cases */}
               <div className="space-y-3">
-                <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
                   Use Cases
                 </p>
                 <div className="space-y-4">
                   {[
-                  {
-                    title: "Create a fun bonding system",
-                    desc: "Build a system where players grow a bond with a weapon and gain cool, entirely customizable benefits as that bond deepens. The items you create will be legendary.",
-                  },
-                  {
-                    title: "Limit items that are too powerful",
-                    desc: "Many mods add items that are fun but break the game. This becomes especially noticeable when a player amasses too many of them and combat or exploration becomes trivial. Use attunement slots to force a choice: more individual lower-power items, or a few powerful ones. Pairs great with the mythic weapons from Simply Swords.",
-                  },
-                  {
-                    title: "Make older items more desirable",
-                    desc: "Instead of tossing your iron sword for a diamond one, attune it and gain special benefits as the bond grows: unbreakable, attack bonuses, soulbound. Throw on some enchantments and you could create a very powerful item. Diamond swords may gain different benefits, or may not be attuneable at all, creating a richer item economy.",
-                  },
+                    {
+                      title: 'Create a fun bonding system',
+                      desc: 'Build a system where players grow a bond with a weapon and gain cool, entirely customizable benefits as that bond deepens. The items you create will be legendary.',
+                    },
+                    {
+                      title: 'Limit items that are too powerful',
+                      desc: 'Many mods add items that are fun but break the game. This becomes especially noticeable when a player amasses too many of them and combat or exploration becomes trivial. Use attunement slots to force a choice: more individual lower-power items, or a few powerful ones. Pairs great with the mythic weapons from Simply Swords.',
+                    },
+                    {
+                      title: 'Make older items more desirable',
+                      desc: 'Instead of tossing your iron sword for a diamond one, attune it and gain special benefits as the bond grows: unbreakable, attack bonuses, soulbound. Throw on some enchantments and you could create a very powerful item. Diamond swords may gain different benefits, or may not be attuneable at all, creating a richer item economy.',
+                    },
                   ].map(({ title, desc }) => (
                     <div key={title} className="flex gap-3">
-                      <span className="mt-1 shrink-0 text-zinc-300 dark:text-zinc-500">
-                        ◆
-                      </span>
+                      <span className="mt-1 shrink-0 text-zinc-300 dark:text-zinc-500">◆</span>
                       <div>
                         <p className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
                           {title}
@@ -414,7 +380,7 @@ export const Artifactory = () => {
           )}
 
           {/* Getting Started content */}
-          {activeTab === "getting-started" && (
+          {activeTab === 'getting-started' && (
             <div className="divide-y divide-zinc-100 dark:divide-zinc-600">
               {/* Attunable items */}
               <div className="space-y-4 p-6">
@@ -422,19 +388,16 @@ export const Artifactory = () => {
                   Attunable Items
                 </h3>
                 <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
-                  Once an item is configured to be attuneable, it shows how
-                  many attunement slots it will reserve when you attune to it.
-                  If the item has a chance of being attunable (e.g. "Attunable
-                  (40%)"), that is determined the first time you place it in
-                  the Nexus. This is a one-time check: if it fails, that item
-                  will behave as a completely normal item and can never be
-                  attuned.
+                  Once an item is configured to be attuneable, it shows how many attunement slots it
+                  will reserve when you attune to it. If the item has a chance of being attunable
+                  (e.g. "Attunable (40%)"), that is determined the first time you place it in the
+                  Nexus. This is a one-time check: if it fails, that item will behave as a
+                  completely normal item and can never be attuned.
                 </p>
                 <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
-                  If the item was configured to require attunement before use,
-                  it will say "Attunable (Required)". This makes the item
-                  unusable in any way until attuned: no damage, no block
-                  breaking, no drawing a bow, no casting a fishing rod.
+                  If the item was configured to require attunement before use, it will say
+                  "Attunable (Required)". This makes the item unusable in any way until attuned: no
+                  damage, no block breaking, no drawing a bow, no casting a fishing rod.
                 </p>
                 <div className="flex justify-center">
                   <figure className="space-y-2">
@@ -456,8 +419,8 @@ export const Artifactory = () => {
                   Building the Attunement Nexus
                 </h3>
                 <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
-                  The Attunement Nexus is where all attunements are performed.
-                  Craft it using the default recipe:
+                  The Attunement Nexus is where all attunements are performed. Craft it using the
+                  default recipe:
                 </p>
                 <div className="flex justify-center">
                   <figure className="space-y-2">
@@ -479,13 +442,11 @@ export const Artifactory = () => {
                   Using the Attunement Nexus
                 </h3>
                 <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
-                  Place an attunable item in the center slot to see its details
-                  and requirements. If you meet all requirements, you can start
-                  the attunement process. After it completes it will consume
-                  any required levels and items, then bond the item to you. The
-                  first time you bond an item it reserves the number of
-                  attunement slots it requires. If you don't have enough slots
-                  available you won't be able to bond it.
+                  Place an attunable item in the center slot to see its details and requirements. If
+                  you meet all requirements, you can start the attunement process. After it
+                  completes it will consume any required levels and items, then bond the item to
+                  you. The first time you bond an item it reserves the number of attunement slots it
+                  requires. If you don't have enough slots available you won't be able to bond it.
                 </p>
                 <div className="flex justify-center">
                   <img
@@ -499,16 +460,14 @@ export const Artifactory = () => {
                     <ul className="space-y-1.5">
                       {[
                         'Attunement level (or "Not yet attuned")',
-                        "Slots reserved by this item",
-                        "Your available attunement slots",
+                        'Slots reserved by this item',
+                        'Your available attunement slots',
                       ].map((item) => (
                         <li
                           key={item}
                           className="flex gap-2 text-xs text-zinc-600 dark:text-zinc-300"
                         >
-                          <span className="mt-0.5 shrink-0 text-sky-400">
-                            ●
-                          </span>
+                          <span className="mt-0.5 shrink-0 text-sky-400">●</span>
                           {item}
                         </li>
                       ))}
@@ -517,18 +476,16 @@ export const Artifactory = () => {
                   <div className="space-y-2">
                     <ul className="space-y-1.5">
                       {[
-                        "XP levels consumed on attunement",
-                        "XP threshold required to start",
-                        "Items required to attune",
-                        "Red (i) icon, hover for details on blockers",
+                        'XP levels consumed on attunement',
+                        'XP threshold required to start',
+                        'Items required to attune',
+                        'Red (i) icon, hover for details on blockers',
                       ].map((item) => (
                         <li
                           key={item}
                           className="flex gap-2 text-xs text-zinc-600 dark:text-zinc-300"
                         >
-                          <span className="mt-0.5 shrink-0 text-rose-400">
-                            ●
-                          </span>
+                          <span className="mt-0.5 shrink-0 text-rose-400">●</span>
                           {item}
                         </li>
                       ))}
@@ -543,9 +500,8 @@ export const Artifactory = () => {
                   Managing Attunements
                 </h3>
                 <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
-                  View and manage all your current attunements from the Manage
-                  Attunements screen. Open it via the cog wheel in the
-                  Attunement Nexus, or press the hotkey (default{" "}
+                  View and manage all your current attunements from the Manage Attunements screen.
+                  Open it via the cog wheel in the Attunement Nexus, or press the hotkey (default{' '}
                   <kbd className="rounded border border-zinc-300 bg-zinc-100 px-1.5 py-0.5 font-mono text-[11px] dark:border-zinc-500 dark:bg-zinc-600">
                     O
                   </kbd>
@@ -577,15 +533,12 @@ export const Artifactory = () => {
                   <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
                     <strong className="text-zinc-800 dark:text-zinc-100">
                       Breaking attunements:
-                    </strong>{" "}
-                    Hover an item card and press the red X on the right side,
-                    then confirm the prompt. This removes all benefits gained
-                    from attuning but keeps all other stats like enchantments
-                    and modifications from other mods. You get your attunement
-                    slots back and the item can be attuned to by anyone again.{" "}
-                    <span className="font-medium text-rose-500">
-                      This cannot be reversed.
-                    </span>
+                    </strong>{' '}
+                    Hover an item card and press the red X on the right side, then confirm the
+                    prompt. This removes all benefits gained from attuning but keeps all other stats
+                    like enchantments and modifications from other mods. You get your attunement
+                    slots back and the item can be attuned to by anyone again.{' '}
+                    <span className="font-medium text-rose-500">This cannot be reversed.</span>
                   </p>
                 </div>
               </div>
@@ -593,20 +546,20 @@ export const Artifactory = () => {
           )}
 
           {/* Datapack Configuration content */}
-          {activeTab === "datapack" && (
+          {activeTab === 'datapack' && (
             <div className="space-y-6 p-6">
               <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
-                Configurations live at{" "}
+                Configurations live at{' '}
                 <code className="rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-xs dark:bg-zinc-600">
                   data/&lt;modid&gt;/artifactory/&lt;item_name&gt;.json
                 </code>
-                . Use the JSON Builder tool (link on the right) to generate
-                files with live validation and preview.
+                . Use the JSON Builder tool (link on the right) to generate files with live
+                validation and preview.
               </p>
 
               {/* Example JSON */}
               <div className="space-y-2">
-                <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
                   Example: diamond_sword.json (1.21.1)
                 </p>
                 <pre className="overflow-x-auto rounded-lg bg-zinc-900 p-4 font-mono text-xs leading-relaxed text-zinc-300">{`{
@@ -657,53 +610,51 @@ export const Artifactory = () => {
               </div>
               {/* Field reference */}
               <div className="space-y-3">
-                <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
                   Field Reference
                 </p>
                 <div className="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-600">
                   {[
                     {
-                      field: "slots_used",
-                      default: "-1",
-                      desc: "How many attunement slots this item takes up when attuned. If you leave this off (or set -1) it will void the attunement configuration for this item entirely. This is how you overwrite and remove attunement info from another datapack.",
+                      field: 'slots_used',
+                      default: '-1',
+                      desc: 'How many attunement slots this item takes up when attuned. If you leave this off (or set -1) it will void the attunement configuration for this item entirely. This is how you overwrite and remove attunement info from another datapack.',
                     },
                     {
-                      field: "use_without_attunement",
-                      default: "true",
+                      field: 'use_without_attunement',
+                      default: 'true',
                       desc: "Whether the item is usable before attuning. false means the item will do no damage, can't break blocks, and can't be used in any way (like drawing a bow) until attuned. true means attuning is optional and just offers further benefits.",
                     },
                     {
-                      field: "chance",
-                      default: "1.0",
-                      desc: "Probability (0.0 to 1.0) that the item can be attuned. Determined once the first time it is placed in the Nexus. This is a one-time check: if it fails, that item will never be attunable.",
+                      field: 'chance',
+                      default: '1.0',
+                      desc: 'Probability (0.0 to 1.0) that the item can be attuned. Determined once the first time it is placed in the Nexus. This is a one-time check: if it fails, that item will never be attunable.',
                     },
                     {
-                      field: "replace",
-                      default: "false",
+                      field: 'replace',
+                      default: 'false',
                       desc: "Whether this config should replace any existing config for this item. If there's a conflict with another datapack, set this to true. As a modpack maker you may as well add this to all your configs to make sure yours are the ones used.",
                     },
                     {
-                      field: "apply_to_items",
-                      default: "[]",
+                      field: 'apply_to_items',
+                      default: '[]',
                       desc: "List of item IDs to apply this config to. When set, the filename is ignored and the config applies to all items in this list instead. Useful for a full armor set. Make sure attribute equipment slots match the item type or attributes won't apply correctly.",
                     },
                     {
-                      field: "attunement_levels",
-                      default: "single level",
-                      desc: "Ordered array of level configs. The first object applies to level 1, the second to level 2, and so on. Each has modifications (what the item gains) and optional requirements to override server config values. Defaults to a single level granting invulnerable, unbreakable, and soulbound.",
+                      field: 'attunement_levels',
+                      default: 'single level',
+                      desc: 'Ordered array of level configs. The first object applies to level 1, the second to level 2, and so on. Each has modifications (what the item gains) and optional requirements to override server config values. Defaults to a single level granting invulnerable, unbreakable, and soulbound.',
                     },
                   ].map(({ field, default: def, desc }, i, arr) => (
                     <div
                       key={field}
-                      className={`px-4 py-3.5 ${i < arr.length - 1 ? "border-b border-zinc-100 dark:border-zinc-600" : ""}`}
+                      className={`px-4 py-3.5 ${i < arr.length - 1 ? 'border-b border-zinc-100 dark:border-zinc-600' : ''}`}
                     >
                       <div className="mb-1.5 flex flex-wrap items-center gap-x-3 gap-y-1">
                         <code className="font-mono text-xs font-semibold text-sky-600 dark:text-sky-400">
                           {field}
                         </code>
-                        <span className="text-xs text-zinc-400">
-                          default: {def}
-                        </span>
+                        <span className="text-xs text-zinc-400">default: {def}</span>
                       </div>
                       <p className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-300">
                         {desc}
@@ -715,27 +666,27 @@ export const Artifactory = () => {
 
               {/* Requirements sub-fields */}
               <div className="space-y-3">
-                <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
                   Level Requirements Sub-fields
                 </p>
                 <div className="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-600">
                   {[
                     {
-                      field: "xpLevelsConsumed",
-                      desc: "XP levels consumed when the attunement completes.",
+                      field: 'xpLevelsConsumed',
+                      desc: 'XP levels consumed when the attunement completes.',
                     },
                     {
-                      field: "xpLevelThreshold",
-                      desc: "Minimum XP level required to start attunement. Not consumed.",
+                      field: 'xpLevelThreshold',
+                      desc: 'Minimum XP level required to start attunement. Not consumed.',
                     },
                     {
-                      field: "items",
+                      field: 'items',
                       desc: 'Up to 3 items consumed on attunement. Format: "modid:item_name" or "modid:item_name#quantity". Quantity defaults to 1.',
                     },
                   ].map(({ field, desc }, i, arr) => (
                     <div
                       key={field}
-                      className={`px-4 py-3.5 ${i < arr.length - 1 ? "border-b border-zinc-100 dark:border-zinc-600" : ""}`}
+                      className={`px-4 py-3.5 ${i < arr.length - 1 ? 'border-b border-zinc-100 dark:border-zinc-600' : ''}`}
                     >
                       <div className="mb-1.5">
                         <code className="font-mono text-xs font-semibold text-sky-600 dark:text-sky-400">
@@ -753,7 +704,7 @@ export const Artifactory = () => {
               {/* Attunement Overrides */}
               <div className="space-y-3">
                 <div className="flex items-center gap-2">
-                  <p className="text-xs font-semibold uppercase tracking-wider text-zinc-400">
+                  <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
                     Attunement Overrides
                   </p>
                   <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] font-semibold text-zinc-500 dark:bg-zinc-600 dark:text-zinc-300">
@@ -761,18 +712,15 @@ export const Artifactory = () => {
                   </span>
                 </div>
                 <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
-                  Define unique attunement configurations on individual item
-                  stacks using the{" "}
+                  Define unique attunement configurations on individual item stacks using the{' '}
                   <code className="rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-xs dark:bg-zinc-600">
                     artifactory:attunement_override
-                  </code>{" "}
-                  data component. Works with{" "}
-                  <code className="font-mono text-xs">/give</code>,
-                  advancements, loot tables, KubeJS, and more. This overrides
-                  any datapack config for that item type, allowing unique
-                  one-off items with their own attunement rules.
+                  </code>{' '}
+                  data component. Works with <code className="font-mono text-xs">/give</code>,
+                  advancements, loot tables, KubeJS, and more. This overrides any datapack config
+                  for that item type, allowing unique one-off items with their own attunement rules.
                 </p>
-                <pre className="overflow-x-auto rounded-lg bg-zinc-900 p-4 font-mono text-xs leading-relaxed text-zinc-300 whitespace-pre-wrap">{`/give @p minecraft:mace[artifactory:attunement_override={
+                <pre className="overflow-x-auto rounded-lg bg-zinc-900 p-4 font-mono text-xs leading-relaxed whitespace-pre-wrap text-zinc-300">{`/give @p minecraft:mace[artifactory:attunement_override={
   use_without_attunement: false,
   chance: 0.5,
   slots_used: 5,
@@ -782,96 +730,65 @@ export const Artifactory = () => {
   }]
 }]`}</pre>
                 <p className="text-xs text-zinc-500 dark:text-zinc-400">
-                  This creates a mace with a 50% chance of being attunable,
-                  using 5 slots, requiring 64 diamonds, and granting all three
-                  core modifications on attunement.
+                  This creates a mace with a 50% chance of being attunable, using 5 slots, requiring
+                  64 diamonds, and granting all three core modifications on attunement.
                 </p>
               </div>
             </div>
           )}
           {/* FAQ content */}
-          {activeTab === "faq" && (
+          {activeTab === 'faq' && (
             <div className="divide-y divide-zinc-100 dark:divide-zinc-600">
               {[
                 {
-                  q: "Will you make this for Fabric?",
+                  q: 'Will you make this for Fabric?',
                   a: "I will not be porting to Fabric, but anyone is welcome to do so! For Forge I will only be supporting 1.20.1, and I will be porting to NeoForge going forward on 1.21. I don't have the time to manage too many different versions of this.",
                 },
                 {
-                  q: "Will you backport to older Minecraft versions?",
-                  a: "Unless it sees a lot of interest I will only be developing on 1.20.1 and forward.",
+                  q: 'Will you backport to older Minecraft versions?',
+                  a: 'Unless it sees a lot of interest I will only be developing on 1.20.1 and forward.',
                 },
                 {
-                  q: "Can I use this on my server or modpack?",
-                  a: "Of course!",
+                  q: 'Can I use this on my server or modpack?',
+                  a: 'Of course!',
                 },
               ].map(({ q, a }) => (
                 <div key={q} className="space-y-1 px-6 py-4">
-                  <p className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
-                    {q}
-                  </p>
-                  <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
-                    {a}
-                  </p>
+                  <p className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">{q}</p>
+                  <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">{a}</p>
                 </div>
               ))}
             </div>
           )}
         </Card>
 
-        {/* JSON Builder sidebar */}
-        <div className="hidden xl:block pl-6 pt-0">
+        {/* JSON Builder sidebar — absolutely placed so it never affects the centered card */}
+        <div className="absolute top-0 left-[calc(50%+26rem+1.5rem)] hidden w-[18rem] xl:block">
           <div className="sticky top-20">
-          <Link
-            to="/artifactory/json-builder"
-            className="group flex flex-col gap-3 rounded-xl border border-zinc-200 bg-white p-5 shadow-sm transition hover:border-zinc-300 hover:shadow-md dark:border-zinc-600 dark:bg-zinc-700 dark:hover:border-zinc-500"
-          >
-            <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-zinc-100 text-zinc-600 transition group-hover:bg-zinc-900 group-hover:text-white dark:bg-zinc-600 dark:text-zinc-300 dark:group-hover:bg-zinc-100 dark:group-hover:text-zinc-900">
-              <svg
-                className="h-5 w-5"
-                viewBox="0 0 20 20"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M6 4H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-2" />
-                <path d="M8 4a2 2 0 0 1 4 0v1H8V4Z" />
-                <path d="M7 10h6M7 13h4" />
-              </svg>
-            </div>
-            <div>
-              <p className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
-                JSON Builder
-              </p>
-              <p className="mt-1 text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
-                Generate attunement config files with live validation and
-                preview.
-              </p>
-            </div>
-            <div className="flex items-center gap-1 text-xs font-medium text-zinc-500 transition group-hover:text-zinc-800 dark:group-hover:text-zinc-100">
-              Open tool
-              <svg
-                className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5"
-                viewBox="0 0 16 16"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M3 8h10M9 4l4 4-4 4" />
-              </svg>
-            </div>
-          </Link>
+            <ToolLinkCard
+              to="/artifactory/json-builder"
+              title="JSON Builder"
+              description="Generate attunement config files with live validation and preview."
+              icon={
+                <svg
+                  className="h-5 w-5"
+                  viewBox="0 0 20 20"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M6 4H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1h-2" />
+                  <path d="M8 4a2 2 0 0 1 4 0v1H8V4Z" />
+                  <path d="M7 10h6M7 13h4" />
+                </svg>
+              }
+            />
           </div>
         </div>
       </div>
     </div>
-  );
-};
-
-
+  )
+}

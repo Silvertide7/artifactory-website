@@ -1,4 +1,4 @@
-import { JsonBuilderForm } from "../features/jsonBuilder/JsonBuilderForm";
+import { JsonBuilderForm } from '../features/jsonBuilder/JsonBuilderForm'
 
 export const JsonBuilder = () => (
   <div className="space-y-3">
@@ -11,4 +11,4 @@ export const JsonBuilder = () => (
 
     <JsonBuilderForm />
   </div>
-);
+)

@@ -26,7 +26,11 @@ export const Breadcrumb = () => {
         const isLast = i === crumbs.length - 1
         return (
           <span key={crumb.path} className="flex items-center gap-1.5">
-            {i > 0 && <span aria-hidden="true" className="text-zinc-300 dark:text-zinc-600">/</span>}
+            {i > 0 && (
+              <span aria-hidden="true" className="text-zinc-300 dark:text-zinc-600">
+                /
+              </span>
+            )}
             {isLast ? (
               <span className="font-medium text-zinc-600 dark:text-zinc-300">{crumb.label}</span>
             ) : (

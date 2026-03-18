@@ -1,9 +1,4 @@
-import {
-  useFieldArray,
-  type Control,
-  type FieldValues,
-  type ArrayPath,
-} from 'react-hook-form'
+import { useFieldArray, type Control, type FieldValues, type ArrayPath } from 'react-hook-form'
 import { Tooltip } from './Tooltip'
 import { ErrorMessage } from './ErrorMessage'
 import { inputClass } from './inputStyles'
@@ -72,7 +67,7 @@ export const StringListInput = <T extends FieldValues>({
           <div key={field.id} className="space-y-1">
             <div className="flex gap-2">
               <input
-                {...(control.register(`${name}.${index}.value` as never))}
+                {...control.register(`${name}.${index}.value` as never)}
                 type="text"
                 placeholder={placeholder}
                 aria-invalid={itemError ? true : undefined}

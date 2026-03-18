@@ -10,13 +10,7 @@ type FormFieldProps = {
   children: (errorId: string | undefined) => ReactNode
 }
 
-export const FormField = ({
-  label,
-  htmlFor,
-  error,
-  hint,
-  children,
-}: FormFieldProps) => {
+export const FormField = ({ label, htmlFor, error, hint, children }: FormFieldProps) => {
   const errorId = error ? `${htmlFor}-error` : undefined
 
   return (

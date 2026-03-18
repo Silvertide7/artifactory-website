@@ -36,11 +36,12 @@ const mods: Mod[] = [
 export const Home = () => (
   <div className="space-y-10">
     <div>
-      <h1 className="text-3xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100 md:text-4xl">
+      <h1 className="text-3xl font-bold tracking-tight text-zinc-900 md:text-4xl dark:text-zinc-100">
         Silvertide's Minecraft Mods
       </h1>
       <p className="mt-3 text-base text-zinc-500 dark:text-zinc-400">
-        Configurable, data-driven mods built for modpack authors and players who want deeper gameplay.
+        Configurable, data-driven mods built for modpack authors and players who want deeper
+        gameplay.
       </p>
     </div>
 
@@ -53,11 +54,19 @@ export const Home = () => (
         >
           <div className="mb-4 flex items-center gap-3">
             {mod.logo && (
-              <img src={mod.logo} alt={mod.titleAlt} className="h-12 w-12 shrink-0 object-contain drop-shadow-sm" />
+              <img
+                src={mod.logo}
+                alt={mod.titleAlt}
+                className="h-12 w-12 shrink-0 object-contain drop-shadow-sm"
+              />
             )}
             <div className="min-w-0 flex-1">
               {mod.title ? (
-                <img src={mod.title} alt={mod.titleAlt} className={`h-10 w-full object-contain ${mod.centerTitle ? 'object-center' : 'object-left'}`} />
+                <img
+                  src={mod.title}
+                  alt={mod.titleAlt}
+                  className={`h-10 w-full object-contain ${mod.centerTitle ? 'object-center' : 'object-left'}`}
+                />
               ) : (
                 <span className="text-xl font-bold text-zinc-800 dark:text-zinc-100">
                   {mod.name ?? mod.titleAlt}
@@ -72,7 +81,10 @@ export const Home = () => (
 
           <div className="mt-4 flex flex-wrap gap-1.5">
             {mod.tags.map((tag) => (
-              <span key={tag} className="rounded-full bg-zinc-100 px-2.5 py-0.5 text-[11px] font-medium text-zinc-500 dark:bg-zinc-600 dark:text-zinc-300">
+              <span
+                key={tag}
+                className="rounded-full bg-zinc-100 px-2.5 py-0.5 text-[11px] font-medium text-zinc-500 dark:bg-zinc-600 dark:text-zinc-300"
+              >
                 {tag}
               </span>
             ))}
@@ -80,7 +92,16 @@ export const Home = () => (
 
           <div className="mt-5 flex items-center gap-1 text-sm font-medium text-zinc-700 transition group-hover:text-zinc-900 dark:text-zinc-400 dark:group-hover:text-zinc-100">
             View mod
-            <svg className="h-4 w-4 transition-transform group-hover:translate-x-0.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <svg
+              className="h-4 w-4 transition-transform group-hover:translate-x-0.5"
+              viewBox="0 0 16 16"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              aria-hidden="true"
+            >
               <path d="M3 8h10M9 4l4 4-4 4" />
             </svg>
           </div>

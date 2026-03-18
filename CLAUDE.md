@@ -29,14 +29,14 @@ This is a React + TypeScript + Vite SPA — an "Attunement Data Source Config Ge
 
 ### Key files
 
-| File | Role |
-|------|------|
-| `src/features/jsonBuilder/fieldConfig.ts` | Zod schemas and default values — source of truth for the data model |
-| `src/features/jsonBuilder/JsonBuilderForm.tsx` | Main form orchestration, validation, layout |
-| `src/features/jsonBuilder/AttunementLevelItem.tsx` | Collapsible per-level editor (nested field arrays) |
-| `src/features/jsonBuilder/output.ts` | JSON transformation + clipboard/download utilities |
-| `src/components/` | Shared UI primitives: `Button`, `FormField`, `StringListInput`, `JsonPreview`, `Tooltip` |
-| `src/components/inputStyles.ts` | Shared Tailwind class strings for inputs/selects |
+| File                                               | Role                                                                                     |
+| -------------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| `src/features/jsonBuilder/fieldConfig.ts`          | Zod schemas and default values — source of truth for the data model                      |
+| `src/features/jsonBuilder/JsonBuilderForm.tsx`     | Main form orchestration, validation, layout                                              |
+| `src/features/jsonBuilder/AttunementLevelItem.tsx` | Collapsible per-level editor (nested field arrays)                                       |
+| `src/features/jsonBuilder/output.ts`               | JSON transformation + clipboard/download utilities                                       |
+| `src/components/`                                  | Shared UI primitives: `Button`, `FormField`, `StringListInput`, `JsonPreview`, `Tooltip` |
+| `src/components/inputStyles.ts`                    | Shared Tailwind class strings for inputs/selects                                         |
 
 When changing the data model, update `fieldConfig.ts` first (schema + defaults), then propagate to the form and output serializer.
 
