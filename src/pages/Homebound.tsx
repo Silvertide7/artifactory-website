@@ -258,11 +258,6 @@ export const Homebound = () => {
                 <div className="space-y-2.5">
                   {[
                     {
-                      label: 'Mounted pets travel with you',
-                      detail: 'If you are mounted on a pet you own, it will teleport with you.',
-                      color: 'text-sky-400',
-                    },
-                    {
                       label: 'Shared cooldown',
                       detail:
                         'Teleporting triggers a global cooldown based on the item you used. This cooldown is shared across all Homebound items. You cannot build multiple stones and use them in rotation.',
@@ -273,6 +268,11 @@ export const Homebound = () => {
                       detail:
                         'Taking damage while channeling cancels the warp and adds a 5 second cooldown (configurable). No more cheating death with a quick teleport.',
                       color: 'text-rose-400',
+                    },
+                    {
+                      label: 'Mounted pets travel with you',
+                      detail: 'If you are mounted on a pet you own, it will teleport with you.',
+                      color: 'text-sky-400',
                     },
                   ].map(({ label, detail, color }) => (
                     <div
