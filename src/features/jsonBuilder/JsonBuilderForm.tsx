@@ -303,39 +303,38 @@ export const JsonBuilderForm = () => {
           </div>
         </section>
 
-        {/* Actions */}
-        <div className="flex flex-wrap items-center gap-2 pt-1">
-          <Button variant="secondary" type="button" onClick={onReset}>
-            Clear
-          </Button>
-          <Button
-            variant="secondary"
-            type="button"
-            onClick={() => downloadJsonFile(cleanOutput, downloadFileName)}
-          >
-            ↓ Download
-          </Button>
-          <Button type="button" onClick={onCopy}>
-            {copyState === 'copied'
-              ? '✓ Copied!'
-              : copyState === 'error'
-                ? '✗ Copy failed'
-                : 'Copy JSON'}
-          </Button>
-        </div>
       </form>
 
       {/* ── JSON Preview ── */}
       <div className="lg:col-span-2">
-        <div className="sticky top-20 rounded-xl border border-zinc-700 bg-zinc-900">
-          <div className="flex items-center justify-between border-b border-zinc-100 px-4 py-3 dark:border-zinc-600/60">
+        <div className="sticky top-4 rounded-xl border border-zinc-700 bg-zinc-900">
+          <div className="flex items-center justify-between border-b border-zinc-700/60 px-4 py-3">
             <h2 className="text-xs font-semibold text-zinc-300">JSON Preview</h2>
             <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-[10px] text-zinc-400">
               empty fields omitted
             </span>
           </div>
-          <div className="max-h-[calc(100vh-10rem)] min-h-48 overflow-auto">
+          <div className="max-h-[calc(100vh-12rem)] min-h-48 overflow-auto">
             <JsonPreview json={previewJson} />
+          </div>
+          <div className="flex flex-wrap items-center justify-center gap-2 border-t border-zinc-700/60 px-4 py-3">
+            <Button type="button" onClick={onCopy}>
+              {copyState === 'copied'
+                ? '✓ Copied!'
+                : copyState === 'error'
+                  ? '✗ Copy failed'
+                  : 'Copy JSON'}
+            </Button>
+            <Button
+              variant="secondary"
+              type="button"
+              onClick={() => downloadJsonFile(cleanOutput, downloadFileName)}
+            >
+              ↓ Download
+            </Button>
+            <Button variant="secondary" type="button" onClick={onReset}>
+              Clear
+            </Button>
           </div>
         </div>
       </div>
