@@ -7,6 +7,8 @@ import { StringListInput } from '../../components/StringListInput'
 import { JsonPreview } from '../../components/JsonPreview'
 import { SectionHeader } from '../../components/SectionHeader'
 import { AttunementLevelItem } from './AttunementLevelItem'
+import { SavedItemsList } from './SavedItemsList'
+import { useSavedItems } from './useSavedItems'
 import {
   dataSourceFormSchema,
   defaultValues,
@@ -26,6 +28,9 @@ import { inputClass, selectClass } from '../../components/inputStyles'
 export const JsonBuilderForm = () => {
   const [copyState, setCopyState] = useState<'idle' | 'copied' | 'error'>('idle')
   const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [pendingLoad, setPendingLoad] = useState<string | null>(null)
+  const [savePrompt, setSavePrompt] = useState(false)
+  const { items: savedItems, save: saveItem, remove: removeItem, find: findItem } = useSavedItems()
 
   const {
     register,
@@ -67,12 +72,62 @@ export const JsonBuilderForm = () => {
   }, [])
 
   const previewJson = useMemo(() => toPrettyJson(cleanOutput), [cleanOutput])
+  const hasOutput = Object.keys(cleanOutput).length > 0
 
   // Subscribe to just the one field used for derived display values.
   const fileName = watch('file_name')
 
   const downloadFileName = computeDownloadFileName(fileName)
   const placementPath = computePlacementPath(fileName)
+
+  const canSave = hasOutput && fileName.trim() !== '' && !errors.file_name
+
+  const doLoad = (values: DataSourceFormValues) => {
+    reset(values)
+    setCleanOutput(toCleanOutput(values))
+    setPendingLoad(null)
+    setSavePrompt(false)
+    setCopyState('idle')
+  }
+
+  const handleItemClick = (file_name: string) => {
+    if (!hasOutput) {
+      const item = findItem(file_name)
+      if (item) doLoad(item.values)
+    } else {
+      setPendingLoad(file_name)
+    }
+  }
+
+  const handleCopyValues = (file_name: string) => {
+    const item = findItem(file_name)
+    if (!item) return
+    // Import saved settings but keep the current item ID
+    doLoad({ ...item.values, file_name: fileName })
+  }
+
+  const handleLoad = (file_name: string) => {
+    const item = findItem(file_name)
+    if (item) doLoad(item.values)
+  }
+
+  const handleSave = () => {
+    if (!canSave) return
+    const existing = findItem(fileName.trim())
+    if (!existing) {
+      saveItem(getValues())
+      return
+    }
+    const existingJson = toPrettyJson(toCleanOutput(existing.values))
+    const currentJson = toPrettyJson(cleanOutput)
+    if (existingJson === currentJson) return // identical, nothing to do
+    setSavePrompt(true)
+  }
+
+  const handleConfirmOverwrite = () => {
+    saveItem(getValues())
+    setSavePrompt(false)
+  }
 
   const onCopy = async () => {
     try {
@@ -305,8 +360,8 @@ export const JsonBuilderForm = () => {
 
       </form>
 
-      {/* ── JSON Preview ── */}
-      <div className="lg:col-span-2">
+      {/* ── JSON Preview + Saved Items ── */}
+      <div className="space-y-4 lg:col-span-2">
         <div className="sticky top-4 rounded-xl border border-zinc-700 bg-zinc-900">
           <div className="flex items-center justify-between border-b border-zinc-700/60 px-4 py-3">
             <h2 className="text-xs font-semibold text-zinc-300">JSON Preview</h2>
@@ -318,25 +373,55 @@ export const JsonBuilderForm = () => {
             <JsonPreview json={previewJson} />
           </div>
           <div className="flex flex-wrap items-center justify-center gap-2 border-t border-zinc-700/60 px-4 py-3">
-            <Button type="button" onClick={onCopy}>
-              {copyState === 'copied'
-                ? '✓ Copied!'
-                : copyState === 'error'
-                  ? '✗ Copy failed'
-                  : 'Copy JSON'}
-            </Button>
-            <Button
-              variant="secondary"
-              type="button"
-              onClick={() => downloadJsonFile(cleanOutput, downloadFileName)}
-            >
-              ↓ Download
-            </Button>
-            <Button variant="secondary" type="button" onClick={onReset}>
-              Clear
-            </Button>
+            {savePrompt ? (
+              <>
+                <span className="text-xs text-zinc-400">Overwrite saved entry?</span>
+                <Button type="button" onClick={handleConfirmOverwrite}>
+                  Yes, overwrite
+                </Button>
+                <Button variant="secondary" type="button" onClick={() => setSavePrompt(false)}>
+                  Cancel
+                </Button>
+              </>
+            ) : (
+              <>
+                <Button type="button" onClick={handleSave} disabled={!canSave}>
+                  Save
+                </Button>
+                <Button type="button" onClick={onCopy} disabled={!hasOutput}>
+                  {copyState === 'copied'
+                    ? '✓ Copied!'
+                    : copyState === 'error'
+                      ? '✗ Copy failed'
+                      : 'Copy JSON'}
+                </Button>
+                <Button
+                  variant="secondary"
+                  type="button"
+                  onClick={() => downloadJsonFile(cleanOutput, downloadFileName)}
+                  disabled={!hasOutput}
+                >
+                  ↓ Download
+                </Button>
+                <Button variant="secondary" type="button" onClick={onReset} disabled={!hasOutput}>
+                  Clear
+                </Button>
+              </>
+            )}
           </div>
         </div>
+
+        {savedItems.length > 0 && (
+          <SavedItemsList
+            items={savedItems}
+            pendingLoad={pendingLoad}
+            onItemClick={handleItemClick}
+            onCopyValues={handleCopyValues}
+            onLoad={handleLoad}
+            onCancelLoad={() => setPendingLoad(null)}
+            onRemove={removeItem}
+          />
+        )}
       </div>
     </div>
   )
