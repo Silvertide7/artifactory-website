@@ -7,6 +7,8 @@ import { StringListInput } from '../../components/StringListInput'
 import { JsonPreview } from '../../components/JsonPreview'
 import { SectionHeader } from '../../components/SectionHeader'
 import { AttunementLevelItem } from './AttunementLevelItem'
+import { SavedItemsList } from './SavedItemsList'
+import { useSavedItems } from './useSavedItems'
 import {
   dataSourceFormSchema,
   defaultValues,
@@ -18,6 +20,7 @@ import {
   computeDownloadFileName,
   computePlacementPath,
   downloadJsonFile,
+  downloadDatapack,
   toCleanOutput,
   toPrettyJson,
 } from './output'
@@ -26,6 +29,9 @@ import { inputClass, selectClass } from '../../components/inputStyles'
 export const JsonBuilderForm = () => {
   const [copyState, setCopyState] = useState<'idle' | 'copied' | 'error'>('idle')
   const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [pendingLoad, setPendingLoad] = useState<string | null>(null)
+  const [savePrompt, setSavePrompt] = useState(false)
+  const { items: savedItems, save: saveItem, remove: removeItem, find: findItem } = useSavedItems()
 
   const {
     register,
@@ -67,12 +73,62 @@ export const JsonBuilderForm = () => {
   }, [])
 
   const previewJson = useMemo(() => toPrettyJson(cleanOutput), [cleanOutput])
+  const hasOutput = Object.keys(cleanOutput).length > 0
 
   // Subscribe to just the one field used for derived display values.
   const fileName = watch('file_name')
 
   const downloadFileName = computeDownloadFileName(fileName)
   const placementPath = computePlacementPath(fileName)
+
+  const canSave = hasOutput && fileName.trim() !== '' && !errors.file_name
+
+  const doLoad = (values: DataSourceFormValues) => {
+    reset(values)
+    setCleanOutput(toCleanOutput(values))
+    setPendingLoad(null)
+    setSavePrompt(false)
+    setCopyState('idle')
+  }
+
+  const handleItemClick = (file_name: string) => {
+    if (!hasOutput) {
+      const item = findItem(file_name)
+      if (item) doLoad(item.values)
+    } else {
+      setPendingLoad(file_name)
+    }
+  }
+
+  const handleCopyValues = (file_name: string) => {
+    const item = findItem(file_name)
+    if (!item) return
+    // Import saved settings but keep the current item ID
+    doLoad({ ...item.values, file_name: fileName })
+  }
+
+  const handleLoad = (file_name: string) => {
+    const item = findItem(file_name)
+    if (item) doLoad(item.values)
+  }
+
+  const handleSave = () => {
+    if (!canSave) return
+    const existing = findItem(fileName.trim())
+    if (!existing) {
+      saveItem(getValues())
+      return
+    }
+    const existingJson = toPrettyJson(toCleanOutput(existing.values))
+    const currentJson = toPrettyJson(cleanOutput)
+    if (existingJson === currentJson) return // identical, nothing to do
+    setSavePrompt(true)
+  }
+
+  const handleConfirmOverwrite = () => {
+    saveItem(getValues())
+    setSavePrompt(false)
+  }
 
   const onCopy = async () => {
     try {
@@ -104,7 +160,7 @@ export const JsonBuilderForm = () => {
               htmlFor="file_name"
               error={errors.file_name?.message}
               hint={
-                'The item this config targets. Sets the download filename (mod ID prefix is stripped automatically).\n\nIf using Apply to Items, use a descriptive group name instead since the filename is ignored by the game.\ne.g. minecraft:swords'
+                'Sets the download filename (mod ID prefix is stripped automatically). When Apply to Items is empty, this also determines which item the config targets in the game.\n\nIf Apply to Items has entries, this field is still used for the filename and folder path, but it is not the attunement target. Use a descriptive group name in that case.\ne.g. minecraft:swords'
               }
             >
               {(errorId) => (
@@ -231,27 +287,6 @@ export const JsonBuilderForm = () => {
           </div>
         </section>
 
-        {/* Section: Apply to Items */}
-        <section className="rounded-xl border border-zinc-200 bg-white dark:border-zinc-600 dark:bg-zinc-700">
-          <SectionHeader title="Item Targets" />
-          <div className="p-5">
-            <StringListInput
-              control={control}
-              name="apply_to_items"
-              label="Apply to Items"
-              placeholder="e.g. minecraft:iron_helmet"
-              hint={
-                'Applies this config to specific items.\nWhen set, the JSON filename is ignored.\n\nFormat: modid:item_name\ne.g. minecraft:iron_helmet\nDefault: empty (filename used instead)'
-              }
-              itemErrors={
-                errors.apply_to_items as unknown as Array<{
-                  value?: { message?: string }
-                }>
-              }
-            />
-          </div>
-        </section>
-
         {/* Section: Attunement Levels */}
         <section className="rounded-xl border border-zinc-200 bg-white dark:border-zinc-600 dark:bg-zinc-700">
           <SectionHeader
@@ -303,41 +338,94 @@ export const JsonBuilderForm = () => {
           </div>
         </section>
 
-        {/* Actions */}
-        <div className="flex flex-wrap items-center gap-2 pt-1">
-          <Button variant="secondary" type="button" onClick={onReset}>
-            Clear
-          </Button>
-          <Button
-            variant="secondary"
-            type="button"
-            onClick={() => downloadJsonFile(cleanOutput, downloadFileName)}
-          >
-            ↓ Download
-          </Button>
-          <Button type="button" onClick={onCopy}>
-            {copyState === 'copied'
-              ? '✓ Copied!'
-              : copyState === 'error'
-                ? '✗ Copy failed'
-                : 'Copy JSON'}
-          </Button>
-        </div>
+        {/* Section: Item Targets */}
+        <section className="rounded-xl border border-zinc-200 bg-white dark:border-zinc-600 dark:bg-zinc-700">
+          <SectionHeader title="Item Targets" />
+          <div className="p-5">
+            <StringListInput
+              control={control}
+              name="apply_to_items"
+              label="Apply to Items"
+              placeholder="e.g. minecraft:iron_helmet"
+              hint={
+                'When items are added here, the attunements in this config apply to every item in the list.\n\nThe file name and mod ID folder are no longer used as the attunement target — only the items listed here will receive the attunements. Items must use the format modid:item_name.\n\nOnly valid, exact item IDs will be matched. Invalid or missing items are ignored by the mod.'
+              }
+              itemErrors={
+                errors.apply_to_items as unknown as Array<{
+                  value?: { message?: string }
+                }>
+              }
+            />
+            {Array.isArray(cleanOutput.apply_to_items) &&
+              (cleanOutput.apply_to_items as string[]).length > 0 && (
+                <p className="mt-3 rounded-md border border-zinc-200 bg-zinc-50 px-3 py-2 text-xs text-zinc-600 dark:border-zinc-600 dark:bg-zinc-600/30 dark:text-zinc-300">
+                  These attunements will apply to{' '}
+                  <span className="font-semibold text-zinc-800 dark:text-zinc-100">
+                    {(cleanOutput.apply_to_items as string[]).length} item
+                    {(cleanOutput.apply_to_items as string[]).length !== 1 ? 's' : ''}
+                  </span>{' '}
+                  listed above. The file name is used only for saving and downloading — it is not
+                  used as an attunement target. Only the items in this list will receive the
+                  attunements.
+                </p>
+              )}
+          </div>
+        </section>
+
       </form>
 
-      {/* ── JSON Preview ── */}
-      <div className="lg:col-span-2">
-        <div className="sticky top-20 rounded-xl border border-zinc-700 bg-zinc-900">
-          <div className="flex items-center justify-between border-b border-zinc-100 px-4 py-3 dark:border-zinc-600/60">
+      {/* ── JSON Preview + Saved Items ── */}
+      <div className="sticky top-4 flex max-h-[calc(100vh-2rem)] flex-col gap-4 overflow-y-auto lg:col-span-2">
+        <div className="rounded-xl border border-zinc-700 bg-zinc-900">
+          <div className="flex items-center justify-between border-b border-zinc-700/60 px-4 py-3">
             <h2 className="text-xs font-semibold text-zinc-300">JSON Preview</h2>
             <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-[10px] text-zinc-400">
               empty fields omitted
             </span>
           </div>
-          <div className="max-h-[calc(100vh-10rem)] min-h-48 overflow-auto">
+          <div className="min-h-48">
             <JsonPreview json={previewJson} />
           </div>
+          <div className="flex flex-wrap items-center justify-center gap-2 border-t border-zinc-700/60 px-4 py-3">
+            <Button type="button" onClick={onCopy} disabled={!hasOutput}>
+              {copyState === 'copied'
+                ? '✓ Copied!'
+                : copyState === 'error'
+                  ? '✗ Copy failed'
+                  : 'Copy JSON'}
+            </Button>
+            <Button
+              variant="secondary"
+              type="button"
+              onClick={() => downloadJsonFile(cleanOutput, downloadFileName)}
+              disabled={!hasOutput}
+            >
+              ↓ Download
+            </Button>
+            <Button variant="secondary" type="button" onClick={onReset} disabled={!hasOutput}>
+              Clear
+            </Button>
+          </div>
         </div>
+
+        <SavedItemsList
+          items={savedItems}
+          canSave={canSave}
+          savePrompt={savePrompt}
+          onSave={handleSave}
+          onConfirmOverwrite={handleConfirmOverwrite}
+          onCancelSavePrompt={() => setSavePrompt(false)}
+          onDownloadDatapack={(packFormat) => void downloadDatapack(savedItems, packFormat)}
+          onClearList={() => {
+            savedItems.forEach((item) => removeItem(item.file_name))
+          }}
+          pendingLoad={pendingLoad}
+          onItemClick={handleItemClick}
+          onCopyValues={handleCopyValues}
+          onLoad={handleLoad}
+          onCancelLoad={() => setPendingLoad(null)}
+          onRemove={removeItem}
+        />
       </div>
     </div>
   )

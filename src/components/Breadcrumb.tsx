@@ -4,6 +4,7 @@ const LABELS: Record<string, string> = {
   '': 'Home',
   artifactory: 'Artifactory',
   'json-builder': 'JSON Builder',
+  homebound: 'Homebound',
 }
 
 export const Breadcrumb = () => {
@@ -21,7 +22,7 @@ export const Breadcrumb = () => {
   if (crumbs.length <= 1) return null
 
   return (
-    <nav aria-label="Breadcrumb" className="flex items-center gap-1.5 text-xs text-zinc-400">
+    <nav aria-label="Breadcrumb" className="mb-5 flex items-center gap-1.5 text-xs text-zinc-400">
       {crumbs.map((crumb, i) => {
         const isLast = i === crumbs.length - 1
         return (

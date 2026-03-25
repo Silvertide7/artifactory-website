@@ -1,3 +1,4 @@
+import JSZip from 'jszip'
 import type { DataSourceFormValues, RequirementsFormValues } from './fieldConfig'
 
 export const toPrettyJson = (value: unknown) => JSON.stringify(value, null, 2)
@@ -22,6 +23,45 @@ export const computePlacementPath = (fileName: string): string | null => {
 export const copyJsonToClipboard = async (jsonValue: unknown) => {
   const text = toPrettyJson(jsonValue)
   await navigator.clipboard.writeText(text)
+}
+
+export const downloadDatapack = async (
+  items: Array<{ file_name: string; values: DataSourceFormValues }>,
+  packFormat: number,
+) => {
+  const zip = new JSZip()
+
+  zip.file(
+    'pack.mcmeta',
+    toPrettyJson({
+      pack: {
+        description: 'Artifactory Datapack built from Json Web Builder',
+        pack_format: packFormat,
+      },
+    }),
+  )
+
+  for (const item of items) {
+    const raw = item.file_name.trim()
+    if (!raw) continue
+    const path = raw.includes(':')
+      ? `data/${raw.split(':')[0]}/artifactory/${raw.split(':')[1]}.json`
+      : `data/unknown/artifactory/${raw}.json`
+    zip.file(path, toPrettyJson(toCleanOutput(item.values)))
+  }
+
+  const blob = await zip.generateAsync({ type: 'blob' })
+  const url = URL.createObjectURL(blob)
+  try {
+    const link = document.createElement('a')
+    link.href = url
+    link.download = 'artifactory-datapack.zip'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  } finally {
+    URL.revokeObjectURL(url)
+  }
 }
 
 export const downloadJsonFile = (jsonValue: unknown, fileName = 'attunement-data.json') => {
