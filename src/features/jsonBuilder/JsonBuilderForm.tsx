@@ -415,7 +415,7 @@ export const JsonBuilderForm = () => {
           onSave={handleSave}
           onConfirmOverwrite={handleConfirmOverwrite}
           onCancelSavePrompt={() => setSavePrompt(false)}
-          onDownloadDatapack={() => void downloadDatapack(savedItems)}
+          onDownloadDatapack={(packFormat) => void downloadDatapack(savedItems, packFormat)}
           onClearList={() => {
             savedItems.forEach((item) => removeItem(item.file_name))
           }}

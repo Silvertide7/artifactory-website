@@ -9,7 +9,7 @@ type Props = {
   onSave: () => void
   onConfirmOverwrite: () => void
   onCancelSavePrompt: () => void
-  onDownloadDatapack: () => void
+  onDownloadDatapack: (packFormat: number) => void
   onClearList: () => void
   pendingLoad: string | null
   onItemClick: (file_name: string) => void
@@ -57,6 +57,7 @@ export const SavedItemsList = ({
   onRemove,
 }: Props) => {
   const [clearPrompt, setClearPrompt] = useState(false)
+  const [versionPrompt, setVersionPrompt] = useState(false)
   const groups = groupByModId(items)
   const hasItems = items.length > 0
 
@@ -99,11 +100,33 @@ export const SavedItemsList = ({
             >
               Clear all
             </Button>
+            <Button variant="secondary" type="button" onClick={() => setClearPrompt(false)}>
+              Cancel
+            </Button>
+          </>
+        ) : versionPrompt ? (
+          <>
+            <span className="text-xs text-zinc-500 dark:text-zinc-400">Select version:</span>
+            <Button
+              type="button"
+              onClick={() => {
+                onDownloadDatapack(15)
+                setVersionPrompt(false)
+              }}
+            >
+              Forge 1.20.1
+            </Button>
             <Button
               variant="secondary"
               type="button"
-              onClick={() => setClearPrompt(false)}
+              onClick={() => {
+                onDownloadDatapack(48)
+                setVersionPrompt(false)
+              }}
             >
+              NeoForge 1.21.1
+            </Button>
+            <Button variant="secondary" type="button" onClick={() => setVersionPrompt(false)}>
               Cancel
             </Button>
           </>
@@ -115,10 +138,10 @@ export const SavedItemsList = ({
             <Button
               variant="secondary"
               type="button"
-              onClick={onDownloadDatapack}
+              onClick={() => setVersionPrompt(true)}
               disabled={!hasItems}
             >
-              ↓ Datapack
+              Download Datapack
             </Button>
             <Button
               variant="secondary"
@@ -126,7 +149,7 @@ export const SavedItemsList = ({
               onClick={() => setClearPrompt(true)}
               disabled={!hasItems}
             >
-              Clear list
+              Clear Items
             </Button>
           </>
         )}
