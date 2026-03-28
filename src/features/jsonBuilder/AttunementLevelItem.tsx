@@ -1,19 +1,23 @@
 import { useState } from 'react'
 import type { Control, UseFormRegister, FieldErrors } from 'react-hook-form'
+import { ModificationListInput } from './ModificationListInput'
 import { StringListInput } from '../../components/StringListInput'
 import { FormField } from '../../components/FormField'
 import type { DataSourceFormValues } from './fieldConfig'
 import { inputClass } from '../../components/inputStyles'
 
+type Version = '1.20.1' | '1.21.1'
+
 type Props = {
   index: number
+  version: Version
   control: Control<DataSourceFormValues>
   register: UseFormRegister<DataSourceFormValues>
   errors: FieldErrors<DataSourceFormValues>
   onRemove: () => void
 }
 
-export const AttunementLevelItem = ({ index, control, register, errors, onRemove }: Props) => {
+export const AttunementLevelItem = ({ index, version, control, register, errors, onRemove }: Props) => {
   const [isOpen, setIsOpen] = useState(true)
   const levelErrors = errors.attunement_levels?.[index]
 
@@ -59,16 +63,7 @@ export const AttunementLevelItem = ({ index, control, register, errors, onRemove
       {isOpen && (
         <div className="space-y-5 p-4">
           {/* Modifications */}
-          <StringListInput
-            control={control}
-            name={`attunement_levels.${index}.modifications`}
-            label="Modifications"
-            labelClassName="text-[11px] font-semibold uppercase tracking-widest text-zinc-400"
-            placeholder="e.g. invulnerable"
-            hint={
-              'Modifiers applied to the item when attuned.\n\nSimple flags:\ninvulnerable, unbreakable, soulbound\n\nAttribute format:\nattribute/modid:attribute_name/operation/value/slot\ne.g. attribute/minecraft:generic.attack_damage/add_value/5/mainhand\nDefault: none'
-            }
-          />
+          <ModificationListInput control={control} index={index} version={version} />
 
           {/* Requirements sub-section */}
           <div>

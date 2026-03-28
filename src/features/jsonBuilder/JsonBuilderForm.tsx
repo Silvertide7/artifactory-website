@@ -26,7 +26,10 @@ import {
 } from './output'
 import { inputClass, selectClass } from '../../components/inputStyles'
 
+type Version = '1.20.1' | '1.21.1'
+
 export const JsonBuilderForm = () => {
+  const [version, setVersion] = useState<Version>('1.21.1')
   const [copyState, setCopyState] = useState<'idle' | 'copied' | 'error'>('idle')
   const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [pendingLoad, setPendingLoad] = useState<string | null>(null)
@@ -313,6 +316,28 @@ export const JsonBuilderForm = () => {
           />
 
           <div className="p-5">
+            {/* Version toggle */}
+            <div className="mb-4 flex items-center gap-2">
+              <span className="text-xs text-zinc-500 dark:text-zinc-400">Version:</span>
+              <div className="flex rounded-lg border border-zinc-200 bg-zinc-50 p-0.5 dark:border-zinc-600 dark:bg-zinc-700">
+                {(['1.21.1', '1.20.1'] as const).map((v) => (
+                  <button
+                    key={v}
+                    type="button"
+                    onClick={() => setVersion(v)}
+                    className={[
+                      'rounded-md px-3 py-1 text-xs font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-zinc-400',
+                      version === v
+                        ? 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900'
+                        : 'text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200',
+                    ].join(' ')}
+                  >
+                    {v === '1.21.1' ? 'NeoForge 1.21.1' : 'Forge 1.20.1'}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             {levelFields.length === 0 ? (
               <div className="rounded-lg border border-dashed border-zinc-300 py-8 text-center dark:border-zinc-600">
                 <p className="text-sm text-zinc-400">No attunement levels added</p>
@@ -327,6 +352,7 @@ export const JsonBuilderForm = () => {
                   <AttunementLevelItem
                     key={field.id}
                     index={index}
+                    version={version}
                     control={control}
                     register={register}
                     errors={errors}

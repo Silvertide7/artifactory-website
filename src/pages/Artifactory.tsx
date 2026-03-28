@@ -672,12 +672,12 @@ export const Artifactory = () => {
                 <div className="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-600">
                   {[
                     {
-                      field: 'xpLevelsConsumed',
-                      desc: 'XP levels consumed when the attunement completes.',
+                      field: 'xp_levels_consumed',
+                      desc: 'XP levels consumed when the attunement completes. Defaults to -1 (uses server config value).',
                     },
                     {
-                      field: 'xpLevelThreshold',
-                      desc: 'Minimum XP level required to start attunement. Not consumed.',
+                      field: 'xp_level_threshold',
+                      desc: 'Minimum XP level required to start attunement. Not consumed. Defaults to -1 (uses server config value).',
                     },
                     {
                       field: 'items',
@@ -698,6 +698,102 @@ export const Artifactory = () => {
                       </p>
                     </div>
                   ))}
+                </div>
+              </div>
+
+              {/* Modifications Sub-fields */}
+              <div className="space-y-3">
+                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                  Modifications Sub-fields
+                </p>
+                <p className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-300">
+                  Each entry in <code className="rounded bg-zinc-100 px-1 py-0.5 font-mono dark:bg-zinc-600">modifications</code> is a string. There are three named modifications and one structured attribute modification type:
+                </p>
+                <div className="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-600">
+                  {[
+                    {
+                      field: 'invulnerable',
+                      desc: "The item cannot be destroyed by environmental effects (lava, cacti, etc.) and will never despawn when dropped.",
+                    },
+                    {
+                      field: 'unbreakable',
+                      desc: 'If the item has durability, it becomes unbreakable.',
+                    },
+                    {
+                      field: 'soulbound',
+                      desc: 'When you die, the item travels with you through death and respawns on your body.',
+                    },
+                    {
+                      field: 'attribute/modid:name/operation/value/slot',
+                      desc: 'Grants an attribute bonus when this attunement level is reached. All five segments are required. See the Attribute Format reference below.',
+                    },
+                  ].map(({ field, desc }, i, arr) => (
+                    <div
+                      key={field}
+                      className={`px-4 py-3.5 ${i < arr.length - 1 ? 'border-b border-zinc-100 dark:border-zinc-600' : ''}`}
+                    >
+                      <div className="mb-1.5">
+                        <code className="font-mono text-xs font-semibold text-sky-600 dark:text-sky-400">
+                          {field}
+                        </code>
+                      </div>
+                      <p className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-300">
+                        {desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Attribute format detail */}
+                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                  Attribute Format
+                </p>
+                <pre className="overflow-x-auto rounded-lg bg-zinc-900 p-4 font-mono text-xs leading-relaxed text-zinc-300">{`attribute / modid:attributename / operation / value / equipmentslot
+
+Example (1.21.1):  attribute/minecraft:generic.attack_damage/add_value/5/mainhand
+Example (1.20.1):  attribute/minecraft:generic.attack_damage/addition/5/mainhand`}</pre>
+                <div className="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-600">
+                  <div className="border-b border-zinc-100 px-4 py-3.5 dark:border-zinc-600">
+                    <div className="mb-1.5 flex flex-wrap items-center gap-2">
+                      <code className="font-mono text-xs font-semibold text-sky-600 dark:text-sky-400">operation</code>
+                    </div>
+                    <p className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-300">
+                      <span className="font-semibold text-zinc-500 dark:text-zinc-400">1.20.1:</span>{' '}
+                      <code className="font-mono text-xs">addition</code>,{' '}
+                      <code className="font-mono text-xs">multiply_base</code>,{' '}
+                      <code className="font-mono text-xs">multiply_total</code>
+                    </p>
+                    <p className="mt-1 text-xs leading-relaxed text-zinc-600 dark:text-zinc-300">
+                      <span className="font-semibold text-zinc-500 dark:text-zinc-400">1.21.1:</span>{' '}
+                      <code className="font-mono text-xs">add_value</code>,{' '}
+                      <code className="font-mono text-xs">add_multiplied_base</code>,{' '}
+                      <code className="font-mono text-xs">add_multiplied_total</code>
+                    </p>
+                  </div>
+                  <div className="px-4 py-3.5">
+                    <div className="mb-1.5 flex flex-wrap items-center gap-2">
+                      <code className="font-mono text-xs font-semibold text-sky-600 dark:text-sky-400">equipmentslot</code>
+                    </div>
+                    <p className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-300">
+                      <code className="font-mono text-xs">mainhand</code>,{' '}
+                      <code className="font-mono text-xs">offhand</code>,{' '}
+                      <code className="font-mono text-xs">feet</code>,{' '}
+                      <code className="font-mono text-xs">legs</code>,{' '}
+                      <code className="font-mono text-xs">chest</code>,{' '}
+                      <code className="font-mono text-xs">head</code>
+                      {' '}(all versions){' '}
+                      <span className="mx-1 text-zinc-300 dark:text-zinc-500">|</span>{' '}
+                      <code className="font-mono text-xs">hand</code>,{' '}
+                      <code className="font-mono text-xs">body</code>,{' '}
+                      <code className="font-mono text-xs">armor</code>,{' '}
+                      <code className="font-mono text-xs">any</code>
+                      {' '}(1.21.1+ only)
+                    </p>
+                    <p className="mt-1.5 text-xs text-zinc-500 dark:text-zinc-400">
+                      Make sure the slot matches the item type. A helmet configured with{' '}
+                      <code className="font-mono text-xs">mainhand</code> will not grant its attributes when equipped.
+                    </p>
+                  </div>
                 </div>
               </div>
 
