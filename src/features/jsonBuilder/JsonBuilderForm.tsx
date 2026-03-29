@@ -22,11 +22,17 @@ import {
   downloadJsonFile,
   downloadDatapack,
   toCleanOutput,
+  toComponentString,
   toPrettyJson,
 } from './output'
 import { inputClass, selectClass } from '../../components/inputStyles'
 
+type Version = '1.20.1' | '1.21.1'
+type OutputMode = 'datapack' | 'component'
+
 export const JsonBuilderForm = () => {
+  const [version, setVersion] = useState<Version>('1.21.1')
+  const [outputMode, setOutputMode] = useState<OutputMode>('datapack')
   const [copyState, setCopyState] = useState<'idle' | 'copied' | 'error'>('idle')
   const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [pendingLoad, setPendingLoad] = useState<string | null>(null)
@@ -73,6 +79,7 @@ export const JsonBuilderForm = () => {
   }, [])
 
   const previewJson = useMemo(() => toPrettyJson(cleanOutput), [cleanOutput])
+  const componentString = useMemo(() => toComponentString(getValues()), [cleanOutput])
   const hasOutput = Object.keys(cleanOutput).length > 0
 
   // Subscribe to just the one field used for derived display values.
@@ -133,6 +140,17 @@ export const JsonBuilderForm = () => {
   const onCopy = async () => {
     try {
       await copyJsonToClipboard(cleanOutput)
+      setCopyState('copied')
+    } catch {
+      setCopyState('error')
+    }
+    if (copyTimeoutRef.current !== null) clearTimeout(copyTimeoutRef.current)
+    copyTimeoutRef.current = setTimeout(() => setCopyState('idle'), 1500)
+  }
+
+  const onCopyCommand = async () => {
+    try {
+      await navigator.clipboard.writeText(componentString)
       setCopyState('copied')
     } catch {
       setCopyState('error')
@@ -313,6 +331,28 @@ export const JsonBuilderForm = () => {
           />
 
           <div className="p-5">
+            {/* Version toggle */}
+            <div className="mb-4 flex items-center gap-2">
+              <span className="text-xs text-zinc-500 dark:text-zinc-400">Version:</span>
+              <div className="flex rounded-lg border border-zinc-200 bg-zinc-50 p-0.5 dark:border-zinc-600 dark:bg-zinc-700">
+                {(['1.21.1', '1.20.1'] as const).map((v) => (
+                  <button
+                    key={v}
+                    type="button"
+                    onClick={() => setVersion(v)}
+                    className={[
+                      'rounded-md px-3 py-1 text-xs font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-zinc-400',
+                      version === v
+                        ? 'bg-zinc-900 text-white dark:bg-zinc-100 dark:text-zinc-900'
+                        : 'text-zinc-500 hover:text-zinc-700 dark:text-zinc-400 dark:hover:text-zinc-200',
+                    ].join(' ')}
+                  >
+                    {v === '1.21.1' ? 'NeoForge 1.21.1' : 'Forge 1.20.1'}
+                  </button>
+                ))}
+              </div>
+            </div>
+
             {levelFields.length === 0 ? (
               <div className="rounded-lg border border-dashed border-zinc-300 py-8 text-center dark:border-zinc-600">
                 <p className="text-sm text-zinc-400">No attunement levels added</p>
@@ -327,6 +367,7 @@ export const JsonBuilderForm = () => {
                   <AttunementLevelItem
                     key={field.id}
                     index={index}
+                    version={version}
                     control={control}
                     register={register}
                     errors={errors}
@@ -377,31 +418,88 @@ export const JsonBuilderForm = () => {
       {/* ── JSON Preview + Saved Items ── */}
       <div className="sticky top-4 flex max-h-[calc(100vh-2rem)] flex-col gap-4 overflow-y-auto lg:col-span-2">
         <div className="rounded-xl border border-zinc-700 bg-zinc-900">
+          {/* Mode toggle header */}
           <div className="flex items-center justify-between border-b border-zinc-700/60 px-4 py-3">
-            <h2 className="text-xs font-semibold text-zinc-300">JSON Preview</h2>
-            <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-[10px] text-zinc-400">
-              empty fields omitted
-            </span>
+            <div className="flex rounded-lg border border-zinc-700 bg-zinc-800 p-0.5">
+              {(['datapack', 'component'] as const).map((mode) => (
+                <button
+                  key={mode}
+                  type="button"
+                  onClick={() => setOutputMode(mode)}
+                  className={[
+                    'rounded-md px-3 py-1 text-xs font-medium transition focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-zinc-400',
+                    outputMode === mode
+                      ? 'bg-zinc-600 text-zinc-100'
+                      : 'text-zinc-400 hover:text-zinc-200',
+                  ].join(' ')}
+                >
+                  {mode === 'datapack' ? 'Datapack JSON' : 'Data Component'}
+                </button>
+              ))}
+            </div>
+            {outputMode === 'datapack' ? (
+              <span className="rounded-full bg-zinc-800 px-2 py-0.5 text-[10px] text-zinc-400">
+                empty fields omitted
+              </span>
+            ) : (
+              <span className="rounded-full bg-zinc-700 px-2 py-0.5 text-[10px] font-semibold text-zinc-300">
+                1.21.1+
+              </span>
+            )}
           </div>
+
+          {/* Preview body */}
           <div className="min-h-48">
-            <JsonPreview json={previewJson} />
+            {outputMode === 'datapack' ? (
+              <JsonPreview json={previewJson} />
+            ) : (
+              <div className="p-4 space-y-3">
+                {!fileName.trim() && (
+                  <p className="text-xs text-zinc-500">
+                    Enter an item ID above to complete the component string.
+                  </p>
+                )}
+                <pre className="whitespace-pre-wrap break-all font-mono text-xs leading-relaxed text-zinc-300">
+                  {componentString}
+                </pre>
+                <p className="text-xs text-zinc-500">
+                  Use with{' '}
+                  <code className="font-mono text-zinc-400">/give @p &lt;paste&gt;</code>,
+                  advancements, loot tables, KubeJS, and more.
+                </p>
+              </div>
+            )}
           </div>
+
+          {/* Action buttons */}
           <div className="flex flex-wrap items-center justify-center gap-2 border-t border-zinc-700/60 px-4 py-3">
-            <Button type="button" onClick={onCopy} disabled={!hasOutput}>
-              {copyState === 'copied'
-                ? '✓ Copied!'
-                : copyState === 'error'
-                  ? '✗ Copy failed'
-                  : 'Copy JSON'}
-            </Button>
-            <Button
-              variant="secondary"
-              type="button"
-              onClick={() => downloadJsonFile(cleanOutput, downloadFileName)}
-              disabled={!hasOutput}
-            >
-              ↓ Download
-            </Button>
+            {outputMode === 'datapack' ? (
+              <>
+                <Button type="button" onClick={onCopy} disabled={!hasOutput}>
+                  {copyState === 'copied'
+                    ? '✓ Copied!'
+                    : copyState === 'error'
+                      ? '✗ Copy failed'
+                      : 'Copy JSON'}
+                </Button>
+                <Button
+                  variant="secondary"
+                  type="button"
+                  onClick={() => downloadJsonFile(cleanOutput, downloadFileName)}
+                  disabled={!hasOutput}
+                >
+                  ↓ Download
+                </Button>
+              </>
+            ) : (
+              <Button type="button" onClick={onCopyCommand}>
+                {copyState === 'copied'
+                  ? '✓ Copied!'
+                  : copyState === 'error'
+                    ? '✗ Copy failed'
+                    : 'Copy Command'}
+              </Button>
+            )}
             <Button variant="secondary" type="button" onClick={onReset} disabled={!hasOutput}>
               Clear
             </Button>

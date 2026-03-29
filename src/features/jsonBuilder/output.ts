@@ -116,6 +116,49 @@ const toCleanRequirements = (req: RequirementsFormValues): Record<string, unknow
   return Object.keys(out).length > 0 ? out : undefined
 }
 
+function snbtValue(value: unknown): string {
+  if (typeof value === 'boolean') return value.toString()
+  if (typeof value === 'number') return value.toString()
+  if (typeof value === 'string') {
+    return /^[a-zA-Z_][a-zA-Z0-9_]*$/.test(value) ? value : `"${value}"`
+  }
+  if (Array.isArray(value)) return `[${value.map(snbtValue).join(',')}]`
+  if (typeof value === 'object' && value !== null) {
+    const pairs = Object.entries(value as Record<string, unknown>).map(
+      ([k, v]) => `${k}:${snbtValue(v)}`,
+    )
+    return `{${pairs.join(',')}}`
+  }
+  return 'null'
+}
+
+export const toComponentString = (values: DataSourceFormValues): string => {
+  const itemId = values.file_name.trim() || '<item_id>'
+  const slotsUsed = parseIntField(values.slots_used) ?? 0
+  const chance = parseFloatField(values.chance) ?? 1.0
+  const useWithout = parseBoolField(values.use_without_attunement) ?? true
+
+  const levels = values.attunement_levels
+    .map((level) => {
+      const lvl: Record<string, unknown> = {}
+      const mods = toStringArray(level.modifications)
+      if (mods.length > 0) lvl.modifications = mods
+      const req = toCleanRequirements(level.requirements)
+      if (req !== undefined) lvl.requirements = req
+      return lvl
+    })
+    .filter((lvl) => Object.keys(lvl).length > 0)
+
+  const component = {
+    slots_used: slotsUsed,
+    attunement_levels: levels,
+    chance,
+    use_without_attunement: useWithout,
+  }
+
+  return `${itemId}[artifactory:attunement_override=${snbtValue(component)}]`
+}
+
 export const toCleanOutput = (values: DataSourceFormValues): Record<string, unknown> => {
   const out: Record<string, unknown> = {}
 
