@@ -12,7 +12,7 @@ function App() {
         <Route element={<Layout />}>
           <Route index element={<Home />} />
           <Route path="artifactory" element={<Artifactory />} />
-          <Route path="artifactory/json-builder" element={<JsonBuilder />} />
+          <Route path="artifactory/config-generator" element={<JsonBuilder />} />
           <Route path="homebound" element={<Homebound />} />
         </Route>
       </Routes>
