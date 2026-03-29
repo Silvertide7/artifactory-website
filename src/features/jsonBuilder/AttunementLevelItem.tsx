@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import type { Control, UseFormRegister, FieldErrors } from 'react-hook-form'
 import { ModificationListInput } from './ModificationListInput'
-import { StringListInput } from '../../components/StringListInput'
+import { ItemListInput } from './ItemListInput'
 import { FormField } from '../../components/FormField'
 import type { DataSourceFormValues } from './fieldConfig'
 import { inputClass } from '../../components/inputStyles'
@@ -119,15 +119,9 @@ export const AttunementLevelItem = ({ index, version, control, register, errors,
                 </FormField>
               </div>
 
-              <StringListInput
+              <ItemListInput
                 control={control}
-                name={`attunement_levels.${index}.requirements.items`}
-                label="Items"
-                placeholder="e.g. minecraft:nether_star"
-                maxItems={3}
-                hint={
-                  'Items consumed when attunement completes.\nMax 3 items.\n\nFormat: modid:item_name or modid:item_name#quantity\nQuantity defaults to 1.\ne.g. minecraft:diamond#64\nDefault: none'
-                }
+                index={index}
                 itemErrors={
                   levelErrors?.requirements?.items as unknown as Array<{
                     value?: { message?: string }
