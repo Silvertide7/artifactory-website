@@ -47,7 +47,7 @@ export const Artifactory = () => {
         />
       </div>
 
-      {/* ── Main layout: centered card with floating JSON Builder ── */}
+      {/* ── Main layout: centered card with floating Config Generator ── */}
       <div className="relative">
         <Card className="mx-auto xl:w-[52rem]">
           {/* Tab bar */}
@@ -89,6 +89,27 @@ export const Artifactory = () => {
                 to commit to. Fully configurable and built to fit seamlessly into any modpack,
                 Artifactory adds depth, progression, and balance to your game.
               </p>
+
+              {/* Config Generator callout */}
+              <div className="flex flex-col gap-4 rounded-xl border border-zinc-200 bg-zinc-50 p-4 sm:flex-row sm:items-center sm:justify-between dark:border-zinc-600 dark:bg-zinc-600/30">
+                <div className="space-y-0.5">
+                  <p className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
+                    Artifactory Config Generator
+                  </p>
+                  <p className="text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
+                    Build attunement configs visually: single JSON files, full datapacks, or data component strings for use in-game.
+                  </p>
+                </div>
+                <a
+                  href="/artifactory/config-generator"
+                  className="group inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-zinc-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-500 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white"
+                >
+                  Open builder
+                  <svg className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M3 8h10M9 4l4 4-4 4" />
+                  </svg>
+                </a>
+              </div>
 
               <div className="grid gap-3 sm:grid-cols-3">
                 {[
@@ -553,7 +574,7 @@ export const Artifactory = () => {
                 <code className="rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-xs dark:bg-zinc-600">
                   data/&lt;modid&gt;/artifactory/&lt;item_name&gt;.json
                 </code>
-                . Use the JSON Builder tool (link on the right) to generate files with live
+                . Use the Config Generator tool (link on the right) to generate files with live
                 validation and preview.
               </p>
 
@@ -858,12 +879,12 @@ Example (1.20.1):  attribute/minecraft:generic.attack_damage/addition/5/mainhand
           )}
         </Card>
 
-        {/* JSON Builder sidebar — absolutely placed so it never affects the centered card */}
+        {/* Config Generator sidebar — absolutely placed so it never affects the centered card */}
         <div className="absolute top-0 left-[calc(50%+26rem+1.5rem)] hidden w-[18rem] xl:block">
           <div className="sticky top-20">
             <ToolLinkCard
-              to="/artifactory/json-builder"
-              title="JSON Builder"
+              to="/artifactory/config-generator"
+              title="Config Generator"
               description="Generate attunement config files with live validation and preview."
               icon={
                 <svg
