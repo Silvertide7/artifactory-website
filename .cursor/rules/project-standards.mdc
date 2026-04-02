@@ -39,13 +39,13 @@ No test suite is configured.
 
 ## Architecture
 
-The app is an "Attunement Data Source Config Generator" that produces Artifactory mod configuration JSON. It is a multi-page SPA with the following routes under a shared `Layout`:
+The app is a "JSON / Datapack Builder" that produces Artifactory mod configuration JSON. It is a multi-page SPA with the following routes under a shared `Layout`:
 
 | Route                       | Page                                      |
 | --------------------------- | ----------------------------------------- |
 | `/`                         | `Home` — mod card grid                    |
 | `/artifactory`              | `Artifactory` — tabbed mod reference page |
-| `/artifactory/json-builder` | `JsonBuilder` — form wrapper              |
+| `/artifactory/config-generator` | `JsonBuilder` — JSON / Datapack Builder    |
 
 ### Data flow
 

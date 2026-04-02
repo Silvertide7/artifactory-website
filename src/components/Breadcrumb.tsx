@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 const LABELS: Record<string, string> = {
   '': 'Home',
   artifactory: 'Artifactory',
-  'config-generator': 'Config Generator',
+  'config-generator': 'JSON / Datapack Builder',
   homebound: 'Homebound',
 }
 

@@ -47,7 +47,7 @@ export const Artifactory = () => {
         />
       </div>
 
-      {/* ── Main layout: centered card with floating Config Generator ── */}
+      {/* ── Main layout: centered card with floating JSON / Datapack Builder ── */}
       <div className="relative">
         <Card className="mx-auto xl:w-[52rem]">
           {/* Tab bar */}
@@ -90,11 +90,11 @@ export const Artifactory = () => {
                 Artifactory adds depth, progression, and balance to your game.
               </p>
 
-              {/* Config Generator callout */}
+              {/* JSON / Datapack Builder callout */}
               <div className="flex flex-col gap-4 rounded-xl border border-zinc-200 bg-zinc-50 p-4 sm:flex-row sm:items-center sm:justify-between dark:border-zinc-600 dark:bg-zinc-600/30">
                 <div className="space-y-0.5">
                   <p className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
-                    Artifactory Config Generator
+                    JSON / Datapack Builder
                   </p>
                   <p className="text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
                     Build attunement configs visually: single JSON files, full datapacks, or data component strings for use in-game.
@@ -244,11 +244,6 @@ export const Artifactory = () => {
                   })}
                 </div>
                 <figure className="space-y-2">
-                  <img
-                    src={IMG.levelComparison}
-                    alt="Diamond sword at attunement levels 1, 2, and 3 side by side"
-                    className="w-full rounded-lg border border-zinc-200 object-contain dark:border-zinc-600"
-                  />
                   <div className="grid grid-cols-3 text-center">
                     {['Level 1', 'Level 2', 'Level 3'].map((label) => (
                       <span key={label} className="text-xs text-zinc-400">
@@ -256,6 +251,11 @@ export const Artifactory = () => {
                       </span>
                     ))}
                   </div>
+                  <img
+                    src={IMG.levelComparison}
+                    alt="Diamond sword at attunement levels 1, 2, and 3 side by side"
+                    className="w-full rounded-lg border border-zinc-200 object-contain dark:border-zinc-600"
+                  />
                 </figure>
               </div>
 
@@ -574,7 +574,7 @@ export const Artifactory = () => {
                 <code className="rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-xs dark:bg-zinc-600">
                   data/&lt;modid&gt;/artifactory/&lt;item_name&gt;.json
                 </code>
-                . Use the Config Generator tool (link on the right) to generate files with live
+                . Use the JSON / Datapack Builder tool (link on the right) to generate files with live
                 validation and preview.
               </p>
 
@@ -879,12 +879,12 @@ Example (1.20.1):  attribute/minecraft:generic.attack_damage/addition/5/mainhand
           )}
         </Card>
 
-        {/* Config Generator sidebar — absolutely placed so it never affects the centered card */}
+        {/* JSON / Datapack Builder sidebar — absolutely placed so it never affects the centered card */}
         <div className="absolute top-0 left-[calc(50%+26rem+1.5rem)] hidden w-[18rem] xl:block">
           <div className="sticky top-20">
             <ToolLinkCard
               to="/artifactory/config-generator"
-              title="Config Generator"
+              title="JSON / Datapack Builder"
               description="Generate attunement config files with live validation and preview."
               icon={
                 <svg

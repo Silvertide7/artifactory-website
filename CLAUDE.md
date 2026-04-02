@@ -28,7 +28,7 @@ This is a React + TypeScript + Vite multi-page SPA for Minecraft mod tooling. It
 
 - `/` - Home page (mod cards)
 - `/artifactory` - Artifactory mod landing page with tabs
-- `/artifactory/json-builder` - Attunement Data Source Config Generator
+- `/artifactory/config-generator` - JSON / Datapack Builder
 - `/homebound` - Homebound mod landing page with tabs
 
 ### JSON Builder data flow
