@@ -5,7 +5,7 @@ export const JsonBuilder = () => (
     {/* Page header */}
     <div className="flex items-center gap-3">
       <p className="text-sm font-medium text-zinc-700 dark:text-zinc-200">
-        Attunement Data Source Config Generator
+        JSON / Datapack Builder
       </p>
     </div>
 
