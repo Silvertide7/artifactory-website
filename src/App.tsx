@@ -4,6 +4,8 @@ import { Home } from './pages/Home'
 import { Artifactory } from './pages/Artifactory'
 import { JsonBuilder } from './pages/JsonBuilder'
 import { Homebound } from './pages/Homebound'
+import { Alchemical } from './pages/Alchemical'
+import { AlchemicalBuilder } from './pages/AlchemicalBuilder'
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
           <Route path="artifactory" element={<Artifactory />} />
           <Route path="artifactory/config-generator" element={<JsonBuilder />} />
           <Route path="homebound" element={<Homebound />} />
+          <Route path="alchemical" element={<Alchemical />} />
+          <Route path="alchemical/ingredient-builder" element={<AlchemicalBuilder />} />
         </Route>
       </Routes>
     </BrowserRouter>

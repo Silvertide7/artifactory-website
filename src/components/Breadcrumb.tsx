@@ -5,6 +5,8 @@ const LABELS: Record<string, string> = {
   artifactory: 'Artifactory',
   'config-generator': 'JSON / Datapack Builder',
   homebound: 'Homebound',
+  alchemical: 'Alchemical',
+  'ingredient-builder': 'Ingredient Builder',
 }
 
 export const Breadcrumb = () => {

@@ -3,7 +3,7 @@ import { Tooltip } from './Tooltip'
 import { ErrorMessage } from './ErrorMessage'
 
 type FormFieldProps = {
-  label: string
+  label: ReactNode
   htmlFor: string
   error?: string
   hint?: string

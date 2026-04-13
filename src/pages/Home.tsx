@@ -31,6 +31,15 @@ const mods: Mod[] = [
       'Items that let you set a home and teleport there without trivializing transportation and danger in Minecraft. Fully configurable cooldowns, distance restrictions, and dimensional travel rules.',
     tags: ['Forge 1.20.1', 'NeoForge 1.21.1'],
   },
+  {
+    path: '/alchemical',
+    logo: '/alchemical/elixir_logo_450.png',
+    title: '/alchemical/minecraft_title_hd.png',
+    titleAlt: 'Alchemical',
+    description:
+      'A reusable elixir system inspired by real-world alchemy. Craft permanent flasks, load them with Essence Stones, Tinctures, and Catalysts, and fine-tune effects, duration, and cooldowns. Fully datapack-driven.',
+    tags: ['NeoForge 1.21.1'],
+  },
 ]
 
 export const Home = () => (
