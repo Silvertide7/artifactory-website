@@ -3,6 +3,7 @@ import { ToolLinkCard } from '../components/ToolLinkCard'
 
 const IMG = {
   banner: '/artifactory/banner.png',
+  logo: '/artifactory/logo.png',
   levelComparison: '/artifactory/level-comparison.png',
   featuresBanner: '/artifactory/features-banner.png',
   unattunedSword: '/artifactory/unattuned-sword.png',
@@ -78,12 +79,12 @@ export const Artifactory = () => {
           {/* Overview content */}
           {activeTab === 'overview' && (
             <div className="space-y-5 p-6">
-              <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+              <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                 Artifactory introduces a highly configurable D&amp;D-style attunement system where
                 players can bond with weapons, armor, and gear. As your attunement level grows, so
                 does the power of your gear, unlocking new bonuses and effects.
               </p>
-              <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+              <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                 Modpack makers can restrict powerful items until they're attuned, and with a limited
                 number of attunement slots, players must make meaningful choices about which items
                 to commit to. Fully configurable and built to fit seamlessly into any modpack,
@@ -96,7 +97,7 @@ export const Artifactory = () => {
                   <p className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
                     JSON / Datapack Builder
                   </p>
-                  <p className="text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
+                  <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                     Build attunement configs visually: single JSON files, full datapacks, or data component strings for use in-game.
                   </p>
                 </div>
@@ -109,6 +110,14 @@ export const Artifactory = () => {
                     <path d="M3 8h10M9 4l4 4-4 4" />
                   </svg>
                 </a>
+              </div>
+
+              <div className="flex justify-center py-2">
+                <img
+                  src={IMG.logo}
+                  alt="Artifactory"
+                  className="w-32 object-contain opacity-90"
+                />
               </div>
 
               <div className="grid gap-3 sm:grid-cols-3">
@@ -133,7 +142,7 @@ export const Artifactory = () => {
                     <p className="mb-1.5 text-sm font-semibold text-zinc-800 dark:text-zinc-100">
                       {label}
                     </p>
-                    <p className="text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
+                    <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                       {desc}
                     </p>
                   </div>
@@ -155,7 +164,7 @@ export const Artifactory = () => {
                 ].map((feature) => (
                   <div
                     key={feature}
-                    className="flex gap-2 text-xs text-zinc-600 dark:text-zinc-300"
+                    className="flex gap-2 text-sm text-zinc-600 dark:text-zinc-300"
                   >
                     <span className="mt-0.5 shrink-0 text-zinc-300 dark:text-zinc-500">✦</span>
                     {feature}
@@ -165,20 +174,14 @@ export const Artifactory = () => {
 
               <Divider />
 
-              <div className="flex justify-center">
-                <img
-                  src={IMG.featuresBanner}
-                  alt="Artifactory features"
-                  className="w-1/5 rounded-lg object-contain"
-                />
-              </div>
+
 
               {/* Attunement Level Progression */}
               <div className="space-y-3">
-                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
                   Attunement Level Progression
                 </p>
-                <p className="text-sm text-zinc-500 dark:text-zinc-400">
+                <p className="text-base text-zinc-600 dark:text-zinc-300">
                   Below are the default datapack attunement levels for the Diamond Sword, included
                   as an example of what the system is capable of.
                 </p>
@@ -236,7 +239,7 @@ export const Artifactory = () => {
                         <span className={`mt-0.5 shrink-0 text-xs font-bold ${labelColor}`}>
                           LVL {level}
                         </span>
-                        <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                        <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                           {content}
                         </p>
                       </div>
@@ -246,7 +249,7 @@ export const Artifactory = () => {
                 <figure className="space-y-2">
                   <div className="grid grid-cols-3 text-center">
                     {['Level 1', 'Level 2', 'Level 3'].map((label) => (
-                      <span key={label} className="text-xs text-zinc-400">
+                      <span key={label} className="text-sm text-zinc-400">
                         {label}
                       </span>
                     ))}
@@ -263,10 +266,10 @@ export const Artifactory = () => {
 
               {/* Enhancement System */}
               <div className="space-y-4">
-                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
                   Enhancement System
                 </p>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Attuning an item offers fun and powerful benefits. As you grow your bond, these
                   benefits grow as well. Benefits are cumulative: a level 3 item retains everything
                   granted at levels 1 and 2. Placing an attuned item back into the Nexus re-syncs
@@ -297,13 +300,13 @@ export const Artifactory = () => {
                   ].map(({ name, border, label, desc }) => (
                     <div key={name} className={`space-y-1.5 rounded-lg border p-4 ${border}`}>
                       <p className={`text-sm font-bold ${label}`}>{name}</p>
-                      <p className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-300">
+                      <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                         {desc}
                       </p>
                     </div>
                   ))}
                 </div>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Any attribute, including those added by other mods, can be applied at each
                   attunement level using the format:{' '}
                   <code className="font-mono text-xs">
@@ -317,17 +320,17 @@ export const Artifactory = () => {
 
               {/* Restriction System */}
               <div className="space-y-3">
-                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
                   Restriction System
                 </p>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   An attuneable item can be configured so it must be attuned before it can be used
                   in any way, or it can be usable as normal and attuning it just offers further
                   benefits. If attunement is required, the item cannot deal damage, break blocks, or
                   be used in any capacity (including drawing a bow or casting a fishing rod) until
                   it's attuned to you.
                 </p>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Items that are attuned show complete allegiance to their owner. Other players
                   cannot use them in any capacity. You can also configure effects applied to players
                   who hold an attuned item that doesn't belong to them: slowness, poison, wither,
@@ -339,10 +342,10 @@ export const Artifactory = () => {
 
               {/* Curios Integration */}
               <div className="space-y-3">
-                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
                   Curios Integration
                 </p>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   With Curios installed, a new{' '}
                   <strong className="font-medium text-zinc-800 dark:text-zinc-100">
                     Attuned Item
@@ -351,7 +354,7 @@ export const Artifactory = () => {
                   attuned items you aren't actively using for quick swapping.{' '}
                   <Mod name="Soulbound" color="amber" /> items will stay in this slot on death.
                 </p>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   To change the number of Curio slots (default: 1), override{' '}
                   <code className="rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-xs dark:bg-zinc-600">
                     data/artifactory/curios/slots/attuned_item.json
@@ -365,7 +368,7 @@ export const Artifactory = () => {
 
               {/* Use Cases */}
               <div className="space-y-3">
-                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
                   Use Cases
                 </p>
                 <div className="space-y-4">
@@ -389,7 +392,7 @@ export const Artifactory = () => {
                         <p className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
                           {title}
                         </p>
-                        <p className="mt-1 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+                        <p className="mt-1 text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                           {desc}
                         </p>
                       </div>
@@ -408,14 +411,14 @@ export const Artifactory = () => {
                 <h3 className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
                   Attunable Items
                 </h3>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Once an item is configured to be attuneable, it shows how many attunement slots it
                   will reserve when you attune to it. If the item has a chance of being attunable
                   (e.g. "Attunable (40%)"), that is determined the first time you place it in the
                   Nexus. This is a one-time check: if it fails, that item will behave as a
                   completely normal item and can never be attuned.
                 </p>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   If the item was configured to require attunement before use, it will say
                   "Attunable (Required)". This makes the item unusable in any way until attuned: no
                   damage, no block breaking, no drawing a bow, no casting a fishing rod.
@@ -427,7 +430,7 @@ export const Artifactory = () => {
                       alt="Unattuned diamond sword tooltip showing 'Attunable (2 slots)'"
                       className="mx-auto w-1/2 rounded-lg border border-zinc-200 dark:border-zinc-600"
                     />
-                    <figcaption className="text-center text-xs text-zinc-400">
+                    <figcaption className="text-center text-sm text-zinc-400">
                       An attunable item before bonding
                     </figcaption>
                   </figure>
@@ -439,7 +442,7 @@ export const Artifactory = () => {
                 <h3 className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
                   Building the Attunement Nexus
                 </h3>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   The Attunement Nexus is where all attunements are performed. Craft it using the
                   default recipe:
                 </p>
@@ -450,7 +453,7 @@ export const Artifactory = () => {
                       alt="Attunement Nexus crafting recipe"
                       className="rounded-lg border border-zinc-200 dark:border-zinc-600"
                     />
-                    <figcaption className="text-center text-xs text-zinc-400">
+                    <figcaption className="text-center text-sm text-zinc-400">
                       Default Attunement Nexus recipe
                     </figcaption>
                   </figure>
@@ -462,7 +465,7 @@ export const Artifactory = () => {
                 <h3 className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
                   Using the Attunement Nexus
                 </h3>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Place an attunable item in the center slot to see its details and requirements. If
                   you meet all requirements, you can start the attunement process. After it
                   completes it will consume any required levels and items, then bond the item to
@@ -486,7 +489,7 @@ export const Artifactory = () => {
                       ].map((item) => (
                         <li
                           key={item}
-                          className="flex gap-2 text-xs text-zinc-600 dark:text-zinc-300"
+                          className="flex gap-2 text-sm text-zinc-600 dark:text-zinc-300"
                         >
                           <span className="mt-0.5 shrink-0 text-sky-400">●</span>
                           {item}
@@ -504,7 +507,7 @@ export const Artifactory = () => {
                       ].map((item) => (
                         <li
                           key={item}
-                          className="flex gap-2 text-xs text-zinc-600 dark:text-zinc-300"
+                          className="flex gap-2 text-sm text-zinc-600 dark:text-zinc-300"
                         >
                           <span className="mt-0.5 shrink-0 text-rose-400">●</span>
                           {item}
@@ -520,7 +523,7 @@ export const Artifactory = () => {
                 <h3 className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
                   Managing Attunements
                 </h3>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   View and manage all your current attunements from the Manage Attunements screen.
                   Open it via the cog wheel in the Attunement Nexus, or press the hotkey (default{' '}
                   <kbd className="rounded border border-zinc-300 bg-zinc-100 px-1.5 py-0.5 font-mono text-[11px] dark:border-zinc-500 dark:bg-zinc-600">
@@ -535,7 +538,7 @@ export const Artifactory = () => {
                       alt="Manage attunements screen showing a max-level item"
                       className="w-full rounded-lg border border-zinc-200 object-contain dark:border-zinc-600"
                     />
-                    <figcaption className="text-center text-xs text-zinc-400">
+                    <figcaption className="text-center text-sm text-zinc-400">
                       Max level attunement card
                     </figcaption>
                   </figure>
@@ -545,13 +548,13 @@ export const Artifactory = () => {
                       alt="Hover tooltip showing what each attunement level added"
                       className="w-full rounded-lg border border-zinc-200 object-contain dark:border-zinc-600"
                     />
-                    <figcaption className="text-center text-xs text-zinc-400">
+                    <figcaption className="text-center text-sm text-zinc-400">
                       Hover the (i) icon to see what each level added
                     </figcaption>
                   </figure>
                 </div>
                 <div className="rounded-lg border border-rose-200 bg-rose-50 px-4 py-3 dark:border-rose-900/60 dark:bg-rose-950/20">
-                  <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                  <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                     <strong className="text-zinc-800 dark:text-zinc-100">
                       Breaking attunements:
                     </strong>{' '}
@@ -569,7 +572,7 @@ export const Artifactory = () => {
           {/* Datapack Configuration content */}
           {activeTab === 'datapack' && (
             <div className="space-y-6 p-6">
-              <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+              <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                 Configurations live at{' '}
                 <code className="rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-xs dark:bg-zinc-600">
                   data/&lt;modid&gt;/artifactory/&lt;item_name&gt;.json
@@ -580,7 +583,7 @@ export const Artifactory = () => {
 
               {/* Example JSON */}
               <div className="space-y-2">
-                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
                   Example: diamond_sword.json (1.21.1)
                 </p>
                 <pre className="overflow-x-auto rounded-lg bg-zinc-900 p-4 font-mono text-xs leading-relaxed text-zinc-300">{`{
@@ -613,7 +616,7 @@ export const Artifactory = () => {
     }
   ]
 }`}</pre>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Here is what that looks like once attuned in game:
                 </p>
               </div>
@@ -624,14 +627,14 @@ export const Artifactory = () => {
                     alt="Level 2 attuned diamond sword tooltip"
                     className="rounded-lg border border-zinc-200 dark:border-zinc-600"
                   />
-                  <figcaption className="text-center text-xs text-zinc-400">
+                  <figcaption className="text-center text-sm text-zinc-400">
                     A level 2 attuned diamond sword
                   </figcaption>
                 </figure>
               </div>
               {/* Field reference */}
               <div className="space-y-3">
-                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
                   Field Reference
                 </p>
                 <div className="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-600">
@@ -675,9 +678,9 @@ export const Artifactory = () => {
                         <code className="font-mono text-xs font-semibold text-sky-600 dark:text-sky-400">
                           {field}
                         </code>
-                        <span className="text-xs text-zinc-400">default: {def}</span>
+                        <span className="text-sm text-zinc-400">default: {def}</span>
                       </div>
-                      <p className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-300">
+                      <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                         {desc}
                       </p>
                     </div>
@@ -687,7 +690,7 @@ export const Artifactory = () => {
 
               {/* Requirements sub-fields */}
               <div className="space-y-3">
-                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
                   Level Requirements Sub-fields
                 </p>
                 <div className="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-600">
@@ -714,7 +717,7 @@ export const Artifactory = () => {
                           {field}
                         </code>
                       </div>
-                      <p className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-300">
+                      <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                         {desc}
                       </p>
                     </div>
@@ -724,10 +727,10 @@ export const Artifactory = () => {
 
               {/* Modifications Sub-fields */}
               <div className="space-y-3">
-                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
                   Modifications Sub-fields
                 </p>
-                <p className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Each entry in <code className="rounded bg-zinc-100 px-1 py-0.5 font-mono dark:bg-zinc-600">modifications</code> is a string. There are three named modifications and one structured attribute modification type:
                 </p>
                 <div className="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-600">
@@ -758,7 +761,7 @@ export const Artifactory = () => {
                           {field}
                         </code>
                       </div>
-                      <p className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-300">
+                      <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                         {desc}
                       </p>
                     </div>
@@ -766,7 +769,7 @@ export const Artifactory = () => {
                 </div>
 
                 {/* Attribute format detail */}
-                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
                   Attribute Format
                 </p>
                 <pre className="overflow-x-auto rounded-lg bg-zinc-900 p-4 font-mono text-xs leading-relaxed text-zinc-300">{`attribute / modid:attributename / operation / value / equipmentslot
@@ -778,13 +781,13 @@ Example (1.20.1):  attribute/minecraft:generic.attack_damage/addition/5/mainhand
                     <div className="mb-1.5 flex flex-wrap items-center gap-2">
                       <code className="font-mono text-xs font-semibold text-sky-600 dark:text-sky-400">operation</code>
                     </div>
-                    <p className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-300">
+                    <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                       <span className="font-semibold text-zinc-500 dark:text-zinc-400">1.20.1:</span>{' '}
                       <code className="font-mono text-xs">addition</code>,{' '}
                       <code className="font-mono text-xs">multiply_base</code>,{' '}
                       <code className="font-mono text-xs">multiply_total</code>
                     </p>
-                    <p className="mt-1 text-xs leading-relaxed text-zinc-600 dark:text-zinc-300">
+                    <p className="mt-1 text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                       <span className="font-semibold text-zinc-500 dark:text-zinc-400">1.21.1:</span>{' '}
                       <code className="font-mono text-xs">add_value</code>,{' '}
                       <code className="font-mono text-xs">add_multiplied_base</code>,{' '}
@@ -795,7 +798,7 @@ Example (1.20.1):  attribute/minecraft:generic.attack_damage/addition/5/mainhand
                     <div className="mb-1.5 flex flex-wrap items-center gap-2">
                       <code className="font-mono text-xs font-semibold text-sky-600 dark:text-sky-400">equipmentslot</code>
                     </div>
-                    <p className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-300">
+                    <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                       <code className="font-mono text-xs">mainhand</code>,{' '}
                       <code className="font-mono text-xs">offhand</code>,{' '}
                       <code className="font-mono text-xs">feet</code>,{' '}
@@ -821,14 +824,14 @@ Example (1.20.1):  attribute/minecraft:generic.attack_damage/addition/5/mainhand
               {/* Attunement Overrides */}
               <div className="space-y-3">
                 <div className="flex items-center gap-2">
-                  <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                  <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
                     Attunement Overrides
                   </p>
                   <span className="rounded-full bg-zinc-100 px-2 py-0.5 text-[10px] font-semibold text-zinc-500 dark:bg-zinc-600 dark:text-zinc-300">
                     1.21.1+
                   </span>
                 </div>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Define unique attunement configurations on individual item stacks using the{' '}
                   <code className="rounded bg-zinc-100 px-1.5 py-0.5 font-mono text-xs dark:bg-zinc-600">
                     artifactory:attunement_override
@@ -872,7 +875,7 @@ Example (1.20.1):  attribute/minecraft:generic.attack_damage/addition/5/mainhand
               ].map(({ q, a }) => (
                 <div key={q} className="space-y-1 px-6 py-4">
                   <p className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">{q}</p>
-                  <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">{a}</p>
+                  <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">{a}</p>
                 </div>
               ))}
             </div>
