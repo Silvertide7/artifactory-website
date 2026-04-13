@@ -60,7 +60,7 @@ export const JsonBuilderForm = () => {
     remove: removeLevel,
   } = useFieldArray({ control, name: 'attunement_levels' })
 
-  // Stable output state — updated only when RHF detects an actual value change,
+  // Stable output state: updated only when RHF detects an actual value change,
   // avoiding recomputation on every unrelated re-render.
   const [cleanOutput, setCleanOutput] = useState(() => toCleanOutput(getValues()))
 
@@ -389,7 +389,7 @@ export const JsonBuilderForm = () => {
               label="Apply to Items"
               placeholder="e.g. minecraft:iron_helmet"
               hint={
-                'When items are added here, the attunements in this config apply to every item in the list.\n\nThe file name and mod ID folder are no longer used as the attunement target — only the items listed here will receive the attunements. Items must use the format modid:item_name.\n\nOnly valid, exact item IDs will be matched. Invalid or missing items are ignored by the mod.'
+                'When items are added here, the attunements in this config apply to every item in the list.\n\nThe file name and mod ID folder are no longer used as the attunement target; only the items listed here will receive the attunements. Items must use the format modid:item_name.\n\nOnly valid, exact item IDs will be matched. Invalid or missing items are ignored by the mod.'
               }
               itemErrors={
                 errors.apply_to_items as unknown as Array<{
@@ -405,7 +405,7 @@ export const JsonBuilderForm = () => {
                     {(cleanOutput.apply_to_items as string[]).length} item
                     {(cleanOutput.apply_to_items as string[]).length !== 1 ? 's' : ''}
                   </span>{' '}
-                  listed above. The file name is used only for saving and downloading — it is not
+                  listed above. The file name is used only for saving and downloading; it is not
                   used as an attunement target. Only the items in this list will receive the
                   attunements.
                 </p>

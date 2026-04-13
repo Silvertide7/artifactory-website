@@ -8,7 +8,9 @@
       "Bash(wc -l /Users/nate/Workspace/personal/artifactory-site/src/features/jsonBuilder/*.ts*)",
       "Bash(grep -E \"\\\\.tsx$\")",
       "Bash(git add:*)",
-      "Bash(git commit:*)"
+      "Bash(git commit:*)",
+      "Bash(grep -n \"href=\" /Users/nate/Workspace/personal/artifactory-site/src/pages/*.tsx /Users/nate/Workspace/personal/artifactory-site/src/components/*.tsx)",
+      "Bash(npx tsc:*)"
     ]
   }
 }

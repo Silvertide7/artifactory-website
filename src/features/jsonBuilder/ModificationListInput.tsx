@@ -64,7 +64,7 @@ export const ModificationListInput = ({ control, index, version }: Props) => {
       {fields.length === 0 && (
         <div className="rounded-lg border border-dashed border-zinc-300 py-3 text-center dark:border-zinc-600">
           <p className="text-xs text-zinc-400">
-            No modifications — press <span className="font-semibold">+</span> to add
+            No modifications. Press <span className="font-semibold">+</span> to add.
           </p>
         </div>
       )}

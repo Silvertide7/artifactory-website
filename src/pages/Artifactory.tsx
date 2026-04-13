@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { ToolLinkCard } from '../components/ToolLinkCard'
 
 const IMG = {
@@ -101,15 +102,15 @@ export const Artifactory = () => {
                     Build attunement configs visually: single JSON files, full datapacks, or data component strings for use in-game.
                   </p>
                 </div>
-                <a
-                  href="/artifactory/config-generator"
+                <Link
+                  to="/artifactory/config-generator"
                   className="group inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-zinc-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-500 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white"
                 >
                   Open builder
                   <svg className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M3 8h10M9 4l4 4-4 4" />
                   </svg>
-                </a>
+                </Link>
               </div>
 
               <div className="flex justify-center py-2">
@@ -882,7 +883,7 @@ Example (1.20.1):  attribute/minecraft:generic.attack_damage/addition/5/mainhand
           )}
         </Card>
 
-        {/* JSON / Datapack Builder sidebar — absolutely placed so it never affects the centered card */}
+        {/* JSON / Datapack Builder sidebar: absolutely placed so it never affects the centered card */}
         <div className="absolute top-0 left-[calc(50%+26rem+1.5rem)] hidden w-[18rem] xl:block">
           <div className="sticky top-20">
             <ToolLinkCard

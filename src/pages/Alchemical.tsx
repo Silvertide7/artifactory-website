@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { ToolLinkCard } from '../components/ToolLinkCard'
 
 const IMG = {
@@ -107,15 +108,15 @@ export const Alchemical = () => {
                     Build Essence Stone, Tincture, and Catalyst JSON files visually, with live preview and datapack download.
                   </p>
                 </div>
-                <a
-                  href="/alchemical/ingredient-builder"
+                <Link
+                  to="/alchemical/ingredient-builder"
                   className="group inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-zinc-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-500 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white"
                 >
                   Open builder
                   <svg className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M3 8h10M9 4l4 4-4 4" />
                   </svg>
-                </a>
+                </Link>
               </div>
 
               <div className="flex justify-center py-2">
@@ -769,63 +770,6 @@ export const Alchemical = () => {
           {activeTab === 'configuration' && (
             <div className="space-y-6 p-6">
 
-              {/* Server config */}
-              <div className="space-y-3">
-                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
-                  Server Configuration
-                </p>
-                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
-                  Server-side settings live at{' '}
-                  <Code>serverconfig/alchemical-server.toml</Code>.
-                </p>
-                <div className="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-600">
-                  {[
-                    {
-                      field: 'essenceStoneBreakChance',
-                      default: '0.5',
-                      range: '0.0 – 1.0',
-                      desc: 'Probability that an Essence Stone is destroyed when emptying an elixir. Each stone rolls independently. Set to 0.0 to always return stones safely, or 1.0 to always destroy them.',
-                    },
-                    {
-                      field: 'elixirCooldownSeconds',
-                      default: '1800',
-                      range: '0 – 86400',
-                      desc: 'Base cooldown in seconds after drinking an elixir, before any ingredient modifiers are applied. 1800 = 30 minutes. Set to 0 to disable cooldowns entirely. Maximum is 86400 (24 hours).',
-                    },
-                    {
-                      field: 'elixirCapacity',
-                      default: '9',
-                      range: '1 – 45',
-                      desc: 'Maximum total potency that can be loaded into a single elixir. Each ingredient has a potency value (typically 1-3) that consumes capacity when loaded.',
-                    },
-                    {
-                      field: 'maxEssenceStones',
-                      default: '3',
-                      range: '1 – 10',
-                      desc: 'Maximum number of Essence Stones that can be loaded into a single elixir, limiting how many switchable effects one elixir can hold.',
-                    },
-                  ].map(({ field, default: def, range, desc }, i, arr) => (
-                    <div
-                      key={field}
-                      className={`px-4 py-3.5 ${i < arr.length - 1 ? 'border-b border-zinc-100 dark:border-zinc-600' : ''}`}
-                    >
-                      <div className="mb-1.5 flex flex-wrap items-center gap-x-3 gap-y-1">
-                        <code className="font-mono text-xs font-semibold text-amber-600 dark:text-amber-400">
-                          {field}
-                        </code>
-                        <span className="text-sm text-zinc-400">default: {def}</span>
-                        <span className="text-sm text-zinc-400">range: {range}</span>
-                      </div>
-                      <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
-                        {desc}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <Divider />
-
               {/* Datapack overview */}
               <div className="space-y-3">
                 <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
@@ -839,6 +783,20 @@ export const Alchemical = () => {
                   world creation screen under Data Packs, or override individual definitions by
                   creating a file at the same path in your own datapack.
                 </p>
+                <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 dark:border-amber-800/50 dark:bg-amber-950/20">
+                  <p className="text-sm leading-relaxed text-amber-800 dark:text-amber-300">
+                    <strong className="font-semibold">Tip:</strong> Rather than writing these JSON
+                    files by hand, use the{' '}
+                    <Link
+                      to="/alchemical/ingredient-builder"
+                      className="font-semibold underline decoration-amber-400/50 underline-offset-2 hover:decoration-amber-400"
+                    >
+                      Ingredient Builder
+                    </Link>{' '}
+                    (linked in the sidebar on the right) to generate them visually with live
+                    preview, validation, and one-click datapack download.
+                  </p>
+                </div>
               </div>
 
               {/* Essence Stone */}
@@ -1094,6 +1052,63 @@ export const Alchemical = () => {
   "potency": 2
 }`}</pre>
               </div>
+
+              <Divider />
+
+              {/* Server config */}
+              <div className="space-y-3">
+                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
+                  Server Configuration
+                </p>
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
+                  Server-side settings live at{' '}
+                  <Code>serverconfig/alchemical-server.toml</Code>.
+                </p>
+                <div className="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-600">
+                  {[
+                    {
+                      field: 'essenceStoneBreakChance',
+                      default: '0.5',
+                      range: '0.0 to 1.0',
+                      desc: 'Probability that an Essence Stone is destroyed when emptying an elixir. Each stone rolls independently. Set to 0.0 to always return stones safely, or 1.0 to always destroy them.',
+                    },
+                    {
+                      field: 'elixirCooldownSeconds',
+                      default: '1800',
+                      range: '0 to 86400',
+                      desc: 'Base cooldown in seconds after drinking an elixir, before any ingredient modifiers are applied. 1800 = 30 minutes. Set to 0 to disable cooldowns entirely. Maximum is 86400 (24 hours).',
+                    },
+                    {
+                      field: 'elixirCapacity',
+                      default: '9',
+                      range: '1 to 45',
+                      desc: 'Maximum total potency that can be loaded into a single elixir. Each ingredient has a potency value (typically 1-3) that consumes capacity when loaded.',
+                    },
+                    {
+                      field: 'maxEssenceStones',
+                      default: '3',
+                      range: '1 to 10',
+                      desc: 'Maximum number of Essence Stones that can be loaded into a single elixir, limiting how many switchable effects one elixir can hold.',
+                    },
+                  ].map(({ field, default: def, range, desc }, i, arr) => (
+                    <div
+                      key={field}
+                      className={`px-4 py-3.5 ${i < arr.length - 1 ? 'border-b border-zinc-100 dark:border-zinc-600' : ''}`}
+                    >
+                      <div className="mb-1.5 flex flex-wrap items-center gap-x-3 gap-y-1">
+                        <code className="font-mono text-xs font-semibold text-amber-600 dark:text-amber-400">
+                          {field}
+                        </code>
+                        <span className="text-sm text-zinc-400">default: {def}</span>
+                        <span className="text-sm text-zinc-400">range: {range}</span>
+                      </div>
+                      <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
+                        {desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           )}
 
@@ -1140,7 +1155,7 @@ export const Alchemical = () => {
         </div>
       </div>
 
-        {/* Ingredient Builder sidebar — absolutely placed so it never affects the centered card */}
+        {/* Ingredient Builder sidebar: absolutely placed so it never affects the centered card */}
         <div className="absolute top-0 left-[calc(50%+26rem+1.5rem)] hidden w-[18rem] xl:block">
           <div className="sticky top-20">
             <ToolLinkCard
