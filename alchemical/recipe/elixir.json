@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "GAG",
+    "GHG",
+    " G "
+  ],
+  "key": {
+    "G": { "item": "minecraft:glass_bottle" },
+    "A": { "item": "minecraft:amethyst_shard" },
+    "H": { "item": "minecraft:heart_of_the_sea" }
+  },
+  "result": {
+    "id": "alchemical:elixir",
+    "count": 1
+  }
+}
