@@ -118,6 +118,14 @@ export const Alchemical = () => {
                 </a>
               </div>
 
+              <div className="flex justify-center py-2">
+                <img
+                  src={IMG.logo}
+                  alt="Alchemical elixir"
+                  className="w-32 object-contain opacity-90"
+                />
+              </div>
+
               <div className="grid gap-3 sm:grid-cols-3">
                 {[
                   {
