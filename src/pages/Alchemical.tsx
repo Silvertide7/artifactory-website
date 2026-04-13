@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { DownloadLinks } from '../components/DownloadLinks'
 import { ToolLinkCard } from '../components/ToolLinkCard'
+import { VerticalTabNav } from '../components/VerticalTabNav'
 
 const IMG = {
   title: '/alchemical/minecraft_title_hd.png',
@@ -30,6 +32,13 @@ const Code = ({ children }: { children: React.ReactNode }) => (
 
 type Tab = 'overview' | 'getting-started' | 'configuration' | 'faq'
 
+const TABS = [
+  { id: 'overview' as const, label: 'Overview' },
+  { id: 'getting-started' as const, label: 'Getting Started' },
+  { id: 'configuration' as const, label: 'Configuration' },
+  { id: 'faq' as const, label: 'FAQ' },
+] satisfies readonly { id: Tab; label: string }[]
+
 export const Alchemical = () => {
   const [activeTab, setActiveTab] = useState<Tab>('overview')
 
@@ -44,18 +53,16 @@ export const Alchemical = () => {
       </div>
 
       <div className="relative">
+        {/* Section nav: floats to the left on xl+ */}
+        <div className="pointer-events-none absolute top-0 bottom-0 right-[calc(50%+26rem+1.5rem)] hidden w-[12rem] xl:block [&>*]:pointer-events-auto">
+          <VerticalTabNav tabs={TABS} activeTab={activeTab} onSelect={setActiveTab} />
+        </div>
+
       <div className="mx-auto xl:w-[52rem]">
         <div className="overflow-hidden rounded-xl border border-zinc-200 bg-white dark:border-zinc-600 dark:bg-zinc-700">
-          {/* Tab bar */}
-          <div className="flex gap-1.5 border-b border-zinc-100 bg-zinc-50 px-4 py-3 dark:border-zinc-600 dark:bg-zinc-800/40">
-            {(
-              [
-                { id: 'overview' as Tab, label: 'Overview' },
-                { id: 'getting-started' as Tab, label: 'Getting Started' },
-                { id: 'configuration' as Tab, label: 'Configuration' },
-                { id: 'faq' as Tab, label: 'FAQ' },
-              ] as const
-            ).map(({ id, label }) => (
+          {/* Tab bar (mobile / < xl) */}
+          <div className="flex gap-1.5 border-b border-zinc-100 bg-zinc-50 px-4 py-3 xl:hidden dark:border-zinc-600 dark:bg-zinc-800/40">
+            {TABS.map(({ id, label }) => (
               <button
                 key={id}
                 type="button"
@@ -1156,8 +1163,8 @@ export const Alchemical = () => {
       </div>
 
         {/* Ingredient Builder sidebar: absolutely placed so it never affects the centered card */}
-        <div className="absolute top-0 left-[calc(50%+26rem+1.5rem)] hidden w-[18rem] xl:block">
-          <div className="sticky top-20">
+        <div className="pointer-events-none absolute top-0 bottom-0 left-[calc(50%+26rem+1.5rem)] hidden w-[18rem] xl:block [&>*]:pointer-events-auto">
+          <div className="sticky top-20 flex flex-col gap-4">
             <ToolLinkCard
               to="/alchemical/ingredient-builder"
               title="Ingredient Builder"
@@ -1178,6 +1185,10 @@ export const Alchemical = () => {
                   <path d="M7 10h6M7 13h4" />
                 </svg>
               }
+            />
+            <DownloadLinks
+              curseforgeUrl="https://www.curseforge.com/minecraft/mc-mods/alchemical"
+              modrinthUrl="https://modrinth.com/mod/alchemical-mod"
             />
           </div>
         </div>

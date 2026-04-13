@@ -1,4 +1,6 @@
 import { useState } from 'react'
+import { DownloadLinks } from '../components/DownloadLinks'
+import { VerticalTabNav } from '../components/VerticalTabNav'
 
 const IMG = {
   banner: '/homebound/title.png',
@@ -16,6 +18,12 @@ const Card = ({ children, className = '' }: { children: React.ReactNode; classNa
 const Divider = () => <hr className="border-zinc-100 dark:border-zinc-600" />
 
 type Tab = 'overview' | 'getting-started' | 'faq'
+
+const TABS = [
+  { id: 'overview' as const, label: 'Overview' },
+  { id: 'getting-started' as const, label: 'Getting Started' },
+  { id: 'faq' as const, label: 'FAQ' },
+] satisfies readonly { id: Tab; label: string }[]
 
 const items = [
   {
@@ -63,18 +71,16 @@ export const Homebound = () => {
         />
       </div>
 
-      <div className="grid xl:grid-cols-[1fr_52rem_1fr]">
-        <div className="hidden xl:block" />
-        <Card>
-          {/* Tab bar */}
-          <div className="flex gap-1.5 border-b border-zinc-100 bg-zinc-50 px-4 py-3 dark:border-zinc-600 dark:bg-zinc-800/40">
-            {(
-              [
-                { id: 'overview' as Tab, label: 'Overview' },
-                { id: 'getting-started' as Tab, label: 'Getting Started' },
-                { id: 'faq' as Tab, label: 'FAQ' },
-              ] as const
-            ).map(({ id, label }) => (
+      <div className="relative">
+        {/* Section nav: floats to the left on xl+ */}
+        <div className="pointer-events-none absolute top-0 bottom-0 right-[calc(50%+26rem+1.5rem)] hidden w-[12rem] xl:block [&>*]:pointer-events-auto">
+          <VerticalTabNav tabs={TABS} activeTab={activeTab} onSelect={setActiveTab} />
+        </div>
+
+        <Card className="mx-auto xl:w-[52rem]">
+          {/* Tab bar (mobile / < xl) */}
+          <div className="flex gap-1.5 border-b border-zinc-100 bg-zinc-50 px-4 py-3 xl:hidden dark:border-zinc-600 dark:bg-zinc-800/40">
+            {TABS.map(({ id, label }) => (
               <button
                 key={id}
                 type="button"
@@ -352,7 +358,16 @@ export const Homebound = () => {
             </div>
           )}
         </Card>
-        <div className="hidden xl:block" />
+
+        {/* Download links sidebar: absolutely placed so it never affects the centered card */}
+        <div className="pointer-events-none absolute top-0 bottom-0 left-[calc(50%+26rem+1.5rem)] hidden w-[18rem] xl:block [&>*]:pointer-events-auto">
+          <div className="sticky top-20">
+            <DownloadLinks
+              curseforgeUrl="https://www.curseforge.com/minecraft/mc-mods/homebound"
+              modrinthUrl="https://modrinth.com/mod/homebound-mod"
+            />
+          </div>
+        </div>
       </div>
     </div>
   )

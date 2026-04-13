@@ -43,18 +43,7 @@ const mods: Mod[] = [
 ]
 
 export const Home = () => (
-  <div className="space-y-10">
-    <div>
-      <h1 className="text-3xl font-bold tracking-tight text-zinc-900 md:text-4xl dark:text-zinc-100">
-        Silvertide's Minecraft Mods
-      </h1>
-      <p className="mt-3 text-base text-zinc-500 dark:text-zinc-400">
-        Configurable, data-driven mods built for modpack authors and players who want deeper
-        gameplay.
-      </p>
-    </div>
-
-    <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+  <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
       {mods.map((mod) => (
         <Link
           key={mod.path}
@@ -116,6 +105,5 @@ export const Home = () => (
           </div>
         </Link>
       ))}
-    </div>
   </div>
 )
