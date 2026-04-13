@@ -32,7 +32,7 @@ const optionalFloat = (min: number, max?: number) =>
 
 const resourceLocationOrEmpty = z.string().refine(
   (val) => val.trim() === '' || RESOURCE_LOCATION.test(val.trim()),
-  { message: 'Format: modid:name — e.g. minecraft:speed' },
+  { message: 'Format: modid:name (e.g. minecraft:speed)' },
 )
 
 export const alchemicalFormSchema = z
@@ -46,7 +46,7 @@ export const alchemicalFormSchema = z
     effect: resourceLocationOrEmpty,
     color: z.string().refine(
       (val) => val.trim() === '' || HEX_COLOR.test(val.trim()),
-      { message: 'Must be a 6-digit hex color — e.g. #AA88FF' },
+      { message: 'Must be a 6-digit hex color (e.g. #AA88FF)' },
     ),
     base_duration: optionalInt(0),
     base_level: optionalInt(1),

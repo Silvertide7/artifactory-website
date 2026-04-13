@@ -93,18 +93,18 @@ export const Homebound = () => {
           {/* Overview */}
           {activeTab === 'overview' && (
             <div className="space-y-5 p-6">
-              <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+              <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                 Homebound adds items that let you set a home and teleport there without completely
                 trivializing transportation and danger in Minecraft.
               </p>
-              <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+              <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                 I've found that most home mods make the game too easy. Having access to instant
                 teleportation or teleportation to too many places stops you from ever needing to
                 solve many fun creative problems in the game. It also makes it too easy to escape
                 death with a quick <code className="font-mono text-xs">/home</code>. This mod solved
                 that issue for me, hopefully you enjoy it as well!
               </p>
-              <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+              <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                 Almost everything about the mod and the items it adds is configurable. Homebound was
                 designed to have minimal impact on performance and should be compatible with all
                 other mods.
@@ -114,10 +114,10 @@ export const Homebound = () => {
 
               {/* Items */}
               <div className="space-y-3">
-                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
                   Items
                 </p>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Each Homebound item has a combination of cooldown, warp distance restrictions,
                   dimensional travel restrictions, and use times. Upgraded items remove restrictions
                   or reduce cooldowns and use times. I recommend using JEI/REI to make crafting
@@ -139,7 +139,7 @@ export const Homebound = () => {
                         <p className="mb-1 text-sm font-semibold text-zinc-800 dark:text-zinc-100">
                           {name}
                         </p>
-                        <p className="text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
+                        <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                           {desc}
                         </p>
                       </div>
@@ -156,7 +156,7 @@ export const Homebound = () => {
                       alt="Homebound creative tab showing all items"
                       className="rounded-lg border border-zinc-200 dark:border-zinc-600"
                     />
-                    <figcaption className="text-center text-xs text-zinc-400">
+                    <figcaption className="text-center text-sm text-zinc-400">
                       All Homebound items in the creative tab
                     </figcaption>
                   </figure>
@@ -167,7 +167,7 @@ export const Homebound = () => {
 
               {/* Enchantments */}
               <div className="space-y-3">
-                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
                   Enchantments
                 </p>
                 <div className="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-600">
@@ -188,7 +188,7 @@ export const Homebound = () => {
                       <p className="mb-1 text-sm font-semibold text-zinc-800 dark:text-zinc-100">
                         {name}
                       </p>
-                      <p className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-300">
+                      <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                         {desc}
                       </p>
                     </div>
@@ -200,7 +200,7 @@ export const Homebound = () => {
 
               {/* Planned features */}
               <div className="space-y-3">
-                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
                   Planned Features
                 </p>
                 <div className="space-y-2">
@@ -210,7 +210,7 @@ export const Homebound = () => {
                   ].map((feature) => (
                     <div
                       key={feature}
-                      className="flex gap-2 text-xs text-zinc-600 dark:text-zinc-300"
+                      className="flex gap-2 text-sm text-zinc-600 dark:text-zinc-300"
                     >
                       <span className="mt-0.5 shrink-0 text-zinc-300 dark:text-zinc-500">✦</span>
                       {feature}
@@ -229,7 +229,7 @@ export const Homebound = () => {
                 <h3 className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
                   Setting a Home
                 </h3>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   When you have a Homebound item in your hand, crouch and use the item to set your
                   home.
                 </p>
@@ -239,7 +239,7 @@ export const Homebound = () => {
                 <h3 className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
                   Teleporting Home
                 </h3>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Use a Homebound item directly, or press{' '}
                   <kbd className="rounded border border-zinc-300 bg-zinc-100 px-1.5 py-0.5 font-mono text-[11px] dark:border-zinc-500 dark:bg-zinc-600">
                     H
@@ -248,7 +248,7 @@ export const Homebound = () => {
                   teleport. Most items take around 10 seconds to channel by default; this can be
                   changed in the configs or modified with enchantments.
                 </p>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Hover over the item and press{' '}
                   <kbd className="rounded border border-zinc-300 bg-zinc-100 px-1.5 py-0.5 font-mono text-[11px] dark:border-zinc-500 dark:bg-zinc-600">
                     Shift
@@ -284,7 +284,7 @@ export const Homebound = () => {
                         <p className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
                           {label}
                         </p>
-                        <p className="mt-0.5 text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
+                        <p className="mt-0.5 text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                           {detail}
                         </p>
                       </div>
@@ -297,7 +297,7 @@ export const Homebound = () => {
               <div className="space-y-4 p-6">
                 <h3 className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">Commands</h3>
                 <div className="space-y-3">
-                  <p className="text-xs font-semibold tracking-wide text-zinc-400 uppercase">
+                  <p className="text-sm font-semibold tracking-wide text-zinc-400 uppercase">
                     Admin
                   </p>
                   <div className="space-y-2">
@@ -313,10 +313,10 @@ export const Homebound = () => {
                       </pre>
                     ))}
                   </div>
-                  <p className="text-xs font-semibold tracking-wide text-zinc-400 uppercase">
+                  <p className="text-sm font-semibold tracking-wide text-zinc-400 uppercase">
                     Player
                   </p>
-                  <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                  <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                     View your home's dimension, coordinates, and any remaining cooldown:
                   </p>
                   <pre className="overflow-x-auto rounded-lg bg-zinc-900 px-4 py-2.5 font-mono text-xs text-zinc-300">
@@ -346,7 +346,7 @@ export const Homebound = () => {
               ].map(({ q, a }) => (
                 <div key={q} className="space-y-1 px-6 py-4">
                   <p className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">{q}</p>
-                  <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">{a}</p>
+                  <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">{a}</p>
                 </div>
               ))}
             </div>

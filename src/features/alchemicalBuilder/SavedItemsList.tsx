@@ -199,7 +199,7 @@ export const SavedItemsList = ({
         </div>
       ) : (
         <div className="px-4 py-5 text-center">
-          <p className="text-xs italic text-zinc-400">No ingredients saved — press Save to add.</p>
+          <p className="text-xs italic text-zinc-400">No ingredients saved. Press Save to add.</p>
         </div>
       )}
     </div>

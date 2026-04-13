@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import { inputClass } from '../../components/inputStyles'
 import { ErrorMessage } from '../../components/ErrorMessage'
 
@@ -22,6 +22,8 @@ export const ItemBuilder = ({ initial, onSave, onClose }: Props) => {
   const [itemId, setItemId] = useState(parsed.itemId)
   const [quantity, setQuantity] = useState(parsed.quantity)
   const [touched, setTouched] = useState(false)
+  const itemIdInputId = useId()
+  const quantityInputId = useId()
 
   const idValid = ITEM_ID_PATTERN.test(itemId.trim())
   const idError = touched && itemId.trim() !== '' && !idValid
@@ -72,10 +74,11 @@ export const ItemBuilder = ({ initial, onSave, onClose }: Props) => {
       <div className="space-y-4 p-5">
         {/* Item ID */}
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+          <label htmlFor={itemIdInputId} className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
             Item ID
           </label>
           <input
+            id={itemIdInputId}
             type="text"
             value={itemId}
             placeholder="e.g. minecraft:nether_star"
@@ -89,10 +92,11 @@ export const ItemBuilder = ({ initial, onSave, onClose }: Props) => {
 
         {/* Quantity */}
         <div className="space-y-1.5">
-          <label className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
+          <label htmlFor={quantityInputId} className="text-xs font-semibold uppercase tracking-wider text-zinc-500 dark:text-zinc-400">
             Quantity <span className="font-normal normal-case text-zinc-400">(optional, defaults to 1)</span>
           </label>
           <input
+            id={quantityInputId}
             type="number"
             value={quantity}
             placeholder="1"

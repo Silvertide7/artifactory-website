@@ -23,7 +23,7 @@ const optionalFloat = (min: number, max: number) =>
     { message: `Must be a number between ${min} and ${max}` },
   )
 
-// modid:item_name with optional #count — used in requirements.items
+// modid:item_name with optional #count; used in requirements.items
 const itemWithCountSchema = z.object({
   value: z
     .string()
@@ -32,7 +32,7 @@ const itemWithCountSchema = z.object({
     }),
 })
 
-// modid:item_name only — used in apply_to_items
+// modid:item_name only; used in apply_to_items
 const plainItemIdSchema = z.object({
   value: z
     .string()
@@ -56,7 +56,7 @@ export const dataSourceFormSchema = z.object({
   file_name: z
     .string()
     .refine((val) => val.trim() === '' || ITEM_ID_PATTERN.test(val.trim()), {
-      message: 'Format: modid:item_name — e.g. minecraft:diamond_sword',
+      message: 'Format: modid:item_name (e.g. minecraft:diamond_sword)',
     }),
   slots_used: z.string().refine(
     (val) => {

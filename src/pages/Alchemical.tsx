@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { ToolLinkCard } from '../components/ToolLinkCard'
 
 const IMG = {
@@ -73,7 +74,7 @@ export const Alchemical = () => {
           {/* ── Overview ── */}
           {activeTab === 'overview' && (
             <div className="space-y-5 p-6">
-              <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+              <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                 Alchemical introduces a reusable elixir system inspired by real-world alchemy. Unlike
                 vanilla potions, elixirs are never consumed: they are permanent flasks that you
                 craft, fill with powerful alchemical ingredients, and drink over and over again. Each
@@ -85,11 +86,11 @@ export const Alchemical = () => {
                 <p className="text-sm font-semibold text-amber-800 dark:text-amber-300">
                   The cooldown is shared across all elixirs.
                 </p>
-                <p className="mt-1 text-xs leading-relaxed text-amber-700 dark:text-amber-400">
+                <p className="mt-1 text-sm leading-relaxed text-amber-700 dark:text-amber-400">
                   Drinking from any elixir starts a single server-wide cooldown that locks every elixir you own. You cannot drink a second elixir to stack effects or chain them back-to-back. This is intentional: the cooldown is the primary balance lever, and it applies no matter how many flasks you carry.
                 </p>
               </div>
-              <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+              <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                 The entire ingredient system is datapack-driven, meaning modpack makers and server
                 operators can add, remove, or modify every ingredient and their effects without
                 touching any code. A default datapack with 10 Essence Stones, 4 Tinctures, and 4
@@ -100,22 +101,30 @@ export const Alchemical = () => {
               {/* Ingredient Builder callout */}
               <div className="flex flex-col gap-4 rounded-xl border border-zinc-200 bg-zinc-50 p-4 sm:flex-row sm:items-center sm:justify-between dark:border-zinc-600 dark:bg-zinc-600/30">
                 <div className="space-y-0.5">
-                  <p className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
+                  <p className="text-base font-semibold text-zinc-800 dark:text-zinc-100">
                     Ingredient Builder
                   </p>
-                  <p className="text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
+                  <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                     Build Essence Stone, Tincture, and Catalyst JSON files visually, with live preview and datapack download.
                   </p>
                 </div>
-                <a
-                  href="/alchemical/ingredient-builder"
+                <Link
+                  to="/alchemical/ingredient-builder"
                   className="group inline-flex shrink-0 items-center gap-1.5 rounded-lg bg-zinc-900 px-4 py-2 text-sm font-medium text-white transition hover:bg-zinc-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-500 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-white"
                 >
                   Open builder
                   <svg className="h-3.5 w-3.5 transition-transform group-hover:translate-x-0.5" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
                     <path d="M3 8h10M9 4l4 4-4 4" />
                   </svg>
-                </a>
+                </Link>
+              </div>
+
+              <div className="flex justify-center py-2">
+                <img
+                  src={IMG.logo}
+                  alt="Alchemical elixir"
+                  className="w-32 object-contain opacity-90"
+                />
               </div>
 
               <div className="grid gap-3 sm:grid-cols-3">
@@ -137,10 +146,10 @@ export const Alchemical = () => {
                     key={label}
                     className="rounded-lg border border-zinc-100 bg-zinc-50 p-4 dark:border-zinc-600 dark:bg-zinc-600/30"
                   >
-                    <p className="mb-1.5 text-sm font-semibold text-zinc-800 dark:text-zinc-100">
+                    <p className="mb-1.5 text-base font-semibold text-zinc-800 dark:text-zinc-100">
                       {label}
                     </p>
-                    <p className="text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
+                    <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                       {desc}
                     </p>
                   </div>
@@ -160,7 +169,7 @@ export const Alchemical = () => {
                   'Any registered mob effect (including from other mods) can be granted by an Essence Stone.',
                   'Admin command to clear player cooldowns; compatible with all other mods.',
                 ].map((feature) => (
-                  <div key={feature} className="flex gap-2 text-xs text-zinc-600 dark:text-zinc-300">
+                  <div key={feature} className="flex gap-2 text-sm text-zinc-600 dark:text-zinc-300">
                     <span className="mt-0.5 shrink-0 text-zinc-300 dark:text-zinc-500">✦</span>
                     {feature}
                   </div>
@@ -171,7 +180,7 @@ export const Alchemical = () => {
 
               {/* Three ingredient types */}
               <div className="space-y-4">
-                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
                   The Three Ingredient Types
                 </p>
                 <div className="space-y-3">
@@ -209,16 +218,16 @@ export const Alchemical = () => {
                   ].map(({ name, border, label, desc, examples }) => (
                     <div key={name} className={`space-y-1.5 rounded-lg border p-4 ${border}`}>
                       <p className={`text-sm font-bold ${label}`}>{name}</p>
-                      <p className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-300">
+                      <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                         {desc}
                       </p>
-                      <p className="text-xs leading-relaxed text-zinc-500 dark:text-zinc-400">
+                      <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                         {examples}
                       </p>
                     </div>
                   ))}
                 </div>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   All multiplier modifiers from tinctures and catalysts stack multiplicatively; flat
                   values and effect level modifiers stack additively. For example, two duration
                   multipliers of x1.25 and x1.15 combine to x1.4375.
@@ -229,10 +238,10 @@ export const Alchemical = () => {
 
               {/* Emptying */}
               <div className="space-y-3">
-                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
                   Emptying an Elixir
                 </p>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Use the <strong className="font-medium text-zinc-800 dark:text-zinc-100">Empty Elixir</strong> button
                   in the Athanor to clear all ingredients. This is a two-click confirmation. When
                   emptied:
@@ -243,7 +252,7 @@ export const Alchemical = () => {
                     'Tinctures are always destroyed; the liquids cannot be recovered.',
                     'Catalysts are always destroyed; the reactive powders are consumed.',
                   ].map((item) => (
-                    <li key={item} className="flex gap-2 text-xs text-zinc-600 dark:text-zinc-300">
+                    <li key={item} className="flex gap-2 text-sm text-zinc-600 dark:text-zinc-300">
                       <span className="mt-0.5 shrink-0 text-zinc-300 dark:text-zinc-500">✦</span>
                       {item}
                     </li>
@@ -255,10 +264,10 @@ export const Alchemical = () => {
 
               {/* Admin command */}
               <div className="space-y-3">
-                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
                   Admin Command
                 </p>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   <Code>/alchemical clearcooldown &lt;player&gt;</Code> immediately clears the
                   specified player's elixir cooldown. Requires permission level 2 (operator).
                 </p>
@@ -268,10 +277,10 @@ export const Alchemical = () => {
 
               {/* Default Datapack: Essence Stones */}
               <div className="space-y-3">
-                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
                   Default Essence Stones
                 </p>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   The 10 stones included in the default datapack. Potency is 2 unless noted. Duration is the base before any tincture or catalyst modifiers.
                 </p>
                 <div className="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-600">
@@ -292,7 +301,7 @@ export const Alchemical = () => {
                       className={`flex items-center justify-between px-4 py-2.5 ${i < arr.length - 1 ? 'border-b border-zinc-100 dark:border-zinc-600' : ''}`}
                     >
                       <span className="text-sm font-medium" style={{ color }}>{name}</span>
-                      <div className="flex items-center gap-4 text-xs text-zinc-500 dark:text-zinc-400">
+                      <div className="flex items-center gap-4 text-sm text-zinc-500 dark:text-zinc-300">
                         <span>{effect}</span>
                         <span>{duration}</span>
                         <span className="w-14 text-right">Potency {potency}</span>
@@ -306,7 +315,7 @@ export const Alchemical = () => {
 
               {/* Default Datapack: Tinctures */}
               <div className="space-y-3">
-                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
                   Default Tinctures
                 </p>
                 <div className="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-600">
@@ -342,13 +351,13 @@ export const Alchemical = () => {
                     >
                       <div className="flex items-center justify-between">
                         <span className="text-sm font-medium text-sky-600 dark:text-sky-400">{name}</span>
-                        <span className="text-xs text-zinc-400">Potency {potency}</span>
+                        <span className="text-sm text-zinc-400">Potency {potency}</span>
                       </div>
                       <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1">
-                        <span className="text-xs text-zinc-500 dark:text-zinc-400">{item}</span>
+                        <span className="text-sm text-zinc-500 dark:text-zinc-300">{item}</span>
                         <span className="text-zinc-300 dark:text-zinc-600">·</span>
                         {modifiers.map((mod) => (
-                          <span key={mod} className="text-xs font-medium text-zinc-600 dark:text-zinc-300">{mod}</span>
+                          <span key={mod} className="text-sm font-medium text-zinc-600 dark:text-zinc-300">{mod}</span>
                         ))}
                       </div>
                     </div>
@@ -360,7 +369,7 @@ export const Alchemical = () => {
 
               {/* Default Datapack: Catalysts */}
               <div className="space-y-3">
-                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
                   Default Catalysts
                 </p>
                 <div className="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-600">
@@ -396,13 +405,13 @@ export const Alchemical = () => {
                     >
                       <div className="flex items-center justify-between">
                         <span className="text-sm font-medium text-violet-600 dark:text-violet-400">{name}</span>
-                        <span className="text-xs text-zinc-400">Potency {potency}</span>
+                        <span className="text-sm text-zinc-400">Potency {potency}</span>
                       </div>
                       <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1">
-                        <span className="text-xs text-zinc-500 dark:text-zinc-400">{item}</span>
+                        <span className="text-sm text-zinc-500 dark:text-zinc-300">{item}</span>
                         <span className="text-zinc-300 dark:text-zinc-600">·</span>
                         {modifiers.map((mod) => (
-                          <span key={mod} className="text-xs font-medium text-zinc-600 dark:text-zinc-300">{mod}</span>
+                          <span key={mod} className="text-sm font-medium text-zinc-600 dark:text-zinc-300">{mod}</span>
                         ))}
                       </div>
                     </div>
@@ -418,10 +427,10 @@ export const Alchemical = () => {
 
               {/* Step 1 */}
               <div className="space-y-4 p-6">
-                <h3 className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
+                <h3 className="text-base font-semibold text-zinc-800 dark:text-zinc-100">
                   Step 1: Craft the Athanor
                 </h3>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   The Athanor is your alchemical crafting station, where you load ingredients into
                   your elixir. Crafting it requires copper ingots, a cauldron, a furnace, blackstone,
                   and a blaze rod, so you will need a trip to the Nether first.
@@ -433,12 +442,12 @@ export const Alchemical = () => {
                       alt="Athanor crafting recipe"
                       className="rounded-lg border border-zinc-200 dark:border-zinc-600"
                     />
-                    <figcaption className="text-center text-xs text-zinc-400">
+                    <figcaption className="text-center text-sm text-zinc-400">
                       Athanor crafting recipe
                     </figcaption>
                   </figure>
                 </div>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Place the Athanor down in your base. It glows with a warm light similar to a lit
                   furnace, making it easy to spot in darker builds.
                 </p>
@@ -446,10 +455,10 @@ export const Alchemical = () => {
 
               {/* Step 2 */}
               <div className="space-y-4 p-6">
-                <h3 className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
+                <h3 className="text-base font-semibold text-zinc-800 dark:text-zinc-100">
                   Step 2: Craft an Elixir Flask
                 </h3>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   The Elixir Flask is the core item of the mod: a reusable container that holds
                   your alchemical ingredients and delivers their effects when you drink from it.
                   Crafting one requires glass bottles, an amethyst shard, and a Heart of the Sea
@@ -462,12 +471,12 @@ export const Alchemical = () => {
                       alt="Elixir Flask crafting recipe"
                       className="rounded-lg border border-zinc-200 dark:border-zinc-600"
                     />
-                    <figcaption className="text-center text-xs text-zinc-400">
+                    <figcaption className="text-center text-sm text-zinc-400">
                       Elixir Flask crafting recipe
                     </figcaption>
                   </figure>
                 </div>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   The flask starts completely empty and has no effect until you load ingredients
                   into it using the Athanor.
                 </p>
@@ -475,10 +484,10 @@ export const Alchemical = () => {
 
               {/* Step 3 */}
               <div className="space-y-4 p-6">
-                <h3 className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
+                <h3 className="text-base font-semibold text-zinc-800 dark:text-zinc-100">
                   Step 3: Place the Elixir in the Athanor
                 </h3>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Right-click the Athanor to open its interface, then place your empty elixir into
                   the center slot. The left panel shows the elixir's name, a row of capacity dots
                   (diamond shapes representing how much room is available), and a message saying "No
@@ -491,7 +500,7 @@ export const Alchemical = () => {
                       alt="Athanor menu with empty elixir placed"
                       className="rounded-lg border border-zinc-200 dark:border-zinc-600"
                     />
-                    <figcaption className="text-center text-xs text-zinc-400">
+                    <figcaption className="text-center text-sm text-zinc-400">
                       Athanor with an empty elixir in the center slot
                     </figcaption>
                   </figure>
@@ -500,10 +509,10 @@ export const Alchemical = () => {
 
               {/* Step 4 */}
               <div className="space-y-4 p-6">
-                <h3 className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
+                <h3 className="text-base font-semibold text-zinc-800 dark:text-zinc-100">
                   Step 4: Add Your First Essence Stone
                 </h3>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Place an Essence Stone into the ingredient slot on the right side of the Athanor.
                   A preview immediately shows the stone's name, type, potency cost, and the effect
                   it grants. The capacity dots preview which slots will be filled in blue; if the
@@ -516,12 +525,12 @@ export const Alchemical = () => {
                       alt="Bastion Stone staged in the Athanor ingredient slot"
                       className="rounded-lg border border-zinc-200 dark:border-zinc-600"
                     />
-                    <figcaption className="text-center text-xs text-zinc-400">
+                    <figcaption className="text-center text-sm text-zinc-400">
                       A Bastion Stone (Resistance I, 5m cooldown) staged for adding
                     </figcaption>
                   </figure>
                 </div>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Click <strong className="font-medium text-zinc-800 dark:text-zinc-100">Add</strong> to
                   confirm and load the stone into the elixir.
                 </p>
@@ -529,10 +538,10 @@ export const Alchemical = () => {
 
               {/* Step 5 */}
               <div className="space-y-4 p-6">
-                <h3 className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
+                <h3 className="text-base font-semibold text-zinc-800 dark:text-zinc-100">
                   Step 5: Your First Loaded Elixir
                 </h3>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   After adding the Bastion Stone the left panel updates to show the elixir's current
                   state. The capacity dots are partially filled and the overview displays the active
                   effect with its computed duration and cooldown. The elixir now has one stone, but
@@ -545,7 +554,7 @@ export const Alchemical = () => {
                       alt="Athanor menu showing elixir with one Essence Stone loaded"
                       className="rounded-lg border border-zinc-200 dark:border-zinc-600"
                     />
-                    <figcaption className="text-center text-xs text-zinc-400">
+                    <figcaption className="text-center text-sm text-zinc-400">
                       Elixir with one Essence Stone loaded; Tincture still needed
                     </figcaption>
                   </figure>
@@ -554,10 +563,10 @@ export const Alchemical = () => {
 
               {/* Step 6 */}
               <div className="space-y-4 p-6">
-                <h3 className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
+                <h3 className="text-base font-semibold text-zinc-800 dark:text-zinc-100">
                   Step 6: Add a Tincture
                 </h3>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Place a valid tincture item into the ingredient slot. In the example below, a
                   water bottle is recognized as an "Aqueous Solution" tincture (Duration x1.25,
                   Potency 1). After adding it, the Bastion Stone's effect duration increases from
@@ -570,12 +579,12 @@ export const Alchemical = () => {
                       alt="Aqueous Solution tincture staged in the Athanor ingredient slot"
                       className="rounded-lg border border-zinc-200 dark:border-zinc-600"
                     />
-                    <figcaption className="text-center text-xs text-zinc-400">
+                    <figcaption className="text-center text-sm text-zinc-400">
                       Aqueous Solution: Duration x1.25, Potency 1
                     </figcaption>
                   </figure>
                 </div>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   You can add multiple tinctures to stack their effects. Different tinctures offer
                   different modifiers: some boost effect level, some extend duration, and some reduce
                   cooldown.
@@ -584,10 +593,10 @@ export const Alchemical = () => {
 
               {/* Step 7 */}
               <div className="space-y-4 p-6">
-                <h3 className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
+                <h3 className="text-base font-semibold text-zinc-800 dark:text-zinc-100">
                   Step 7: The Information Icon
                 </h3>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Once your elixir has ingredients loaded, a small info icon appears in the left
                   panel. Hover over it to see a complete breakdown of every ingredient organized by
                   type, with each ingredient's individual stats listed.
@@ -599,7 +608,7 @@ export const Alchemical = () => {
                       alt="Athanor information icon popup showing ingredient breakdown"
                       className="rounded-lg border border-zinc-200 dark:border-zinc-600"
                     />
-                    <figcaption className="text-center text-xs text-zinc-400">
+                    <figcaption className="text-center text-sm text-zinc-400">
                       The info icon reveals a full breakdown of all loaded ingredients
                     </figcaption>
                   </figure>
@@ -608,16 +617,16 @@ export const Alchemical = () => {
 
               {/* Step 8 */}
               <div className="space-y-4 p-6">
-                <h3 className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
+                <h3 className="text-base font-semibold text-zinc-800 dark:text-zinc-100">
                   Step 8: Loading Multiple Essence Stones
                 </h3>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   One of the most powerful features is loading multiple Essence Stones. Each grants
                   a different potion effect, and you can switch between them at will. The currently
                   active stone is marked with <strong className="font-medium text-zinc-800 dark:text-zinc-100">[Active]</strong> and
                   is the effect you will receive when you drink.
                 </p>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   How many stones you load is a meaningful choice. Each stone consumes capacity, leaving less room for tinctures and catalysts. A single stone lets you stack modifiers heavily, pushing that one effect to a high level with a long duration and a reduced cooldown. Loading two or three stones trades that depth for flexibility: you cover more situations without needing multiple elixirs and save inventory space, but each effect will be less augmented than a dedicated single-stone build.
                 </p>
                 <div className="flex justify-center">
@@ -627,7 +636,7 @@ export const Alchemical = () => {
                       alt="Athanor menu with two Essence Stones loaded"
                       className="rounded-lg border border-zinc-200 dark:border-zinc-600"
                     />
-                    <figcaption className="text-center text-xs text-zinc-400">
+                    <figcaption className="text-center text-sm text-zinc-400">
                       Two stones loaded; Bastion Stone (Resistance) is active
                     </figcaption>
                   </figure>
@@ -636,10 +645,10 @@ export const Alchemical = () => {
 
               {/* Step 9 */}
               <div className="space-y-4 p-6">
-                <h3 className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
+                <h3 className="text-base font-semibold text-zinc-800 dark:text-zinc-100">
                   Step 9: A Fully Loaded Elixir
                 </h3>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   After adding tinctures and catalysts to further modify your elixir, the effects
                   become significantly more powerful. Catalysts like Blaze Powder or Glowstone Dust
                   can increase the effect level at the cost of higher cooldowns or reduced duration.
@@ -651,7 +660,7 @@ export const Alchemical = () => {
                       alt="Fully loaded elixir with boosted effects"
                       className="rounded-lg border border-zinc-200 dark:border-zinc-600"
                     />
-                    <figcaption className="text-center text-xs text-zinc-400">
+                    <figcaption className="text-center text-sm text-zinc-400">
                       A fully loaded elixir with two stones boosted to level II
                     </figcaption>
                   </figure>
@@ -660,10 +669,10 @@ export const Alchemical = () => {
 
               {/* Using your elixir */}
               <div className="space-y-4 p-6">
-                <h3 className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
+                <h3 className="text-base font-semibold text-zinc-800 dark:text-zinc-100">
                   Using Your Elixir
                 </h3>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Once your elixir has at least one Essence Stone and one Tincture, right-click
                   (Use) while holding it to drink. This grants the active stone's effect for the
                   computed duration, then starts the cooldown timer.
@@ -672,11 +681,11 @@ export const Alchemical = () => {
                   <p className="text-sm font-semibold text-amber-800 dark:text-amber-300">
                     The cooldown is global.
                   </p>
-                  <p className="mt-1 text-xs leading-relaxed text-amber-700 dark:text-amber-400">
+                  <p className="mt-1 text-sm leading-relaxed text-amber-700 dark:text-amber-400">
                     Drinking from any elixir locks all of your elixirs for the duration of the cooldown. Carrying multiple flasks does not let you chain drinks or stack effects simultaneously. Plan your loadout around a single drink per cooldown window.
                   </p>
                 </div>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Hover the elixir in your inventory for a quick summary. Hold{' '}
                   <kbd className="rounded border border-zinc-300 bg-zinc-100 px-1.5 py-0.5 font-mono text-[11px] dark:border-zinc-500 dark:bg-zinc-600">
                     Shift
@@ -690,7 +699,7 @@ export const Alchemical = () => {
                       alt="Elixir inventory tooltip without Shift"
                       className="rounded-lg border border-zinc-200 object-contain dark:border-zinc-600"
                     />
-                    <figcaption className="text-center text-xs text-zinc-400">
+                    <figcaption className="text-center text-sm text-zinc-400">
                       Default tooltip (no Shift)
                     </figcaption>
                   </figure>
@@ -700,12 +709,12 @@ export const Alchemical = () => {
                       alt="Elixir inventory tooltip with Shift held, Bastion Stone active"
                       className="rounded-lg border border-zinc-200 object-contain dark:border-zinc-600"
                     />
-                    <figcaption className="text-center text-xs text-zinc-400">
+                    <figcaption className="text-center text-sm text-zinc-400">
                       Full tooltip (Shift held)
                     </figcaption>
                   </figure>
                 </div>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   If your elixir has more than one Essence Stone, use{' '}
                   <kbd className="rounded border border-zinc-300 bg-zinc-100 px-1.5 py-0.5 font-mono text-[11px] dark:border-zinc-500 dark:bg-zinc-600">
                     Shift
@@ -724,7 +733,7 @@ export const Alchemical = () => {
                       alt="Elixir tooltip after switching to Ember Stone"
                       className="rounded-lg border border-zinc-200 dark:border-zinc-600"
                     />
-                    <figcaption className="text-center text-xs text-zinc-400">
+                    <figcaption className="text-center text-sm text-zinc-400">
                       After Shift + Use: Ember Stone (Fire Resistance) is now active
                     </figcaption>
                   </figure>
@@ -733,10 +742,10 @@ export const Alchemical = () => {
 
               {/* Default items */}
               <div className="space-y-4 p-6">
-                <h3 className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
+                <h3 className="text-base font-semibold text-zinc-800 dark:text-zinc-100">
                   Default Items Overview
                 </h3>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   The default datapack includes the Elixir Flask, 10 Essence Stones covering a wide
                   range of effects, and the Athanor crafting station. All items are available in the
                   Alchemical creative tab.
@@ -748,7 +757,7 @@ export const Alchemical = () => {
                       alt="Alchemical creative tab showing all default datapack items"
                       className="rounded-lg border border-zinc-200 dark:border-zinc-600"
                     />
-                    <figcaption className="text-center text-xs text-zinc-400">
+                    <figcaption className="text-center text-sm text-zinc-400">
                       All items from the default datapack in the Alchemical creative tab
                     </figcaption>
                   </figure>
@@ -761,69 +770,12 @@ export const Alchemical = () => {
           {activeTab === 'configuration' && (
             <div className="space-y-6 p-6">
 
-              {/* Server config */}
-              <div className="space-y-3">
-                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
-                  Server Configuration
-                </p>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
-                  Server-side settings live at{' '}
-                  <Code>serverconfig/alchemical-server.toml</Code>.
-                </p>
-                <div className="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-600">
-                  {[
-                    {
-                      field: 'essenceStoneBreakChance',
-                      default: '0.5',
-                      range: '0.0 – 1.0',
-                      desc: 'Probability that an Essence Stone is destroyed when emptying an elixir. Each stone rolls independently. Set to 0.0 to always return stones safely, or 1.0 to always destroy them.',
-                    },
-                    {
-                      field: 'elixirCooldownSeconds',
-                      default: '1800',
-                      range: '0 – 86400',
-                      desc: 'Base cooldown in seconds after drinking an elixir, before any ingredient modifiers are applied. 1800 = 30 minutes. Set to 0 to disable cooldowns entirely. Maximum is 86400 (24 hours).',
-                    },
-                    {
-                      field: 'elixirCapacity',
-                      default: '9',
-                      range: '1 – 45',
-                      desc: 'Maximum total potency that can be loaded into a single elixir. Each ingredient has a potency value (typically 1-3) that consumes capacity when loaded.',
-                    },
-                    {
-                      field: 'maxEssenceStones',
-                      default: '3',
-                      range: '1 – 10',
-                      desc: 'Maximum number of Essence Stones that can be loaded into a single elixir, limiting how many switchable effects one elixir can hold.',
-                    },
-                  ].map(({ field, default: def, range, desc }, i, arr) => (
-                    <div
-                      key={field}
-                      className={`px-4 py-3.5 ${i < arr.length - 1 ? 'border-b border-zinc-100 dark:border-zinc-600' : ''}`}
-                    >
-                      <div className="mb-1.5 flex flex-wrap items-center gap-x-3 gap-y-1">
-                        <code className="font-mono text-xs font-semibold text-amber-600 dark:text-amber-400">
-                          {field}
-                        </code>
-                        <span className="text-xs text-zinc-400">default: {def}</span>
-                        <span className="text-xs text-zinc-400">range: {range}</span>
-                      </div>
-                      <p className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-300">
-                        {desc}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              <Divider />
-
               {/* Datapack overview */}
               <div className="space-y-3">
-                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
                   Datapack Configuration
                 </p>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Every Essence Stone, Tincture, and Catalyst is defined by a JSON file in a
                   datapack. The mod ships with a built-in datapack called{' '}
                   <strong className="font-medium text-zinc-800 dark:text-zinc-100">Alchemical Defaults</strong>{' '}
@@ -831,11 +783,25 @@ export const Alchemical = () => {
                   world creation screen under Data Packs, or override individual definitions by
                   creating a file at the same path in your own datapack.
                 </p>
+                <div className="rounded-lg border border-amber-200 bg-amber-50 px-4 py-3 dark:border-amber-800/50 dark:bg-amber-950/20">
+                  <p className="text-sm leading-relaxed text-amber-800 dark:text-amber-300">
+                    <strong className="font-semibold">Tip:</strong> Rather than writing these JSON
+                    files by hand, use the{' '}
+                    <Link
+                      to="/alchemical/ingredient-builder"
+                      className="font-semibold underline decoration-amber-400/50 underline-offset-2 hover:decoration-amber-400"
+                    >
+                      Ingredient Builder
+                    </Link>{' '}
+                    (linked in the sidebar on the right) to generate them visually with live
+                    preview, validation, and one-click datapack download.
+                  </p>
+                </div>
               </div>
 
               {/* Essence Stone */}
               <div className="space-y-3">
-                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
                   Essence Stone Definitions
                 </p>
                 <p className="text-sm text-zinc-600 dark:text-zinc-300">
@@ -912,10 +878,10 @@ export const Alchemical = () => {
                             Required
                           </span>
                         ) : (
-                          <span className="text-xs text-zinc-400">default: {def}</span>
+                          <span className="text-sm text-zinc-400">default: {def}</span>
                         )}
                       </div>
-                      <p className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-300">
+                      <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                         {desc}
                       </p>
                     </div>
@@ -925,7 +891,7 @@ export const Alchemical = () => {
 
               {/* Tincture */}
               <div className="space-y-3">
-                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
                   Tincture Definitions
                 </p>
                 <p className="text-sm text-zinc-600 dark:text-zinc-300">
@@ -1002,10 +968,10 @@ export const Alchemical = () => {
                             Required
                           </span>
                         ) : (
-                          <span className="text-xs text-zinc-400">default: {def}</span>
+                          <span className="text-sm text-zinc-400">default: {def}</span>
                         )}
                       </div>
-                      <p className="text-xs leading-relaxed text-zinc-600 dark:text-zinc-300">
+                      <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                         {desc}
                       </p>
                     </div>
@@ -1015,13 +981,13 @@ export const Alchemical = () => {
 
               {/* Catalyst */}
               <div className="space-y-3">
-                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
                   Catalyst Definitions
                 </p>
                 <p className="text-sm text-zinc-600 dark:text-zinc-300">
                   Path: <Code>data/&lt;namespace&gt;/alchemical/catalyst/&lt;name&gt;.json</Code>
                 </p>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   Catalysts use the exact same JSON structure as tinctures. They are identified by
                   their item and provide the same modifier fields. The distinction is purely
                   organizational: catalysts are loaded from the <Code>catalyst/</Code> directory
@@ -1035,7 +1001,7 @@ export const Alchemical = () => {
   "effect_level_modifier": 1,
   "potency": 2
 }`}</pre>
-                <p className="text-sm leading-relaxed text-zinc-600 dark:text-zinc-300">
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                   See the Tincture Definitions section above for the full key reference; all fields
                   are identical.
                 </p>
@@ -1045,7 +1011,7 @@ export const Alchemical = () => {
 
               {/* Overriding / adding */}
               <div className="space-y-3">
-                <p className="text-xs font-semibold tracking-wider text-zinc-400 uppercase">
+                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
                   Overriding and Adding Ingredients
                 </p>
                 <div className="space-y-4">
@@ -1066,10 +1032,10 @@ export const Alchemical = () => {
                     <div key={title} className="flex gap-3">
                       <span className="mt-1 shrink-0 text-zinc-300 dark:text-zinc-500">◆</span>
                       <div>
-                        <p className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">
+                        <p className="text-base font-semibold text-zinc-800 dark:text-zinc-100">
                           {title}
                         </p>
-                        <p className="mt-1 text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">
+                        <p className="mt-1 text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
                           {desc}
                         </p>
                       </div>
@@ -1085,6 +1051,63 @@ export const Alchemical = () => {
   "base_level": 1,
   "potency": 2
 }`}</pre>
+              </div>
+
+              <Divider />
+
+              {/* Server config */}
+              <div className="space-y-3">
+                <p className="text-sm font-semibold tracking-wider text-zinc-400 uppercase">
+                  Server Configuration
+                </p>
+                <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
+                  Server-side settings live at{' '}
+                  <Code>serverconfig/alchemical-server.toml</Code>.
+                </p>
+                <div className="overflow-hidden rounded-lg border border-zinc-200 dark:border-zinc-600">
+                  {[
+                    {
+                      field: 'essenceStoneBreakChance',
+                      default: '0.5',
+                      range: '0.0 to 1.0',
+                      desc: 'Probability that an Essence Stone is destroyed when emptying an elixir. Each stone rolls independently. Set to 0.0 to always return stones safely, or 1.0 to always destroy them.',
+                    },
+                    {
+                      field: 'elixirCooldownSeconds',
+                      default: '1800',
+                      range: '0 to 86400',
+                      desc: 'Base cooldown in seconds after drinking an elixir, before any ingredient modifiers are applied. 1800 = 30 minutes. Set to 0 to disable cooldowns entirely. Maximum is 86400 (24 hours).',
+                    },
+                    {
+                      field: 'elixirCapacity',
+                      default: '9',
+                      range: '1 to 45',
+                      desc: 'Maximum total potency that can be loaded into a single elixir. Each ingredient has a potency value (typically 1-3) that consumes capacity when loaded.',
+                    },
+                    {
+                      field: 'maxEssenceStones',
+                      default: '3',
+                      range: '1 to 10',
+                      desc: 'Maximum number of Essence Stones that can be loaded into a single elixir, limiting how many switchable effects one elixir can hold.',
+                    },
+                  ].map(({ field, default: def, range, desc }, i, arr) => (
+                    <div
+                      key={field}
+                      className={`px-4 py-3.5 ${i < arr.length - 1 ? 'border-b border-zinc-100 dark:border-zinc-600' : ''}`}
+                    >
+                      <div className="mb-1.5 flex flex-wrap items-center gap-x-3 gap-y-1">
+                        <code className="font-mono text-xs font-semibold text-amber-600 dark:text-amber-400">
+                          {field}
+                        </code>
+                        <span className="text-sm text-zinc-400">default: {def}</span>
+                        <span className="text-sm text-zinc-400">range: {range}</span>
+                      </div>
+                      <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">
+                        {desc}
+                      </p>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           )}
@@ -1123,8 +1146,8 @@ export const Alchemical = () => {
                 },
               ].map(({ q, a }) => (
                 <div key={q} className="space-y-2 p-6">
-                  <p className="text-sm font-semibold text-zinc-800 dark:text-zinc-100">{q}</p>
-                  <p className="text-sm leading-relaxed text-zinc-500 dark:text-zinc-400">{a}</p>
+                  <p className="text-base font-semibold text-zinc-800 dark:text-zinc-100">{q}</p>
+                  <p className="text-base leading-relaxed text-zinc-600 dark:text-zinc-300">{a}</p>
                 </div>
               ))}
             </div>
@@ -1132,7 +1155,7 @@ export const Alchemical = () => {
         </div>
       </div>
 
-        {/* Ingredient Builder sidebar — absolutely placed so it never affects the centered card */}
+        {/* Ingredient Builder sidebar: absolutely placed so it never affects the centered card */}
         <div className="absolute top-0 left-[calc(50%+26rem+1.5rem)] hidden w-[18rem] xl:block">
           <div className="sticky top-20">
             <ToolLinkCard

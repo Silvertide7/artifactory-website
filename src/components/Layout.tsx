@@ -7,7 +7,7 @@ export const Layout = () => {
 
   return (
     <div className="min-h-screen bg-zinc-100 dark:bg-zinc-800">
-      {/* Theme toggle — fixed so it's always reachable without a full header bar */}
+      {/* Theme toggle: fixed so it's always reachable without a full header bar */}
       <button
         type="button"
         onClick={toggle}
