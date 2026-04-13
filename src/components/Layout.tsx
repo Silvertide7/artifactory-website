@@ -1,5 +1,6 @@
 import { Outlet } from 'react-router-dom'
 import { Breadcrumb } from './Breadcrumb'
+import { ModNav } from './ModNav'
 import { useTheme } from '../hooks/useTheme'
 
 export const Layout = () => {
@@ -7,6 +8,7 @@ export const Layout = () => {
 
   return (
     <div className="min-h-screen bg-zinc-100 dark:bg-zinc-800">
+      <ModNav />
       {/* Theme toggle: fixed so it's always reachable without a full header bar */}
       <button
         type="button"
@@ -46,7 +48,7 @@ export const Layout = () => {
         )}
       </button>
 
-      <main className="mx-auto max-w-6xl px-4 py-8 md:px-8">
+      <main className="mx-auto max-w-6xl px-4 py-8 md:px-8 lg:pl-60">
         <Breadcrumb />
         <Outlet />
       </main>

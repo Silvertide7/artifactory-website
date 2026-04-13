@@ -1,0 +1,31 @@
+{
+  "slots_used": 1,
+  "attunement_levels": [
+    {
+      "modifications": ["invulnerable", "attribute/minecraft:generic.armor/add_value/1.0/head"],
+      "requirements": {
+        "items": ["minecraft:leather#4"]
+      }
+    },
+    {
+      "modifications": ["attribute/minecraft:generic.movement_speed/add_multiplied_base/.1/head"],
+      "requirements": {
+        "items": ["minecraft:emerald#5"]
+      }
+    },
+    {
+      "modifications": ["unbreakable", "attribute/minecraft:generic.armor/add_value/1.0/head"],
+      "requirements": {
+        "items": ["minecraft:diamond#5"]
+      }
+    },
+    {
+      "modifications": ["soulbound"],
+      "requirements": {
+        "xpLevelsConsumed": 35,
+        "xpLevelThreshold": 40,
+        "items": ["minecraft:nether_star"]
+      }
+    }
+  ]
+}

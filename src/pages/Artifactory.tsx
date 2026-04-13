@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
+import { DownloadLinks } from '../components/DownloadLinks'
 import { ToolLinkCard } from '../components/ToolLinkCard'
+import { VerticalTabNav } from '../components/VerticalTabNav'
 
 const IMG = {
   banner: '/artifactory/banner.png',
@@ -36,6 +38,13 @@ const Divider = () => <hr className="border-zinc-100 dark:border-zinc-600" />
 
 type Tab = 'overview' | 'getting-started' | 'datapack' | 'faq'
 
+const TABS = [
+  { id: 'overview' as const, label: 'Overview' },
+  { id: 'getting-started' as const, label: 'Getting Started' },
+  { id: 'datapack' as const, label: 'Configuration' },
+  { id: 'faq' as const, label: 'FAQ' },
+] satisfies readonly { id: Tab; label: string }[]
+
 export const Artifactory = () => {
   const [activeTab, setActiveTab] = useState<Tab>('overview')
 
@@ -51,17 +60,15 @@ export const Artifactory = () => {
 
       {/* ── Main layout: centered card with floating JSON / Datapack Builder ── */}
       <div className="relative">
+        {/* Section nav: floats to the left on xl+ */}
+        <div className="pointer-events-none absolute top-0 bottom-0 right-[calc(50%+26rem+1.5rem)] hidden w-[12rem] xl:block [&>*]:pointer-events-auto">
+          <VerticalTabNav tabs={TABS} activeTab={activeTab} onSelect={setActiveTab} />
+        </div>
+
         <Card className="mx-auto xl:w-[52rem]">
-          {/* Tab bar */}
-          <div className="flex gap-1.5 border-b border-zinc-100 bg-zinc-50 px-4 py-3 dark:border-zinc-600 dark:bg-zinc-800/40">
-            {(
-              [
-                { id: 'overview' as Tab, label: 'Overview' },
-                { id: 'getting-started' as Tab, label: 'Getting Started' },
-                { id: 'datapack' as Tab, label: 'Configuration' },
-                { id: 'faq' as Tab, label: 'FAQ' },
-              ] as const
-            ).map(({ id, label }) => (
+          {/* Tab bar (mobile / < xl) */}
+          <div className="flex gap-1.5 border-b border-zinc-100 bg-zinc-50 px-4 py-3 xl:hidden dark:border-zinc-600 dark:bg-zinc-800/40">
+            {TABS.map(({ id, label }) => (
               <button
                 key={id}
                 type="button"
@@ -884,8 +891,8 @@ Example (1.20.1):  attribute/minecraft:generic.attack_damage/addition/5/mainhand
         </Card>
 
         {/* JSON / Datapack Builder sidebar: absolutely placed so it never affects the centered card */}
-        <div className="absolute top-0 left-[calc(50%+26rem+1.5rem)] hidden w-[18rem] xl:block">
-          <div className="sticky top-20">
+        <div className="pointer-events-none absolute top-0 bottom-0 left-[calc(50%+26rem+1.5rem)] hidden w-[18rem] xl:block [&>*]:pointer-events-auto">
+          <div className="sticky top-20 flex flex-col gap-4">
             <ToolLinkCard
               to="/artifactory/config-generator"
               title="JSON / Datapack Builder"
@@ -906,6 +913,10 @@ Example (1.20.1):  attribute/minecraft:generic.attack_damage/addition/5/mainhand
                   <path d="M7 10h6M7 13h4" />
                 </svg>
               }
+            />
+            <DownloadLinks
+              curseforgeUrl="https://www.curseforge.com/minecraft/mc-mods/artifactory"
+              modrinthUrl="https://modrinth.com/mod/artifactory-mod"
             />
           </div>
         </div>
