@@ -5,7 +5,7 @@ type Props = {
 }
 
 const linkClass =
-  'flex items-center justify-center rounded-xl border border-zinc-200 bg-white p-3 shadow-sm transition hover:border-zinc-300 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400 dark:border-zinc-600 dark:bg-zinc-700 dark:hover:border-zinc-500'
+  'flex items-center justify-center rounded-xl border border-zinc-800 bg-black p-3 shadow-sm transition hover:border-zinc-600 hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-400'
 
 export const DownloadLinks = ({ curseforgeUrl, modrinthUrl, className = '' }: Props) => (
   <div className={`flex flex-col gap-3 ${className}`}>

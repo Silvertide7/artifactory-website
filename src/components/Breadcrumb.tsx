@@ -7,6 +7,7 @@ const LABELS: Record<string, string> = {
   homebound: 'Homebound',
   alchemical: 'Alchemical',
   'ingredient-builder': 'Ingredient Builder',
+  kindred: 'Kindred',
 }
 
 export const Breadcrumb = () => {
