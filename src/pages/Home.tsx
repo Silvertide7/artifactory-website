@@ -32,6 +32,16 @@ const mods: Mod[] = [
     tags: ['Forge 1.20.1', 'NeoForge 1.21.1'],
   },
   {
+    path: '/kindred',
+    logo: '/kindred/kindred_logo.png',
+    title: '/kindred/kindred_banner.png',
+    titleAlt: 'Kindred',
+    centerTitle: true,
+    description:
+      'Bond your tamed pets into a portable companion roster. Pets live on you, not in the world: they survive logouts, deaths, and dimension changes, and answer a single keypress from anywhere.',
+    tags: ['NeoForge 1.21.1'],
+  },
+  {
     path: '/alchemical',
     logo: '/alchemical/elixir_logo_450.png',
     title: '/alchemical/minecraft_title_hd.png',

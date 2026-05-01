@@ -12,6 +12,7 @@ const MODS: ModLink[] = [
   { path: '/artifactory', label: 'Artifactory', logo: '/artifactory/logo.png' },
   { path: '/homebound', label: 'Homebound', logo: '/homebound/logo_small.png' },
   { path: '/alchemical', label: 'Alchemical', logo: '/alchemical/elixir_logo_450.png' },
+  { path: '/kindred', label: 'Kindred', logo: '/kindred/kindred_logo.png' },
 ]
 
 const linkBase =

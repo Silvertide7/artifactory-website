@@ -6,6 +6,7 @@ import { JsonBuilder } from './pages/JsonBuilder'
 import { Homebound } from './pages/Homebound'
 import { Alchemical } from './pages/Alchemical'
 import { AlchemicalBuilder } from './pages/AlchemicalBuilder'
+import { Kindred } from './pages/Kindred'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path="homebound" element={<Homebound />} />
           <Route path="alchemical" element={<Alchemical />} />
           <Route path="alchemical/ingredient-builder" element={<AlchemicalBuilder />} />
+          <Route path="kindred" element={<Kindred />} />
         </Route>
       </Routes>
     </BrowserRouter>
